@@ -145,22 +145,11 @@
     {
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[parameters('newStorageAccountName')]",
-      "apiVersion": "2018-07-01",
+      "apiVersion": "2015-05-01-preview",
       "location": "[parameters('location')]",
       "properties": {
-        "accountType": "[parameters('newStorageAccountName')]",
-        "supportsHttpsTrafficOnly": "[parameters('storageAccountSecureTransfer')]",
-        "encryption": {
-          "services": {
-            "file": {
-              "enabled": true
-            },
-            "blob": {
-              "enabled": true
-            }
-          },
-          "keySource": "Microsoft.Storage"
-        }
+        "accountType": "[parameters('storageAccountType')]",
+        "supportsHttpsTrafficOnly": "[parameters('storageAccountSecureTransfer')]"
       }
     },
     {

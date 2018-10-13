@@ -1,0 +1,21 @@
+diff a/301-Create-VM-Different-RGs/azuredeploy.json b/301-Create-VM-Different-RGs/azuredeploy.json	(rejected hunks)
+@@ -149,7 +149,18 @@
+       "location": "[parameters('location')]",
+       "properties": {
+         "accountType": "[parameters('storageAccountType')]",
+-        "supportsHttpsTrafficOnly": "[parameters('storageAccountSecureTransfer')]"
++        "supportsHttpsTrafficOnly": "[parameters('storageAccountSecureTransfer')]",
++        "encryption": {
++          "services": {
++            "file": {
++              "enabled": true
++            },
++            "blob": {
++              "enabled": true
++            }
++          },
++          "keySource": "Microsoft.Storage"
++        }
+       }
+     },
+     {
