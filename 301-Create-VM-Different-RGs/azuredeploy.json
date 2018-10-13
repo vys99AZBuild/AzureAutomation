@@ -19,6 +19,17 @@
         "description": "Type of storage account"
       }
     },
+    "storageAccountTransfer": {
+      "type": "string",
+      "defaultValue": "True",
+      "allowedValues": [
+        "True",
+        "False"
+      ],
+      "metadata": {
+        "description": "Enable Secure Transfer (HTTPS)"
+      }
+    },
     "vmName": {
       "type": "string",
       "metadata": {
@@ -137,7 +148,8 @@
       "apiVersion": "2015-05-01-preview",
       "location": "[parameters('location')]",
       "properties": {
-        "accountType": "[parameters('storageAccountType')]"
+        "accountType": "[parameters('storageAccountType')]",
+        "supportsHttpsTrafficOnly": "[parameters('storageAccountTransfer')]"
       }
     },
     {
