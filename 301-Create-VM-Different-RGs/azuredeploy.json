@@ -149,7 +149,7 @@
       "location": "[parameters('location')]",
       "properties": {
         "accountType": "[parameters('storageAccountType')]",
-        "supportsHttpsTrafficOnly": "[parameters('storageAccountTransfer')]"
+        "supportsHttpsTrafficOnly": "[parameters('storageAccountSecureTransfer')]"
       }
     },
     {
