@@ -5,7 +5,7 @@
     "newStorageAccountName": {
       "type": "string",
       "metadata": {
-        "description": "Name of new storage account"
+        "description": "Name of Storage Account"
       }
     },
     "storageAccountType": {
@@ -16,10 +16,10 @@
         "Standard_GRS"
       ],
       "metadata": {
-        "description": "Type of storage account"
+        "description": "Type of Storage Account"
       }
     },
-    "storageAccountTransfer": {
+    "storageAccountSecureTransfer": {
       "type": "string",
       "defaultValue": "True",
       "allowedValues": [
