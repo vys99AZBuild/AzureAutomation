@@ -19,12 +19,6 @@
         "description": "Type of storage account"
       }
     },
-    "publicIPName": {
-      "type": "string",
-      "metadata": {
-        "description": "Name of Public IP"
-      }
-    },
     "vmName": {
       "type": "string",
       "metadata": {
