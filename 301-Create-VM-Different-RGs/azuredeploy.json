@@ -89,19 +89,19 @@
         "description": "VM Password"
       }
     },
-    "virtualNetworkName": {
+    "vnNetworkName": {
       "type": "string",
       "metadata": {
         "description": "VNET Name"
       }
     },
-    "virtualNetworkResourceGroup": {
+    "vnResourceGroup": {
       "type": "string",
       "metadata": {
         "description": "Resource Group VNET is deployed in"
       }
     },
-    "subnet1Name": {
+    "vnSubnetName": {
       "type": "string",
       "metadata": {
         "description": "Name of the subnet inside the VNET"
@@ -122,8 +122,8 @@
     }
   },
   "variables": {
-    "vnetID": "[resourceId(parameters('virtualNetworkResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-    "subnet1Ref": "[concat(variables('vnetID'),'/subnets/', parameters('subnet1Name'))]",
+    "vnetID": "[resourceId(parameters('vnResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnNetworkName'))]",
+    "vnNetworkSubnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('vnSubnetName'))]",
     "vmProvisionVMAgent": "True",
     "vmEnableAutomaticUpdates": "True",
     "vmTimeZone": "GMT Standard Time"
@@ -148,9 +148,9 @@
           {
             "name": "ipconfig1",
             "properties": {
-              "privateIPAllocationMethod": "Static",
-             "subnet": {
-                "id": "[variables('subnet1Ref')]"
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[variables('vnNetworkSubnetRef')]"
               }
             }
           }
