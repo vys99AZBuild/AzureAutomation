@@ -148,7 +148,7 @@
       "apiVersion": "2018-07-01",
       "location": "[parameters('location')]",
       "properties": {
-        "accountType": "[parameters('storageAccountType')]",
+        "accountType": "[parameters('newStorageAccountName')]",
         "supportsHttpsTrafficOnly": "[parameters('storageAccountSecureTransfer')]",
         "encryption": {
           "services": {
