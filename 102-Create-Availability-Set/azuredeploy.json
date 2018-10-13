@@ -2,11 +2,15 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "0.0.1.0",
     "parameters": {
-      //API Version  
+      //API Version
       "apiVersion": {
-            "type": "string",
-            "defaultvalue": "2016-04-30-preview"
-        },
+           "type": "string",
+           "defaultvalue": "2016-04-30-preview",
+           "allowedValues": [
+             "2016-04-30-preview",
+             "2016-04-30-preview"
+        ]
+      },
         "name": {
             "type": "string",
             "value": null
