@@ -73,6 +73,8 @@
     },
     "vmWinComputerName": {
       "type": "string",
+      "minLength": 4,
+      "maxLength": 15,
       "metadata": {
         "description": "Windows Computer Name"
       }
