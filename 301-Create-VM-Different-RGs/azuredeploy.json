@@ -8,7 +8,7 @@
         "description": "Name of Storage Account"
       }
     },
-    "storageAccountType": {
+    "newStorageAccountType": {
       "type": "string",
       "defaultValue": "Standard_LRS",
       "allowedValues": [
@@ -145,11 +145,28 @@
     {
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[parameters('newStorageAccountName')]",
-      "apiVersion": "2015-05-01-preview",
+      "apiVersion": "2018-07-01",
+      "sku": {
+        "name": "[parameters('newStorageAccountType')]",
+        "tier": "Standard"
+      },
       "location": "[parameters('location')]",
+      "kind": "StorageV2",
+      "scale": null,
       "properties": {
-        "accountType": "[parameters('storageAccountType')]",
-        "supportsHttpsTrafficOnly": "[parameters('storageAccountSecureTransfer')]"
+        "supportsHttpsTrafficOnly": "[parameters('storageAccountSecureTransfer')]",
+        "encryption": {
+          "services": {
+            "file": {
+              "enabled": true
+            },
+            "blob": {
+              "enabled": true
+            }
+          },
+          "keySource": "Microsoft.Storage"
+        }
+
       }
     },
     {
@@ -195,38 +212,41 @@
             "provisionVMAgent": "[variables('vmProvisionVMAgent')]",
             "enableAutomaticUpdates": "[variables('vmEnableAutomaticUpdates')]",
             "timeZone": "[variables('vmTimeZone')]"
-           }
-         },
-         "storageProfile": {
-            "imageReference": {
+          }
+        },
+        "storageProfile": {
+          "imageReference": {
             "publisher": "[parameters('imagePublisher')]",
             "offer": "[parameters('imageOffer')]",
             "sku": "[parameters('imageSKU')]",
             "version": "latest"
-            },
-            "osDisk": {
-              "name": "[concat(parameters('vmName'),'_OSDisk')]",
-              "caching": "ReadWrite",
-              "createOption": "FromImage",
-              "managedDisk": {
-                "storageAccountType": "Standard_LRS"
-              }
-            }
           },
-          "networkProfile": {
-            "networkInterfaces": [
-              {
-                "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('nicName'))]"
-              }
-            ]
-          },
-          "diagnosticsProfile": {
-            "bootDiagnostics": {
-              "enabled": true,
-              "storageUri": "[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net')]"
+          "osDisk": {
+            "name": "[concat(parameters('vmName'),'_OSDisk')]",
+            "caching": "ReadWrite",
+            "createOption": "FromImage",
+            "managedDisk": {
+              "storageAccountType": "Standard_LRS"
             }
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('nicName'))]"
+            }
+          ]
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": true,
+            "storageUri": "[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net')]"
           }
         }
       }
-      ]
     }
+  ]
+}
+
+
+
