@@ -1,0 +1,57 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "newStorageAccountName": {
+      "value": null
+    },
+    "storageAccountType": {
+      "value": "Standard_LRS"
+    },
+    "publicIPName": {
+      "value": null
+    },
+    "publicIPAddressType": {
+      "value": "Dynamic"
+    },
+    "vmName": {
+      "value": null
+    },
+    "vmSize": {
+      "value": "Standard_A1_v2"
+    },
+    "imagePublisher": {
+      "value": "MicrosoftWindowsServer"
+    },
+    "imageOffer": {
+      "value": "WindowsServer"
+    },
+    "imageSKU": {
+      "value": "2016-Datacenter"
+    },
+    "vmWinComputerName": {
+      "value": "COMPUTER NAME"
+    },
+    "adminUsername": {
+      "value": null
+    },
+    "adminPassword": {
+      "value": null
+    },
+    "virtualNetworkName": {
+      "value": null
+    },
+    "virtualNetworkResourceGroup": {
+      "value": null
+    },
+    "subnet1Name": {
+      "value": null
+    },
+    "nicName": {
+      "value": null
+    },
+    "location": {
+      "value": "[resourceGroup().location]"
+    }
+  }
+}

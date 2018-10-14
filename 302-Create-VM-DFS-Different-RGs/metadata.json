@@ -1,0 +1,9 @@
+{
+  "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+  "type": "Build Template",
+  "itemDisplayName": "301-Creat-VM-Different-RGs",
+  "description": "Creates a new VM in one RG and Network Resources in another",
+  "summary": "Creates a new VM in one RG and Network Resources in another",
+  "githubUsername": "vys99AZBuildl",
+  "dateUpdated": "2018-10-09"
+}
