@@ -65,7 +65,7 @@
         "description": "Size of Data Disk 1 in GB"
       }
 
-    }
+    },
       "imagePublisher": {
         "type": "string",
         "defaultValue": "MicrosoftWindowsServer",
