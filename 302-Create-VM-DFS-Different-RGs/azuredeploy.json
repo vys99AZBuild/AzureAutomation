@@ -244,7 +244,7 @@
               "createOption": "Attach",
               "caching": "None",
               "managedDisk": {
-                "id": "[resourceId('Microsoft.Compute/virtualMachines', concat(parameters('vmName')", '_id_1')]", 
+                "id": "[resourceId('Microsoft.Compute/virtualMachines', concat(parameters('vmName'), 'id_1'))]"
                },
               "diskSizeGB": "[parameters('vmDataDiskSizeGB')]"
             }
