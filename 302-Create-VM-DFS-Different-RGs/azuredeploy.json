@@ -60,7 +60,7 @@
     },
     "vmDataDiskSizeGB": {
       "type": "int",
-      "defaultValue": "100",
+      "defaultValue": 10,
       "metadata": {
         "description": "Size of Data Disk 1 in GB"
       }
@@ -208,7 +208,7 @@
           "creationData": {
               "createOption": "Empty"
           },
-          "diskSizeGB": 1023
+          "diskSizeGB": "[parameters('vmDataDiskSizeGB')]",
       }
   },
     
