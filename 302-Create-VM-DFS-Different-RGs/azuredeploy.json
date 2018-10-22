@@ -197,7 +197,26 @@
       }
     },
     {
+      "type": "Microsoft.Compute/disks",
+      "name": "[concat(parameters('vmName'),'_DataDisk1')]",
       "apiVersion": "2018-04-01",
+      "location": "[resourceGroup().location]",
+      "sku": {
+          "name": "StandardSSD_LRS"
+      },
+      "properties": {
+          "creationData": {
+              "createOption": "Empty"
+          },
+          "diskSizeGB": 1023
+      }
+  }
+  
+
+    
+    
+    {
+      "apiVersion": "2018-06-01",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[parameters('vmName')]",
       "location": "[parameters('location')]",
@@ -245,7 +264,6 @@
             "createOption": "Attach",
             "caching": "None",
             "managedDisk": {
-              "storageAccountType": "StandardSSD_LRS",
               "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('vmName'), '_Datadisk1'))]"
             },
             "diskSizeGB": "[parameters('vmDataDiskSizeGB')]"
