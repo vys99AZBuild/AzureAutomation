@@ -246,7 +246,7 @@
             "caching": "None",
             "managedDisk": {
               "storageAccountType": "StandardSSD_LRS",
-              "id": "[concat(parameters('vmName'),'id_1')]"
+              "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('vmName'), '_Datadisk1'))]"
             },
             "diskSizeGB": "[parameters('vmDataDiskSizeGB')]"
           }
