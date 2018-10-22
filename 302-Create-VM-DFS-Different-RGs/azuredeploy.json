@@ -237,19 +237,23 @@
               "storageAccountType": "Standard_LRS"
             }
           },
-          "dataDisks": [
-            {
-              "lun": 0,
-              "name": "[concat(parameters('vmName'),'_DataDisk1')]",
-              "createOption": "Attach",
-              "caching": "None",
-              "managedDisk": {
-                "id": "[resourceId('Microsoft.Compute/virtualMachines', concat(parameters('vmName'), 'id_1'))]"
-               },
-              "diskSizeGB": "[parameters('vmDataDiskSizeGB')]"
-            }
-          ]
-        },
+          
+        "dataDisks": [
+          {
+            "lun": 0,
+            "name": "[concat(parameters('vmName'),'_DataDisk1')]",
+            "createOption": "Attach",
+            "caching": "None",
+            "managedDisk": {
+              "storageAccountType": "StandardSSD_LRS",
+              "id": "[concat(parameters('vmName'),'id_1')]"
+            },
+            "diskSizeGB": "[parameters('vmDataDiskSizeGB')]"
+          }
+        ]
+      },
+
+
         "networkProfile": {
           "networkInterfaces": [
             {
