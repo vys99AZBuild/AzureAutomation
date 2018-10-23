@@ -36,7 +36,6 @@
       "name": "[concat(parameters('existingVNETName'), '/', parameters('newSubnetName'))]",
       "location": "[parameters('location')]",
       "properties": {
-        "mode": "incremental",
         "addressPrefix": "[parameters('newSubnetAddressPrefix')]"
       }
     }
