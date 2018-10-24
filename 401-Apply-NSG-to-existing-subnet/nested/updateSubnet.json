@@ -11,7 +11,7 @@
     "subnetAddressPrefix": {
       "type": "string"
     },
-    "nsgSecurityGroupName": {
+    "nsgid": {
       "type": "string"
     }
   },
@@ -25,7 +25,7 @@
       "properties": {
         "addressPrefix": "[parameters('subnetAddressPrefix')]",
         "networkSecurityGroup": {
-          "id": "[parameters('nsgSecurityGroupName')]"
+          "id": "[parameters('nsgid')]"
         }
       }
     }
