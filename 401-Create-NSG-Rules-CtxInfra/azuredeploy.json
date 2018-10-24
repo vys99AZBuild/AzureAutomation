@@ -4,6 +4,13 @@
 
   "parameters": {
 
+      "addressPrefix": {
+      "type": "string",
+      "defaultValue": "172.25.0.0/16",
+      "metadata": {
+        "description": "The CIDR address space for your Virtual Network in Azure"
+      }
+    },
     "nsgLocation": {
       "type": "string",
       "defaultValue": "UK West",
@@ -299,6 +306,11 @@
           
         ],
         "properties": {
+          "addressSpace": {
+            "addressPrefixes": [
+              "[parameters('addressPrefix')]"
+            ]
+          },                 
           "subnets": [
             {
               "name": "[parameters('nsgSubnetName')]",
