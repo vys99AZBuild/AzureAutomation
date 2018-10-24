@@ -73,7 +73,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(parameters('_artifactsLocation'), concat('nested/updateSubnet.json'))]",
+          "uri": "https://github.com/vys99AZBuild/AzureAutomation/tree/master/401-Apply-NSG-to-existing-subnet/nested/updateSubnet.json",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
