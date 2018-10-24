@@ -26,7 +26,7 @@
       "metadata": {
         "description": "The base URI where artifacts required by this template are located."
       },
-      "defaultValue": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/201-nsg-add-to-existing-subnet/"
+      "defaultValue": "https://raw.githubusercontent.com/vys99AZBuild/AzureAutomation/master/401-Apply-NSG-to-existing-subnet/"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
@@ -73,7 +73,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "https://github.com/vys99AZBuild/AzureAutomation/blob/master/401-Apply-NSG-to-existing-subnet/nested/updateSubnet.json",
+          "uri": "[concat(parameters('_artifactsLocation'), concat('nested/updateSubnet.json', parameters('_artifactsLocationSasToken')))]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
