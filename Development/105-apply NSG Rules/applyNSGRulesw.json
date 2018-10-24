@@ -222,6 +222,53 @@
           }
         ]
       }
+    },
+    {
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[parameters('virtualNetworkName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[concat('Microsoft.Network/networkSecurityGroups/', parameters('FENSGName'))]",
+        "[concat('Microsoft.Network/networkSecurityGroups/', parameters('AppNSGName'))]",
+        "[concat('Microsoft.Network/networkSecurityGroups/', parameters('DBNSGName'))]"
+      ],
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[parameters('addressPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "FESubnet",
+            "properties": {
+              "addressPrefix": "[parameters('FESubnetPrefix')]",
+              "networkSecurityGroup": {
+                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('FENSGName'))]"
+              }
+            }
+          },
+          {
+            "name": "AppSubnet",
+            "properties": {
+              "addressPrefix": "[parameters('AppSubnetPrefix')]",
+              "networkSecurityGroup": {
+                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('AppNSGName'))]"
+              }
+            }
+          },
+          {
+            "name": "DBSubnet",
+            "properties": {
+              "addressPrefix": "[parameters('DBSubnetPrefix')]",
+              "networkSecurityGroup": {
+                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('DBNSGName'))]"
+              }
+            }
+          }
+        ]
+      }
     }
   ]
 }
