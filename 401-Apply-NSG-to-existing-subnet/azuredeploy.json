@@ -77,7 +77,7 @@
       "type": "Microsoft.Resources/deployments",
       "resourceGroup": "[parameters('virtualNetworkResourceGroupName')]",
       "dependsOn": [
-        "new-nsg"
+        "[parameters('nsgSecurityGroupName')]"
       ],
       "properties": {
         "mode": "Incremental",
