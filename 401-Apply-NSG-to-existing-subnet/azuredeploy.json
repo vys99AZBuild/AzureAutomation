@@ -33,7 +33,7 @@
       "metadata": {
         "description": "The base URI where artifacts required by this template are located."
       },
-      "defaultValue": "https://github.com/vys99AZBuild/AzureAutomation/tree/master/401-Apply-NSG-to-existing-subnet"
+      "defaultValue": "https://github.com/vys99AZBuild/AzureAutomation/blob/master/401-Apply-NSG-to-existing-subnet/nested/"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
@@ -91,10 +91,10 @@
             "value": "[parameters('subnetName')]"
           },
           "subnetAddressPrefix": {
-            "value": "[reference(resourceId(parameters('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName')), '2018-03-01').addressPrefix]"
+            "value": "[reference(resourceId(parameters('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))).addressPrefix]"
           },
           "nsgId": {
-            "value": "[resourceId('Microsoft.Network/networkSecurityGroups', 'new-nsg')]"
+            "value": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgGroupName'))]"
           }
         }
       }
