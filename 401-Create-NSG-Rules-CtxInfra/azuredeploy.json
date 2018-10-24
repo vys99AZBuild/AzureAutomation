@@ -298,7 +298,7 @@
       },
       {
         "apiVersion": "2015-05-01-preview",
-        "type": "Microsoft.Network/virtualNetworks",
+        "type": "Microsoft.Network/virtualNetworks/Subnets",
         "name": "[parameters('nsgGroupName')]",
         "location": "[parameters('nsgLocation')]",
         "dependsOn": [
@@ -307,7 +307,7 @@
         "properties": {
           "addressSpace": {
             "addressPrefixes": [
-              "[parameters('addressPrefix')]"
+              "[parameters('nsgCtxinfraSubnet')]"
             ]
           },                 
           "subnets": [
