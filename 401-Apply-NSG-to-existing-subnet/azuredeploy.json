@@ -29,6 +29,13 @@
       }
 
     },
+    "nsgMgmntSubnet": {
+      "type": "string",
+      "defaultValue": "default",
+      "metadata": {
+        "description": "The Management IP subnet CIDR"
+        }
+      },
     "nsgAddsSubnet": {
       "type": "string",
       "defaultValue": "default",
@@ -81,10 +88,10 @@
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "5985-5986",
-              "sourceAddressPrefix": "*",
+              "sourceAddressPrefix": "[parameters('nsgMgmntSubnet')]",
               "destinationAddressPrefix": "*",
               "access": "Allow",
-              "priority": 100,
+              "priority": 1000,
               "direction": "Inbound"
             }
           },
@@ -94,10 +101,10 @@
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "3389",
-              "sourceAddressPrefix": "*",
+              "sourceAddressPrefix": "[parameters('nsgMgmntSubnet')]",
               "destinationAddressPrefix": "*",
               "access": "Allow",
-              "priority": 105,
+              "priority": 1005,
               "direction": "Inbound"
             }
           },
@@ -110,7 +117,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 100,
+              "priority": 1000,
               "direction": "Outbound"
             }
           },
@@ -123,7 +130,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 105,
+              "priority": 1005,
               "direction": "Outbound"
             }
           },
@@ -136,7 +143,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 110,
+              "priority": 1010,
               "direction": "Outbound"
             }
           },
@@ -149,7 +156,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 115,
+              "priority": 1015,
               "direction": "Outbound"
             }
           },
@@ -162,7 +169,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 120,
+              "priority": 1020,
               "direction": "Outbound"
             }
           },
@@ -175,7 +182,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 125,
+              "priority": 1025,
               "direction": "Outbound"
             }
           },
@@ -188,7 +195,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 130,
+              "priority": 1030,
               "direction": "Outbound"
             }
           },
@@ -201,7 +208,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 135,
+              "priority": 1035,
               "direction": "Outbound"
             }
           },
@@ -214,7 +221,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 140,
+              "priority": 1040,
               "direction": "Outbound"
             }
           },
@@ -227,7 +234,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 145,
+              "priority": 1045,
               "direction": "Outbound"
             }
           },
@@ -240,7 +247,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 150,
+              "priority": 1050,
               "direction": "Outbound"
             }
           },
@@ -253,7 +260,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 155,
+              "priority": 1055,
               "direction": "Outbound"
             }
           },
@@ -266,7 +273,7 @@
               "sourceAddressPrefix": "*",
               "destinationAddressPrefix": "*",
               "access": "Allow",
-              "priority": 160,
+              "priority": 1060,
               "direction": "Outbound"
             }
           },
@@ -279,7 +286,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "INTERNET",
               "access": "Allow",
-              "priority": 300,
+              "priority": 3000,
               "direction": "Outbound"
             }
           },
@@ -292,7 +299,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgCtxappSubnet')]",
               "access": "Allow",
-              "priority": 305,
+              "priority": 3005,
               "direction": "Outbound"
             }
           }
