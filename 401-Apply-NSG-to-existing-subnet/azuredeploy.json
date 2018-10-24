@@ -33,7 +33,7 @@
       "metadata": {
         "description": "The base URI where artifacts required by this template are located."
       },
-      "defaultValue": "https://github.com/vys99AZBuild/AzureAutomation/blob/master/401-Apply-NSG-to-existing-subnet/"
+      "defaultValue": "https://github.com/vys99AZBuild/AzureAutomation/tree/master/401-Apply-NSG-to-existing-subnet/"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
