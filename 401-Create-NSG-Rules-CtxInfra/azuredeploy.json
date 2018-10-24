@@ -303,7 +303,6 @@
         "location": "[parameters('nsgLocation')]",
         "dependsOn": [
           "[concat('Microsoft.Network/networkSecurityGroups/', parameters('nsgGroupName'))]"
-          
         ],
         "properties": {
           "addressSpace": {
@@ -317,7 +316,7 @@
               "properties": {
                 "addressPrefix": "[parameters('nsgCtxinfraSubnet')]",
                 "networkSecurityGroup": {
-                  "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgSubnetName'))]"
+                  "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgGroupName'))]"
                 }
               }
             }
