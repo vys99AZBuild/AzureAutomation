@@ -17,30 +17,35 @@
     },
     "nsgAddsSubnet": {
       "type": "string",
-      "defaultValue": "10.99.1.0",
+      "defaultValue": "172.25.4.0/24",
       "metadata": {
-        "description": "Active Directory subnet"
+        "description": "Enter Active Directory CIDR subnet e.g 172.25.4.0/24"
       }
     },
     "nsgCtxinfraSubnet": {
       "type": "string",
-      "defaultValue": "10.99.2.0",
+      "defaultValue": "172.25.6.0/24",
       "metadata": {
-        "description": "Citrix Infrastructure subnet"
+        "description": "Enter Citrix Infrastructure CIDR subnet e.g 172.25.6.0/24"
       }
     },
     "nsgCtxappSubnet": {
       "type": "string",
-      "defaultValue": "10.99.3.0",
+      "defaultValue": "172.25.5.0/24",
       "metadata": {
-        "description": "Citrix XenApp subnet"
+        "description": "Enter Citrix XenApp CIDR subnet e.g 172.25.5.0/24"
       }
     },
 
     "nsgGroupName": {
-      "defaultValue": "NSG Group Name",
+      "defaultValue": "Enter NSG Group Name to Create",
+      "type": "string"
+    },
+    "nsgSubnetName": {
+      "defaultValue": "Enter Subnet to Appl NSG Group to",
       "type": "string"
     }
+
   },
       
     "variables": {
@@ -283,7 +288,31 @@
           ]
         },
         "dependsOn": []
-      }  
-      ]
+      },
+      {
+        "apiVersion": "2015-05-01-preview",
+        "type": "Microsoft.Network/virtualNetworks",
+        "name": "[parameters('nsgGroupName')]",
+        "location": "[parameters('nsgLocation')]",
+        "dependsOn": [
+          "[concat('Microsoft.Network/networkSecurityGroups/', parameters('nsgGroupName'))]"
+          
+        ],
+        "properties": {
+          "subnets": [
+            {
+              "name": "[parameters('nsgSubnetName')]",
+              "properties": {
+                "addressPrefix": "[parameters('nsgCtxinfraSubnet')]",
+                "networkSecurityGroup": {
+                  "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgSubnetName'))]"
+                }
+              }
+            }
+          ]
+        }
+      }    
+    
+    ]
  
 }
