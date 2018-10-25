@@ -267,19 +267,6 @@
             }
           },
           {
-            "name": "Allow-rdp2-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "3389",
-              "sourceAddressPrefix": "*",
-              "destinationAddressPrefix": "*",
-              "access": "Allow",
-              "priority": 1060,
-              "direction": "Outbound"
-            }
-          },
-          {
             "name": "Allow-ctxinfra-outb-Internet-https-Tcp",
             "properties": {
               "protocol": "Tcp",
@@ -288,7 +275,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "INTERNET",
               "access": "Allow",
-              "priority": 3000,
+              "priority": 2000,
               "direction": "Outbound"
             }
           },
@@ -301,10 +288,28 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgCtxappSubnet')]",
               "access": "Allow",
-              "priority": 3005,
+              "priority": 3000,
               "direction": "Outbound"
             }
-          }
+          },
+          {
+            "name": "DenyInternetOutBound",
+            "properties": {
+                "description": "Deny outbound traffic from all VMs to Internet",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "*",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "Internet",
+                "access": "Deny",
+                "priority": 65001,
+                "direction": "Outbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            }
+        }
         ]
       }
     },
