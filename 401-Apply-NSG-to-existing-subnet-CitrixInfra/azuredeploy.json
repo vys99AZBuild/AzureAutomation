@@ -268,19 +268,6 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-outb-Internet-https-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "443",
-              "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
-              "destinationAddressPrefix": "INTERNET",
-              "access": "Allow",
-              "priority": 2000,
-              "direction": "Outbound"
-            }
-          },
-          {
             "name": "Allow-ctxinfra-outb-ctxapp-https-Tcp",
             "properties": {
               "protocol": "Tcp",
@@ -299,8 +286,8 @@
                 "provisioningState": "Succeeded",
                 "protocol": "*",
                 "sourcePortRange": "*",
-                "destinationPortRange": "8080",
-                "sourceAddressPrefix": "*",
+                "destinationPortRange": "443",
+                "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
                 "access": "Allow",
                 "priority": 4011,
                 "direction": "Outbound",
