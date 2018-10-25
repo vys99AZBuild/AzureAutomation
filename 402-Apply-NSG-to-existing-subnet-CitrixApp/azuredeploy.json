@@ -63,7 +63,7 @@
       "metadata": {
         "description": "The base URI where artifacts required by this template are located."
       },
-      "defaultValue": "https://raw.githubusercontent.com/vys99AZBuild/AzureAutomation/master/402-Apply-NSG-to-existing-subnet-CitrixApp/"
+      "defaultValue": "https://raw.githubusercontent.com/vys99AZBuild/AzureAutomation/master/402-Apply-NSG-outb-existing-subnet-CitrixApp/"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
@@ -109,7 +109,7 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-to-adds-dns-Tcp",
+            "name": "Allow-ctxapp-outb-adds-dns-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -122,7 +122,7 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-to-adds-dns-Udp",
+            "name": "Allow-ctxapp-outb-adds-dns-Udp",
             "properties": {
               "protocol": "Udp",
               "sourcePortRange": "*",
@@ -135,7 +135,7 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-to-adds-krbtckt-Tcp",
+            "name": "Allow-ctxapp-outb-adds-krbtckt-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -148,7 +148,7 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-to-adds-krbtckt-Udp",
+            "name": "Allow-ctxapp-outb-adds-krbtckt-Udp",
             "properties": {
               "protocol": "Udp",
               "sourcePortRange": "*",
@@ -161,7 +161,7 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-to-adds-ntptime-Udp",
+            "name": "Allow-ctxapp-outb-adds-ntptime-Udp",
             "properties": {
               "protocol": "Udp",
               "sourcePortRange": "*",
@@ -174,7 +174,7 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-to-adds-rpcmapper-Tcp",
+            "name": "Allow-ctxapp-outb-adds-rpcmapper-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -187,7 +187,7 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-to-adds-krbpasswd-Tcp",
+            "name": "Allow-ctxapp-outb-adds-krbpasswd-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -200,7 +200,7 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-to-adds-krbpasswd-Udp",
+            "name": "Allow-ctxapp-outb-adds-krbpasswd-Udp",
             "properties": {
               "protocol": "Udp",
               "sourcePortRange": "*",
@@ -213,7 +213,7 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-to-adds-ldap-Tcp",
+            "name": "Allow-ctxapp-outb-adds-ldap-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -226,7 +226,7 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-to-adds-ldapssl-Tcp",
+            "name": "Allow-ctxapp-outb-adds-ldapssl-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -239,7 +239,7 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-to-adds-gc-Tcp",
+            "name": "Allow-ctxapp-outb-adds-gc-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -252,7 +252,7 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-to-adds-gcssl-Tcp",
+            "name": "Allow-ctxapp-outb-adds-gcssl-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -278,7 +278,7 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-to-Internet-https-Tcp",
+            "name": "Allow-ctxapp-outb-Internet-https-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -291,7 +291,7 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-to-ctxapp-https-Tcp",
+            "name": "Allow-ctxapp-outb-ctxapp-https-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -302,7 +302,29 @@
               "priority": 3005,
               "direction": "Outbound"
             }
-          }
+          },
+          {
+            "name": "DenyInternetOutBound",
+            "etag": "W/\"44191a61-50d6-42e6-9c96-2825a439fd63\"",
+            "properties": {
+                "provisioningState": "Succeeded",
+                "description": "Deny outbound traffic from all VMs to Internet",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "*",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "Internet",
+                "access": "Deny",
+                "priority": 65001,
+                "direction": "Outbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            }
+        },
+
+          
         ]
       }
     },
