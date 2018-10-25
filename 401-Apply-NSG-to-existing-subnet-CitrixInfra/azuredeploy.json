@@ -33,36 +33,32 @@
     },
     "nsgMgmntSubnet": {
       "type": "string",
-      "defaultValue": "172.26.1.0/24",
+      "defaultValue": "default",
       "metadata": {
         "description": "The Management IP subnet CIDR"
         }
       },
     "nsgAddsSubnet": {
       "type": "string",
-      "defaultValue": "172.25.4.0/24",
+      "defaultValue": "default",
       "metadata": {
         "description": "The AD IP subnet CIDR"
         }
       },
       "nsgCtxinfraSubnet":{
         "type": "string",
-        "defaultValue": "172.25.6.0/24",
+        "defaultValue": "default",
         "metadata": {
           "description": "The Citrix Infra IP subnet CIDR"
           }
         },
       "nsgCtxAppSubnet":{
           "type": "string",
-          "defaultValue": "172.25.5.0",
+          "defaultValue": "default",
           "metadata": {
             "description": "The Citrix App IP subnet CIDR"
             }
           },
-          "securityRules_Port_8080_destinationAddressPrefix": {
-            "defaultValue": null,
-            "type": "SecureString"
-        },
      "_artifactsLocation": {
       "type": "string",
       "metadata": {
@@ -296,29 +292,7 @@
               "priority": 3000,
               "direction": "Outbound"
             }
-          },
-          {
-            "name": "Allow-ctxinfra-outb-AzureIP-https-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "443",
-              "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
-              "destinationAddressPrefixes": [
-                "13.107.6.152/31",
-                "13.107.9.152/31",
-                "13.107.18.10/31",
-                "13.107.19.10/31",
-                "23.103.160.0/20",
-                "13.103.224.0/19"
-            ],
-              "access": "Allow",
-              "priority": 4000,
-              "direction": "Outbound",
-              "destinationAddressPrefix": "[parameters('securityRules_Port_8080_destinationAddressPrefix')]"
-            }
           }
-
         ]
       }
     },
