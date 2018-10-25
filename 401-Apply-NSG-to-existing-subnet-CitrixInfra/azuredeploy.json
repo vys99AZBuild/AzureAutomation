@@ -300,11 +300,7 @@
               "sourcePortRange": "*",
               "destinationPortRange": "443",
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
-              "destinationAddressPrefixes": [
-                "13.107.6.152/31",
-                "13.107.9.152/31",
-                "13.107.18.10/31"
-              ],
+              "destinationAddressPrefixes": "[parameters('nsgCtxAppSubnet')]",
               "access": "Allow",
               "priority": 4000,
               "direction": "Outbound"
