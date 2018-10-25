@@ -57,7 +57,17 @@
             "description": "The Citrix App IP subnet CIDR"
             }
           },
-
+        "nsgAzureIPSubnets":{
+          "type":"array",
+          "defaultValue": [
+            "13.107.6.152/31",                
+            "13.107.9.152/31",                         
+            "13.107.18.10/31",              
+            "13.107.19.10/31",              
+            "23.103.160.0/20",              
+            "13.103.224.0/19" 
+          ]
+        },
      "_artifactsLocation": {
       "type": "string",
       "metadata": {
@@ -291,7 +301,21 @@
               "priority": 3000,
               "direction": "Outbound"
             }
+          },
+          {
+            "name": "Allow-ctxinfra-outb-AzureIP-https-Tcp",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "443",
+              "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgAzureIPSubnets')]",
+              "access": "Allow",
+              "priority": 4000,
+              "direction": "Outbound"
+            }
           }
+
         ]
       }
     },
