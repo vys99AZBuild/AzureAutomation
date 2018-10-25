@@ -301,12 +301,9 @@
               "destinationPortRange": "443",
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefixes": [
-                "13.107.6.152/31",              
-                "13.107.9.152/31",              
-                "13.107.18.10/31",              
-                "13.107.19.10/31",              
-                "23.103.160.0/20",               
-                "13.103.224.0/19"
+                "13.107.6.152/31",
+                "13.107.9.152/31",
+                "13.107.18.10/31"
               ],
               "access": "Allow",
               "priority": 4000,
