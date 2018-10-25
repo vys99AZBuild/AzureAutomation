@@ -33,28 +33,28 @@
     },
     "nsgMgmntSubnet": {
       "type": "string",
-      "defaultValue": "default",
+      "defaultValue": "172.26.1.0/24",
       "metadata": {
         "description": "The Management IP subnet CIDR"
         }
       },
     "nsgAddsSubnet": {
       "type": "string",
-      "defaultValue": "default",
+      "defaultValue": "172.25.4.0/24",
       "metadata": {
         "description": "The AD IP subnet CIDR"
         }
       },
       "nsgCtxinfraSubnet":{
         "type": "string",
-        "defaultValue": "default",
+        "defaultValue": "172.25.6.0/24",
         "metadata": {
           "description": "The Citrix Infra IP subnet CIDR"
           }
         },
       "nsgCtxAppSubnet":{
           "type": "string",
-          "defaultValue": "default",
+          "defaultValue": "172.25.5.0/24",
           "metadata": {
             "description": "The Citrix App IP subnet CIDR"
             }
