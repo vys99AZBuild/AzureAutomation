@@ -291,22 +291,7 @@
               "priority": 3000,
               "direction": "Outbound"
             }
-          },
-          {
-            "name": "DenyInternetOutBound",
-            "properties": {
-                "description": "Deny outbound traffic from all VMs to Internet",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "Internet",
-                "access": "Deny",
-                "priority": 65001,
-                "direction": "Outbound"
-               
-            }
-        }
+          }
         ]
       }
     },
