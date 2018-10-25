@@ -298,7 +298,7 @@
                 "description": "Deny outbound traffic from all VMs to Internet",
                 "protocol": "*",
                 "sourcePortRange": "*",
-                "destinationPortRange": "80,443",
+                "destinationPortRange": "443",
                 "sourceAddressPrefix": "*",
                 "destinationAddressPrefix": "Internet",
                 "access": "Deny",
