@@ -33,7 +33,7 @@
     },
     "nsgMgmntSubnet": {
       "type": "string",
-      "defaultValue": "172.26.1.0/24",
+      "defaultValue": "default",
       "metadata": {
         "description": "The Management IP subnet CIDR"
         }
@@ -292,7 +292,32 @@
               "priority": 3000,
               "direction": "Outbound"
             }
-          }
+          },
+          {
+            "name": "Allow-ctxinfra-outb-AzureIP-https-Tcp",
+            "properties": {
+                "provisioningState": "Succeeded",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "8080",
+                "sourceAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 4011,
+                "direction": "Outbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": [
+                    "13.107.6.152/31",
+                    "13.107.9.152/31",
+                    "13.107.18.10/31",
+                    "13.107.19.10/31",
+                    "23.103.160.0/20",
+                    "13.103.224.0/19"
+                ]
+            }
+          } 
+
         ]
       }
     },
