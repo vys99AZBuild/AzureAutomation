@@ -66,21 +66,21 @@
       }
 
     },
-      "imagePublisher": {
+      "vmImagePublisher": {
         "type": "string",
         "defaultValue": "MicrosoftWindowsServer",
         "metadata": {
           "description": "Image Publisher"
         }
       },
-      "imageOffer": {
+      "vmImageOffer": {
         "type": "string",
         "defaultValue": "WindowsServer",
         "metadata": {
           "description": "Image Offer"
         }
       },
-      "imageSKU": {
+      "vmImageSKU": {
         "type": "string",
         "defaultValue": "2016-Datacenter",
         "allowedValues": [
@@ -110,19 +110,19 @@
           "description": "VM Password"
         }
       },
-      "vnNetworkName": {
+      "vnetNetworkName": {
         "type": "string",
         "metadata": {
           "description": "VNET Name"
         }
       },
-      "vnResourceGroup": {
+      "vnetResourceGroup": {
         "type": "string",
         "metadata": {
           "description": "Resource Group VNET is deployed in"
         }
       },
-      "vnSubnetName": {
+      "vnetSubnetName": {
         "type": "string",
         "metadata": {
           "description": "Name of the subnet inside the VNET"
@@ -171,8 +171,8 @@
     },
   "variables": {
     "updateip_templateUri": "[concat(parameters('_artifactsLocation'), '/nested/update-nic.json', parameters('_artifactsLocationSasToken'))]",
-    "vnetID": "[resourceId(parameters('vnResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnNetworkName'))]",
-    "vnNetworkSubnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('vnSubnetName'))]",
+    "vnetID": "[resourceId(parameters('vnetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnetNetworkName'))]",
+    "vnNetworkSubnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('vnetSubnetName'))]",
     "vmProvisionVMAgent": "True",
     "vmEnableAutomaticUpdates": "True",
     "vmTimeZone": "GMT Standard Time"
@@ -279,9 +279,9 @@
         },
         "storageProfile": {
           "imageReference": {
-            "publisher": "[parameters('imagePublisher')]",
-            "offer": "[parameters('imageOffer')]",
-            "sku": "[parameters('imageSKU')]",
+            "publisher": "[parameters('vmImagePublisher')]",
+            "offer": "[parameters('vmImageOffer')]",
+            "sku": "[parameters('vmImageSKU')]",
             "version": "latest"
           },
           "osDisk": {
