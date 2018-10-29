@@ -207,25 +207,6 @@
           {
             "name": "ipconfig1",
             "properties": {
-              "privateIPAllocationMethod": "[parameters('nicInterfaceType')]", 
-              "subnet": {
-                "id": "[variables('vnNetworkSubnetRef')]"
-              }
-            }
-          }
-        ]
-      }
-    },
-    {
-      "apiVersion": "2015-05-01-preview",
-      "type": "Microsoft.Network/networkInterfaces",
-      "name": "[parameters('nicName')]",
-      "location": "[parameters('location')]",
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
-            "properties": {
               "privateIPAllocationMethod": "Dynamic", 
               "subnet": {
                 "id": "[variables('vnNetworkSubnetRef')]"
