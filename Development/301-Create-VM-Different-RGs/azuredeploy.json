@@ -137,21 +137,6 @@
         "description": "IP Allocation Dynamic or Static"
       }
     },
-
-    "_artifactsLocation": {
-      "type": "string",
-      "metadata": {
-        "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
-      },
-      "defaultValue": "https://raw.githubusercontent.com/vys99AZBuild/AzureAutomation/master/301-Create-VM-Different-RGs"
-    },
-    "_artifactsLocationSasToken": {
-      "type": "securestring",
-      "metadata": {
-        "description": "The sasToken required to access baseURL.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated."
-      },
-      "defaultValue": ""
-    },
           
     "location": {
       "type": "string",
@@ -162,7 +147,6 @@
     }
   },
   "variables": {
-    "updateip_templateUri": "[concat(parameters('_artifactsLocation'), '/nested/update-nic.json', parameters('_artifactsLocationSasToken'))]",
     "vnetID": "[resourceId(parameters('vnResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnNetworkName'))]",
     "vnNetworkSubnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('vnSubnetName'))]",
     "vmProvisionVMAgent": "True",
@@ -217,25 +201,6 @@
       }
     },
     {
-      "apiVersion": "2015-05-01-preview",
-      "type": "Microsoft.Network/networkInterfaces",
-      "name": "[parameters('nicName')]",
-      "location": "[parameters('location')]",
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
-            "properties": {
-              "privateIPAllocationMethod": "Dynamic", 
-              "subnet": {
-                "id": "[variables('vnNetworkSubnetRef')]"
-              }
-            }
-          }
-        ]
-      }
-    },          
-    {
       "apiVersion": "2017-03-30",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[parameters('vmName')]",
@@ -288,32 +253,6 @@
           "bootDiagnostics": {
             "enabled": true,
             "storageUri": "[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net')]"
-          }
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "name": "updateIp",
-      "apiVersion": "2017-08-01",
-      "dependsOn": [
-        "[parameters('nicName')]"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('updateip_templateUri')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "nicName": {
-            "value": "[parameters('nicName')]"
-          },
-          "SubnetRef": {
-            "value": "[variables('vnNetworkSubnetRef')]"
-          },
-          "privateIp": {
-            "value": "[reference(concat('Microsoft.Network/networkInterfaces/', parameters('nicName'))).ipConfigurations[0].properties.privateIPAddress]"
           }
         }
       }
