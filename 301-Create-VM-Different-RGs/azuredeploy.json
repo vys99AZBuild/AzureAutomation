@@ -290,7 +290,7 @@
           "nicName": {
             "value": "[parameters('nicName')]"
           },
-          "SubnetRef": {
+          "vnNetworkSubnetRef": {
             "value": "[variables('vnNetworkSubnetRef')]"
           },
           "privateIp": {
