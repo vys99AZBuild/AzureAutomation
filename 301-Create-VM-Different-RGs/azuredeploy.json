@@ -274,6 +274,7 @@
       }
     },
     {
+      "condition": "[equals(parameters('nicInterfaceType'),'Static')]",
       "type": "Microsoft.Resources/deployments",
       "name": "updateIp",
       "apiVersion": "2017-08-01",
