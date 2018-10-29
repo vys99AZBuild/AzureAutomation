@@ -120,18 +120,6 @@
         "description": "Name of the subnet inside the VNET"
       }
     },
-    
-    "nicInterfaceType":{
-        "type": "string",
-        "defaultValue": "Dynamic",
-        "allowedValues": [
-            "Static",
-            "Dynamic"
-            ],
-           "metadata": {
-              "description": "Assign Static or dynamic IP Address"
-           }
-    },
     "nicName": {
       "type": "string",
       "metadata": {
