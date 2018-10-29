@@ -120,6 +120,16 @@
         "description": "Name of the subnet inside the VNET"
       }
     },
+    
+    "nicInterfaceType":{
+        "Type": "string",
+        "metadata": {
+          "allowedValues": [
+            "Static",
+            "Dynamic"
+            ]
+        }
+    },
     "nicName": {
       "type": "string",
       "metadata": {
@@ -170,6 +180,7 @@
       }
     },
     {
+      "condition": "[equals(parameters('nicInterfaceType'),'Dynamic')]",
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[parameters('nicName')]",
