@@ -83,7 +83,7 @@
       "properties": {
         "securityRules": [
           {
-            "name": "Allow-winrm-Tcp",
+            "name": "Allow-mgmnt-inb-ctxapp-wirrm-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -96,13 +96,31 @@
             }
           },
           {
-            "name": "Allow-rdp-Tcp",
+            "name": "Allow-mgmnt-inb-ctxapp-rdp-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "3389",
               "sourceAddressPrefix": "[parameters('nsgMgmntSubnet')]",
               "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 1005,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "Allow-ctxinfra-inb-ctxapp-ica-Tcp",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "",
+              "destinationPortRanges": [
+                "80",
+                "1494",
+                "2598"
+              ],
+              "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgCtxappSubnet')]",
               "access": "Allow",
               "priority": 1005,
               "direction": "Inbound"
@@ -187,6 +205,32 @@
             }
           },
           {
+            "name": "Allow-ctxapp-outb-adds-ldap-Tcp",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "389",
+              "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+              "access": "Allow",
+              "priority": 1030,
+              "direction": "Outbound"
+            }
+          },         
+          {
+            "name": "Allow-ctxapp-outb-adds-smb-Tcp",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "445",
+              "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+              "access": "Allow",
+              "priority": 1035,
+              "direction": "Outbound"
+            }
+          },
+          {
             "name": "Allow-ctxapp-outb-adds-krbpasswd-Tcp",
             "properties": {
               "protocol": "Tcp",
@@ -195,7 +239,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1030,
+              "priority": 1040,
               "direction": "Outbound"
             }
           },
@@ -208,23 +252,10 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1035,
+              "priority": 1045,
               "direction": "Outbound"
             }
-          },
-          {
-            "name": "Allow-ctxapp-outb-adds-ldap-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "389",
-              "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "access": "Allow",
-              "priority": 1040,
-              "direction": "Outbound"
-            }
-          },
+          },          
           {
             "name": "Allow-ctxapp-outb-adds-ldapssl-Tcp",
             "properties": {
@@ -234,7 +265,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1045,
+              "priority": 1050,
               "direction": "Outbound"
             }
           },
@@ -247,7 +278,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1050,
+              "priority": 1055,
               "direction": "Outbound"
             }
           },
@@ -260,20 +291,21 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1055,
+              "priority": 1060,
               "direction": "Outbound"
             }
           },
           {
-            "name": "Allow-rdp2-Tcp",
+            "name": "Allow-ctxapp-outb-adds-rpcdynamic-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRange": "3389",
+              "destinationPortRange": "",
+              "destinationPortRanges":"49152-65535",
               "sourceAddressPrefix": "*",
               "destinationAddressPrefix": "*",
               "access": "Allow",
-              "priority": 1060,
+              "priority": 1065,
               "direction": "Outbound"
             }
           },
@@ -286,45 +318,52 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "INTERNET",
               "access": "Allow",
-              "priority": 3000,
+              "priority": 2000,
               "direction": "Outbound"
             }
           },
           {
-            "name": "Allow-ctxapp-outb-ctxapp-https-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "443",
-              "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgCtxappSubnet')]",
-              "access": "Allow",
-              "priority": 3005,
-              "direction": "Outbound"
-            }
-          },
-          {
-            "name": "DenyInternetOutBound",
-            "etag": "W/\"44191a61-50d6-42e6-9c96-2825a439fd63\"",
+            "name": "Allow-ctxinfra-outb-AzureIP-https-Tcp",
             "properties": {
                 "provisioningState": "Succeeded",
-                "description": "Deny outbound traffic from all VMs to Internet",
                 "protocol": "*",
                 "sourcePortRange": "*",
-                "destinationPortRange": "*",
-                "sourceAddressPrefix": "*",
-                "destinationAddressPrefix": "Internet",
-                "access": "Deny",
-                "priority": 65001,
+                "destinationPortRange": "443",
+                "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
+                "access": "Allow",
+                "priority": 2005,
                 "direction": "Outbound",
                 "sourcePortRanges": [],
                 "destinationPortRanges": [],
                 "sourceAddressPrefixes": [],
-                "destinationAddressPrefixes": []
+                "destinationAddressPrefixes": [
+                    "13.107.6.152/31",
+                    "13.107.9.152/31",
+                    "13.107.18.10/31",
+                    "13.107.19.10/31",
+                    "23.103.160.0/20",
+                    "13.103.224.0/19"
+                ]
             }
-        }
-
-          
+          }, 
+          {
+            "name": "Allow-ctxapp-outb-ctxinfra-https-Tcp",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "443",
+              "destinationPortRanges":[
+                "80",
+                "443"
+              ],
+              "sourceAddressPrefix": "[parameters('nsgCtxappSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
+              "access": "Allow",
+              "priority": 3000,
+              "direction": "Outbound"
+            }
+          }
+                    
         ]
       }
     },
