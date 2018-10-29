@@ -191,9 +191,9 @@
           {
             "name": "ipconfig1",
             "properties": {
-              "privateIPAllocationMethod": "[parameters('nicInterfaceType')]",
+              "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vnNetworkName')), '/subnets/',parameters('vnSubnetName'))]"
+                "id": "[variables('vnNetworkSubnetRef')]"
               }
             }
           }
