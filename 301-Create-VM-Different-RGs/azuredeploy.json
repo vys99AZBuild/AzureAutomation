@@ -122,12 +122,15 @@
     },
     
     "nicInterfaceType":{
-        "Type": "string",
+        "type": "string",
+        "defaultValue": "Dynamic",
         "metadata": {
           "allowedValues": [
             "Static",
             "Dynamic"
-            ]
+            ],
+           "metadata": {
+              "description": "Assign Static or dynamic IP Address"
         }
     },
     "nicName": {
