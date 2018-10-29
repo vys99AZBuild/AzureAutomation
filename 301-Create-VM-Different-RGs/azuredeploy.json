@@ -137,9 +137,7 @@
         "description": "IP Allocation Dynamic or Static"
       }
     },
-    
-    
-    
+          
     "location": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]",
