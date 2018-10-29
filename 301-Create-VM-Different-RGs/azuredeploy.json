@@ -191,7 +191,7 @@
           {
             "name": "ipconfig1",
             "properties": {
-              "privateIPAllocationMethod": "Dynamic",
+              "privateIPAllocationMethod": "[parameters('nicInterfaceType')]", 
               "subnet": {
                 "id": "[variables('vnNetworkSubnetRef')]"
               }
