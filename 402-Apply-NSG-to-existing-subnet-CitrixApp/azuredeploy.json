@@ -301,7 +301,9 @@
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "",
-              "destinationPortRanges":"49152-65535",
+              "destinationPortRanges":[
+                "49152-65535"
+              ],
               "sourceAddressPrefix": "*",
               "destinationAddressPrefix": "*",
               "access": "Allow",
