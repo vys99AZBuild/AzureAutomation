@@ -353,7 +353,7 @@
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRange": "443",
+              "destinationPortRange": "",
               "destinationPortRanges":[
                 "80",
                 "443"
