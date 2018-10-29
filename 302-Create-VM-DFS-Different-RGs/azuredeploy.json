@@ -134,6 +134,33 @@
           "description": "Network Interface Name"
         }
       },
+      "nicInterfaceType": {
+        "type": "string",
+        "defaultValue": "Dynamic",
+        "allowedValues": [
+          "Dynamic",
+          "Static"
+        ],
+        "metadata": {
+          "description": "IP Allocation Dynamic or Static"
+        }
+      },
+      "_artifactsLocation": {
+        "type": "string",
+        "metadata": {
+          "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
+        },
+        "defaultValue": "https://raw.githubusercontent.com/vys99AZBuild/AzureAutomation/master/302-Create-VM-DFS-Different-RGs"
+      },
+      "_artifactsLocationSasToken": {
+        "type": "securestring",
+        "metadata": {
+          "description": "The sasToken required to access baseURL.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated."
+        },
+        "defaultValue": ""
+      },
+
+
       "location": {
         "type": "string",
         "defaultValue": "[resourceGroup().location]",
@@ -143,6 +170,7 @@
       }
     },
   "variables": {
+    "updateip_templateUri": "[concat(parameters('_artifactsLocation'), '/nested/update-nic.json', parameters('_artifactsLocationSasToken'))]",
     "vnetID": "[resourceId(parameters('vnResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnNetworkName'))]",
     "vnNetworkSubnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('vnSubnetName'))]",
     "vmProvisionVMAgent": "True",
@@ -208,7 +236,7 @@
           "creationData": {
               "createOption": "Empty"
           },
-          "diskSizeGB": "[parameters('vmDataDiskSizeGB')]",
+          "diskSizeGB": "[parameters('vmDataDiskSizeGB')]"
       }
   },
     
@@ -280,6 +308,33 @@
           "bootDiagnostics": {
             "enabled": true,
             "storageUri": "[concat('http://',parameters('newStoAccountName'),'.blob.core.windows.net')]"
+          }
+        }
+      }
+    },
+    {
+      "condition": "[equals(parameters('nicInterfaceType'),'Static')]",
+      "type": "Microsoft.Resources/deployments",
+      "name": "updateIp",
+      "apiVersion": "2017-08-01",
+      "dependsOn": [
+        "[parameters('nicName')]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('updateip_templateUri')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "nicName": {
+            "value": "[parameters('nicName')]"
+          },
+          "SubnetRef": {
+            "value": "[variables('vnNetworkSubnetRef')]"
+          },
+          "privateIp": {
+            "value": "[reference(concat('Microsoft.Network/networkInterfaces/', parameters('nicName'))).ipConfigurations[0].properties.privateIPAddress]"
           }
         }
       }
