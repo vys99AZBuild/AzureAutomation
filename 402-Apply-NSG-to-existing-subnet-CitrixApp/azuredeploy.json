@@ -127,6 +127,22 @@
             }
           },
           {
+            "name": "Allow-adds-inb-ctxapp-rpcdynamic-Tcp",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "",
+              "destinationPortRanges": [
+                 "49152-65535"
+              ],
+              "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgCtxappSubnet')]",
+              "access": "Allow",
+              "priority": 1015,
+              "direction": "Inbound"
+            }
+          },
+          {
             "name": "Allow-ctxapp-outb-adds-dns-Tcp",
             "properties": {
               "protocol": "Tcp",
@@ -304,8 +320,8 @@
               "destinationPortRanges":[
                 "49152-65535"
               ],
-              "sourceAddressPrefix": "*",
-              "destinationAddressPrefix": "*",
+              "sourceAddressPrefix": "[parameters('nsgCtxAppSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
               "priority": 1065,
               "direction": "Outbound"
