@@ -182,7 +182,6 @@
       }
     },
     {
-      "condition": "[equals(parameters('nicInterfaceType'),'Dynamic')]",
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[parameters('nicName')]",
@@ -192,9 +191,9 @@
           {
             "name": "ipconfig1",
             "properties": {
-              "privateIPAllocationMethod": "Dynamic",
+              "privateIPAllocationMethod": "[parameters('nicInterfaceType')]",
               "subnet": {
-                "id": "[variables('vnNetworkSubnetRef')]"
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('vnNetworkName')), '/subnets/',parameters('vnSubnetName'))]"
               }
             }
           }
