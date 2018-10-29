@@ -126,6 +126,20 @@
         "description": "Network Interface Name"
       }
     },
+    "nicInterfaceType": {
+      "type": "string",
+      "defaultValue": "Dynamic",
+      "allowedValues": [
+        "Dynamic",
+        "Static"
+      ],
+      "metadata": {
+        "description": "IP Allocation Dynamic or Static"
+      }
+    },
+    
+    
+    
     "location": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]",
