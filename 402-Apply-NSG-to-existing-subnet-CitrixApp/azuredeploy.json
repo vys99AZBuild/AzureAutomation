@@ -122,7 +122,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgCtxappSubnet')]",
               "access": "Allow",
-              "priority": 1005,
+              "priority": 1010,
               "direction": "Inbound"
             }
           },
