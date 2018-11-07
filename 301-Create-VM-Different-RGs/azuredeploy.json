@@ -179,6 +179,17 @@
       "kind": "StorageV2",
       "scale": null,
       "properties": {
+        "networkAcls": {
+          "bypass": "AzureServices",
+          "virtualNetworkRules": [
+              {
+                  "id": "[variables('vnNetworkSubnetRef')]",
+                  "action": "Allow"
+              }
+          ],
+          "ipRules": [],
+          "defaultAction": "Deny"
+      },
         "supportsHttpsTrafficOnly": "[parameters('storageAccountSecureTransfer')]",
         "encryption": {
           "services": {
