@@ -36,7 +36,12 @@
       "name": "[concat(parameters('existingVNETName'), '/', parameters('newSubnetName'))]",
       "location": "[parameters('location')]",
       "properties": {
-        "addressPrefix": "[parameters('newSubnetAddressPrefix')]"
+        "addressPrefix": "[parameters('newSubnetAddressPrefix')]",
+        "serviceEndpoints": [
+                {
+                  "service": "Microsoft.Storage"
+                }
+              ]
       }
     }
   ],
