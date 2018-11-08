@@ -4,28 +4,28 @@
   "parameters": {
     "virtualNetworkResourceGroupName": {
       "type": "string",
-      "defaultValue": "LAB_CITRIX_INFRA",
+      "defaultValue": "",
       "metadata": {
         "description": "The resource group where the existing VNet is located."
       }
     },
     "virtualNetworkName": {
       "type": "string",
-      "defaultValue": "LAB_CITRIX_vNet",
+      "defaultValue": "",
       "metadata": {
         "description": "The name of the existing VNet"
       }
     },
     "subnetName": {
       "type": "string",
-      "defaultValue": "production-ctxinf-subnet",
+      "defaultValue": "",
       "metadata": {
         "description": "The name of the existing subnet."
       }
     },
     "nsgSecurityGroupName": {
       "type": "string",
-      "defaultValue": "production-ctxinf-network-security-group",
+      "defaultValue": "",
       "metadata": {
         "description": "The name of the NSG Subnet"
       }
@@ -40,21 +40,21 @@
       },
     "nsgAddsSubnet": {
       "type": "string",
-      "defaultValue": "172.25.4.0/24",
+      "defaultValue": "",
       "metadata": {
         "description": "The AD IP subnet CIDR"
         }
       },
       "nsgCtxinfraSubnet":{
         "type": "string",
-        "defaultValue": "172.25.6.0/24",
+        "defaultValue": "",
         "metadata": {
           "description": "The Citrix Infra IP subnet CIDR"
           }
         },
       "nsgCtxAppSubnet":{
           "type": "string",
-          "defaultValue": "172.25.5.0/24",
+          "defaultValue": "",
           "metadata": {
             "description": "The Citrix App IP subnet CIDR"
             }
@@ -190,6 +190,21 @@
             }
           },
           {
+            "name": "Allow-ctxinfra-outb-adds-smb-Tcp",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "445",
+              "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+              "access": "Allow",
+              "priority": 1030,
+              "direction": "Outbound"
+            }
+          },
+          
+          
+          {
             "name": "Allow-ctxinfra-outb-adds-krbpasswd-Tcp",
             "properties": {
               "protocol": "Tcp",
@@ -198,7 +213,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1030,
+              "priority": 1035,
               "direction": "Outbound"
             }
           },
@@ -211,7 +226,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1035,
+              "priority": 1040,
               "direction": "Outbound"
             }
           },
@@ -224,7 +239,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1040,
+              "priority": 1045,
               "direction": "Outbound"
             }
           },
@@ -237,7 +252,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1045,
+              "priority": 1050,
               "direction": "Outbound"
             }
           },
@@ -250,7 +265,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1050,
+              "priority": 1055,
               "direction": "Outbound"
             }
           },
@@ -263,7 +278,20 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1055,
+              "priority": 1060,
+              "direction": "Outbound"
+            }
+          },
+          {
+            "name": "Allow-ctxinfra-outb-adds-rpcdyn-Tcp",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "49152-65535",
+              "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+              "access": "Allow",
+              "priority": 1065,
               "direction": "Outbound"
             }
           },
@@ -276,35 +304,10 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgCtxAppSubnet')]",
               "access": "Allow",
-              "priority": 3000,
+              "priority": 2000,
               "direction": "Outbound"
             }
-          },
-          {
-            "name": "Allow-ctxinfra-outb-AzureIP-https-Tcp",
-            "properties": {
-                "provisioningState": "Succeeded",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
-                "access": "Allow",
-                "priority": 4011,
-                "direction": "Outbound",
-                "sourcePortRanges": [],
-                "destinationPortRanges": [],
-                "sourceAddressPrefixes": [],
-                "destinationAddressPrefixes": [
-                    "13.107.6.152/31",
-                    "13.107.9.152/31",
-                    "13.107.18.10/31",
-                    "13.107.19.10/31",
-                    "23.103.160.0/20",
-                    "13.103.224.0/19"
-                ]
-            }
-          } 
-
+          }
         ]
       }
     },
