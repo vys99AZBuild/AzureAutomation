@@ -234,7 +234,7 @@
     },
     {
       "type": "Microsoft.Compute/disks",
-      "name": "[concat(parameters('vmName'),'-DataDisk1')]",
+      "name": "[concat(parameters('vmName'),'_DataDisk1')]",
       "apiVersion": "2018-04-01",
       "location": "[resourceGroup().location]",
       "sku": {
@@ -282,7 +282,7 @@
             "version": "latest"
           },
           "osDisk": {
-            "name": "[concat(parameters('vmName'),'-OSDisk')]",
+            "name": "[concat(parameters('vmName'),'_OSDisk')]",
             "caching": "ReadWrite",
             "createOption": "FromImage",
             "managedDisk": {
@@ -293,11 +293,11 @@
         "dataDisks": [
           {
             "lun": 0,
-            "name": "[concat(parameters('vmName'),'-DataDisk1')]",
+            "name": "[concat(parameters('vmName'),'_DataDisk1')]",
             "createOption": "Attach",
             "caching": "None",
             "managedDisk": {
-              "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('vmName'), '-DataDisk1'))]"
+              "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('vmName'), '_DataDisk1'))]"
             },
             "diskSizeGB": "[parameters('vmDataDiskSizeGB')]"
           }
