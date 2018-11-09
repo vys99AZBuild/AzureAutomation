@@ -338,7 +338,7 @@
             }
           },
           {
-            "name": "Deny-ctxapp-outb-Internet-https-Tcp",
+            "name": "Allow-ctxapp-outb-Internet-https-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -346,11 +346,10 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "INTERNET",
               "access": "Deny",
-              "priority": 6000,
+              "priority": 4000,
               "direction": "Outbound"
             }
-          }
-                    
+          }  
         ]
       }
     },
