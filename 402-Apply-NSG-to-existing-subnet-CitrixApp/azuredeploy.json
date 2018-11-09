@@ -338,7 +338,7 @@
             }
           },
           {
-            "name": "Allow-ctxapp-outb-Internet-https-Tcp",
+            "name": "Deny-ctxapp-outb-Internet-https-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
