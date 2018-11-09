@@ -325,7 +325,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgCtxAppSubnet')]",
               "access": "Allow",
-              "priority": 2000,
+              "priority": 1070,
               "direction": "Outbound"
             }
           }

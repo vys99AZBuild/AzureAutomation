@@ -16,14 +16,14 @@
     },
     "subnetName": {
       "type": "string",
-      "defaultValue": "default",
+      "defaultValue": "",
       "metadata": {
         "description": "The name of the existing subnet."
       }
     },
     "nsgSecurityGroupName": {
       "type": "string",
-      "defaultValue": "default",
+      "defaultValue": "",
       "metadata": {
         "description": "The name of the NSG Subnet"
       }
@@ -31,28 +31,28 @@
     },
     "nsgMgmntSubnet": {
       "type": "string",
-      "defaultValue": "default",
+      "defaultValue": "",
       "metadata": {
         "description": "The Management IP subnet CIDR"
         }
       },
     "nsgAddsSubnet": {
       "type": "string",
-      "defaultValue": "default",
+      "defaultValue": "",
       "metadata": {
         "description": "The AD IP subnet CIDR"
         }
       },
       "nsgCtxinfraSubnet":{
         "type": "string",
-        "defaultValue": "default",
+        "defaultValue": "",
         "metadata": {
           "description": "The Citrix Infra IP subnet CIDR"
           }
         },
       "nsgCtxAppSubnet":{
           "type": "string",
-          "defaultValue": "default",
+          "defaultValue": "",
           "metadata": {
             "description": "The Citrix App IP subnet CIDR"
             }
@@ -317,7 +317,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "INTERNET",
               "access": "Allow",
-              "priority": 2000,
+              "priority": 1070,
               "direction": "Outbound"
             }
           },
@@ -333,7 +333,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxappSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "access": "Allow",
-              "priority": 3000,
+              "priority": 1075,
               "direction": "Outbound"
             }
           },
@@ -346,7 +346,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "INTERNET",
               "access": "Deny",
-              "priority": 4000,
+              "priority": 1080,
               "direction": "Outbound"
             }
           }  
