@@ -112,6 +112,22 @@
             }
           },
           {
+            "name": "Allow-ctxapp-inb-ctxinfra-https-Tcp",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "",
+              "destinationPortRanges":[
+                "80"
+              ],
+              "sourceAddressPrefix": "[parameters('nsgCtxappSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
+              "access": "Allow",
+              "priority": 1010,
+              "direction": "Inbound"
+            }
+          },
+          {
             "name": "Allow-ctxinfra-outb-adds-dns-Tcp",
             "properties": {
               "protocol": "Tcp",
@@ -296,11 +312,16 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-outb-ctxapp-https-Tcp",
+            "name": "Allow-ctxinfra-outb-ctxapp-http-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRange": "443",
+              "destinationPortRange": "",
+              "destinationPortRanges": [
+                "80",
+                "1494",
+                "2598"
+              ],
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgCtxAppSubnet')]",
               "access": "Allow",

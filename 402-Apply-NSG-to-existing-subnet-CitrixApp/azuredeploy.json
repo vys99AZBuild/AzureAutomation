@@ -127,22 +127,6 @@
             }
           },
           {
-            "name": "Allow-adds-inb-ctxapp-rpcdynamic-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "",
-              "destinationPortRanges": [
-                 "49152-65535"
-              ],
-              "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgCtxappSubnet')]",
-              "access": "Allow",
-              "priority": 1015,
-              "direction": "Inbound"
-            }
-          },
-          {
             "name": "Allow-ctxapp-outb-adds-dns-Tcp",
             "properties": {
               "protocol": "Tcp",
@@ -316,10 +300,7 @@
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRange": "",
-              "destinationPortRanges":[
-                "49152-65535"
-              ],
+              "destinationPortRange": "49152-65535",
               "sourceAddressPrefix": "[parameters('nsgCtxAppSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
@@ -341,43 +322,31 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-outb-AzureIP-https-Tcp",
-            "properties": {
-                "provisioningState": "Succeeded",
-                "protocol": "*",
-                "sourcePortRange": "*",
-                "destinationPortRange": "443",
-                "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
-                "access": "Allow",
-                "priority": 2005,
-                "direction": "Outbound",
-                "sourcePortRanges": [],
-                "destinationPortRanges": [],
-                "sourceAddressPrefixes": [],
-                "destinationAddressPrefixes": [
-                    "13.107.6.152/31",
-                    "13.107.9.152/31",
-                    "13.107.18.10/31",
-                    "13.107.19.10/31",
-                    "23.103.160.0/20",
-                    "13.103.224.0/19"
-                ]
-            }
-          }, 
-          {
             "name": "Allow-ctxapp-outb-ctxinfra-https-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "",
               "destinationPortRanges":[
-                "80",
-                "443"
+                "80"
               ],
               "sourceAddressPrefix": "[parameters('nsgCtxappSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "access": "Allow",
               "priority": 3000,
+              "direction": "Outbound"
+            }
+          },
+          {
+            "name": "Deny-ctxapp-outb-Internet-https-Tcp",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
+              "destinationAddressPrefix": "INTERNET",
+              "access": "Deny",
+              "priority": 6000,
               "direction": "Outbound"
             }
           }
