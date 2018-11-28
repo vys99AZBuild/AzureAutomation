@@ -370,7 +370,7 @@
             }
           },
           {
-            "name": "Allow-ctxinfra-outb-ctxapp-http-Tcp",
+            "name": "Allow-ctxinfra-outb-internet-http-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
