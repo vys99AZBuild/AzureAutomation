@@ -142,7 +142,7 @@
               "destinationPortRange": "*",
               "destinationPortRanges": [],
               "sourceAddressPrefix": "*",
-              "destinationAddressPrefix": "*",
+              "destinationAddressPrefix": "AzureLoadBalancer",
               "access": "Allow",
               "priority": 1015,
               "direction": "Inbound"
@@ -400,20 +400,7 @@
               "priority": 3000,
               "direction": "Outbound"
             }
-          },
-                    {
-            "name": "Deny-ctxapp-outb-Internet-any-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "*",
-              "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
-              "destinationAddressPrefix": "INTERNET",
-              "access": "Deny",
-              "priority": 4000,
-              "direction": "Outbound"
-            }
-          },
+          },                  
           {
             "name": "Deny-ctxapp-outb-any-any",
             "properties": {
