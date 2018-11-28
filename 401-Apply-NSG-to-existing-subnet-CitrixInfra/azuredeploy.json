@@ -128,6 +128,48 @@
             }
           },
           {
+            "name": "Allow-ctxapp-inb-ctxinf-dfs-Tcp",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "445",
+              "destinationPortRanges":[],
+              "sourceAddressPrefix": "[parameters('nsgCtxappSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
+              "access": "Allow",
+              "priority": 1015,
+              "direction": "Inbound"
+            }
+          }, 
+          {
+            "name": "Allow-azurelb-inb-any-any",
+            "properties": {
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "destinationPortRanges": [],
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 1020,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "Deny-ctxapp-inb-any-any",
+            "properties": {
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "destinationPortRanges": [],
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Deny",
+              "priority": 4096,
+              "direction": "Inbound"
+            }
+          },
+          {
             "name": "Allow-ctxinfra-outb-adds-dns-Tcp",
             "properties": {
               "protocol": "Tcp",
@@ -218,8 +260,6 @@
               "direction": "Outbound"
             }
           },
-          
-          
           {
             "name": "Allow-ctxinfra-outb-adds-krbpasswd-Tcp",
             "properties": {
@@ -328,7 +368,37 @@
               "priority": 1070,
               "direction": "Outbound"
             }
-          }
+          },
+          {
+            "name": "Allow-ctxinfra-outb-ctxapp-http-Tcp",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "",
+              "destinationPortRanges": [
+                "80",
+                "443"
+              ],
+              "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
+              "destinationAddressPrefix": "INTERNET",
+              "access": "Allow",
+              "priority": 3000,
+              "direction": "Outbound"
+            }
+          },
+          {
+            "name": "Deny-ctxapp-outb-any-any",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
+              "destinationAddressPrefix": "*",
+              "access": "Deny",
+              "priority": 4096,
+              "direction": "Outbound"
+            }
+          } 
         ]
       }
     },
