@@ -142,6 +142,20 @@
             }
           }, 
           {
+            "name": "Allow-azurelb-inb-any-any",
+            "properties": {
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "destinationPortRanges": [],
+              "sourceAddressPrefix": "AzureLoadBalancer",
+              "destinationAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
+              "access": "Allow",
+              "priority": 1020,
+              "direction": "Inbound"
+            }
+          },
+          {
             "name": "Deny-ctxapp-inb-any-any",
             "properties": {
               "protocol": "*",

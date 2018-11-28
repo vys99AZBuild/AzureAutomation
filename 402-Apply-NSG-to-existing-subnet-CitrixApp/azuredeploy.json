@@ -142,7 +142,7 @@
               "destinationPortRange": "*",
               "destinationPortRanges": [],
               "sourceAddressPrefix": "AzureLoadBalancer",
-              "destinationAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgCtxappSubnet')]",
               "access": "Allow",
               "priority": 1015,
               "direction": "Inbound"
