@@ -322,7 +322,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1045,
+              "priority": 1050,
               "direction": "Outbound"
             }
           },
@@ -335,7 +335,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1050,
+              "priority": 1055,
               "direction": "Outbound"
             }
           },       
@@ -348,7 +348,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1055,
+              "priority": 1060,
               "direction": "Outbound"
             }
           },
@@ -361,7 +361,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1060,
+              "priority": 1065,
               "direction": "Outbound"
             }
           },
@@ -374,7 +374,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1065,
+              "priority": 1070,
               "direction": "Outbound"
             }
           },
@@ -387,7 +387,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1070,
+              "priority": 1075,
               "direction": "Outbound"
             }
           },
@@ -405,7 +405,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgCtxAppSubnet')]",
               "access": "Allow",
-              "priority": 1075,
+              "priority": 1080,
               "direction": "Outbound"
             }
           },
