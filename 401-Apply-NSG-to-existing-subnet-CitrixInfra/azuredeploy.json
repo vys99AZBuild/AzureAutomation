@@ -142,7 +142,7 @@
             }
           }, 
           {
-            "name": "Allow-ctxapp-inb-ctxinf-dfs-Tcp",
+            "name": "Allow-ctxapp-inb-ctxinf-dfs-Udp",
             "properties": {
               "protocol": "Udp",
               "sourcePortRange": "*",
