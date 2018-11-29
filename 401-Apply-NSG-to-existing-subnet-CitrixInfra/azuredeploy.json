@@ -429,7 +429,7 @@
           {
             "name": "Deny-ctxapp-outb-any-any",
             "properties": {
-              "protocol": "Tcp",
+              "protocol": "*",
               "sourcePortRange": "*",
               "destinationPortRange": "*",
               "sourceAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
