@@ -252,7 +252,20 @@
               "priority": 1030,
               "direction": "Outbound"
             }
-          },         
+          },    
+          {
+            "name": "Allow-ctxapp-outb-adds-ldap-Udp",
+            "properties": {
+              "protocol": "Udp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "389",
+              "sourceAddressPrefix": "[parameters('nsgCtxAppSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+              "access": "Allow",
+              "priority": 1035,
+              "direction": "Outbound"
+            }
+          },   
           {
             "name": "Allow-ctxapp-outb-adds-smb-Tcp",
             "properties": {
@@ -262,7 +275,20 @@
               "sourceAddressPrefix": "[parameters('nsgCtxAppSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1035,
+              "priority": 1040,
+              "direction": "Outbound"
+            }
+          },
+          {
+            "name": "Allow-ctxapp-outb-adds-smb-Udp",
+            "properties": {
+              "protocol": "Udp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "445",
+              "sourceAddressPrefix": "[parameters('nsgCtxAppSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+              "access": "Allow",
+              "priority": 1045,
               "direction": "Outbound"
             }
           },
@@ -275,7 +301,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxAppSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1040,
+              "priority": 1050,
               "direction": "Outbound"
             }
           },
@@ -288,7 +314,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxAppSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1045,
+              "priority": 1055,
               "direction": "Outbound"
             }
           },          
@@ -301,7 +327,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxAppSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1050,
+              "priority": 1060,
               "direction": "Outbound"
             }
           },
@@ -314,7 +340,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxAppSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1055,
+              "priority": 1065,
               "direction": "Outbound"
             }
           },
@@ -327,7 +353,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxAppSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1060,
+              "priority": 1070,
               "direction": "Outbound"
             }
           },
@@ -340,7 +366,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxAppSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
               "access": "Allow",
-              "priority": 1065,
+              "priority": 1075,
               "direction": "Outbound"
             }
           },
@@ -356,7 +382,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxappSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "access": "Allow",
-              "priority": 1070,
+              "priority": 1080,
               "direction": "Outbound"
             }
           },
@@ -370,7 +396,21 @@
               "sourceAddressPrefix": "[parameters('nsgCtxappSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
               "access": "Allow",
-              "priority": 1075,
+              "priority": 1085,
+              "direction": "Outbound"
+            }
+          }, 
+          {
+            "name": "Allow-ctxapp-outb-ctxinf-dfs-Udp",
+            "properties": {
+              "protocol": "Udp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "445",
+              "destinationPortRanges":[],
+              "sourceAddressPrefix": "[parameters('nsgCtxappSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgCtxinfraSubnet')]",
+              "access": "Allow",
+              "priority": 1090,
               "direction": "Outbound"
             }
           }, 
@@ -384,7 +424,7 @@
               "sourceAddressPrefix": "[parameters('nsgCtxappSubnet')]",
               "destinationAddressPrefix": "[parameters('nsgwebappSubnet')]",
               "access": "Allow",
-              "priority": 1080,
+              "priority": 1095,
               "direction": "Outbound"
             }
           }, 
