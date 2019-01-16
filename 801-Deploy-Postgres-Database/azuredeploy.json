@@ -125,10 +125,15 @@
                 "family": "[parameters('databaseskuFamily')]"
             },
             "properties": {
+                "storageProfile": {
+                    "storageMB": "[parameters('databaseSkuSizeMB')]",
+                    "backupRetentionDays": 30,
+                    "geoRedundantBackup": "Disabled"
+                },
+                "sslEnforcement": "Enabled",
                 "version": "[parameters('postgresqlVersion')]",
                 "administratorLogin": "[parameters('administratorLogin')]",
-                "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
-                "storageMB": "[parameters('databaseSkuSizeMB')]"
+                "administratorLoginPassword": "[parameters('administratorLoginPassword')]"
             },
             "resources": [
                 {
