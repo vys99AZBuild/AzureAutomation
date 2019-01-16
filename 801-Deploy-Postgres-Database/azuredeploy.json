@@ -5,7 +5,7 @@
         "siteName": {
             "type": "string",
             "metadata": {
-                "description": "Name of azure web app"
+                "description": "Name of Postgres Server"
             }
         },
         "administratorLogin": {
@@ -106,26 +106,9 @@
     },
     "variables": {
         "databaseName": "[concat(parameters('siteName'), 'database')]",
-        "serverName": "[concat(parameters('siteName'), 'pgserver')]",
-        "hostingPlanName": "[concat(parameters('siteName'), 'serviceplan')]"
+        "serverName": "[concat(parameters('siteName'), 'pgserver')]"
     },
     "resources": [
-        {
-            "apiVersion": "2016-09-01",
-            "name": "[variables('hostingPlanName')]",
-            "type": "Microsoft.Web/serverfarms",
-            "location": "[parameters('location')]",
-            "properties": {
-                "name": "[variables('hostingPlanName')]",
-                "workerSize": "1",
-                "hostingEnvironment": "",
-                "numberOfWorkers": 0
-            },
-            "sku": {
-                "Tier": "Standard",
-                "Name": "S1"
-            }
-        },
         {
             "apiVersion": "2017-12-01",
             "type": "Microsoft.DBforPostgreSQL/servers",
@@ -146,7 +129,7 @@
             },
             "resources": [
                 {
-                    "type": "firewallrules",
+                    "type": "firewallRules",
                     "apiVersion": "2017-12-01",
                     "dependsOn": [
                         "[concat('Microsoft.DBforPostgreSQL/servers/', variables('serverName'))]"
