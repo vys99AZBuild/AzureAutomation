@@ -1,0 +1,23 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+
+       "applicationGatewaysName": "TestAppGW"
+    
+    },
+
+            "type": "Microsoft.Network/applicationGateways",
+            "name": "[parameters('applicationGatewaysName')]",
+            "apiVersion": "2018-02-01",
+            "location": "ukwest",
+            "scale": null,
+            "properties": {
+                "sku": {
+                    "name": "Standard_Medium",
+                    "tier": "Standard",
+                    "capacity": 2
+                }
+            }
+        
+}
