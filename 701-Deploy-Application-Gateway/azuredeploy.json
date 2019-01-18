@@ -235,74 +235,8 @@
               "Protocol": "Http",
               "CookieBasedAffinity": "Disabled"
             }
-          },
-          {
-            "name": "appGatewayBackendDev443",
-            "properties": {                            
-                "port": 443,
-                "protocol": "Https",
-                "cookieBasedAffinity": "Enabled",
-                "pickHostNameFromBackendAddress": false,
-                "requestTimeout": 20,
-                "authenticationCertificates": [
-                    {
-                        "id": " "
-                    }
-                ]
-            }
-          }, 
-          {
-            "name": "appGatewayBackendDev4424",
-            "properties": {                            
-                "port": 4244,
-                "protocol": "Https",
-                "cookieBasedAffinity": "Enabled",
-                "pickHostNameFromBackendAddress": false,
-                "requestTimeout": 20,
-                "probe": {
-                    "id": " "
-                },
-                "authenticationCertificates": [
-                    {
-                        "id": " "
-                    }
-                ]
-            }
-        },
-        {
-          "name": "appGatewayBackendTst443",
-          "properties": {                            
-              "port": 443,
-              "protocol": "Https",
-              "cookieBasedAffinity": "Enabled",
-              "pickHostNameFromBackendAddress": false,
-              "requestTimeout": 20,
-              "authenticationCertificates": [
-                  {
-                      "id": " "
-                  }
-              ]
           }
-        }, 
-        {
-          "name": "appGatewayBackendTst4424",
-          "properties": {                            
-              "port": 4244,
-              "protocol": "Https",
-              "cookieBasedAffinity": "Enabled",
-              "pickHostNameFromBackendAddress": false,
-              "requestTimeout": 20,
-              "probe": {
-                  "id": " "
-              },
-              "authenticationCertificates": [
-                  {
-                      "id": " "
-                  }
-              ]
-          }
-      }
-    ],
+        ],
         "httpListeners": [
           {
             "name": "appGatewayHttpListener",
