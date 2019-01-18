@@ -176,11 +176,12 @@
           {
             "name": "appGatewayFrontendIP",
             "properties": {
-              "PublicIPAddress": {
-                "id": "[variables('publicIPRef')]"
+              "privateIPAddress": "10.0.1.11",
+              "subnet":{
+                "id": "[variables('subnetRef')]"
+               }
               }
             }
-          }
         ],
         "frontendPorts": [
           {
@@ -188,19 +189,40 @@
             "properties": {
               "Port": 80
             }
-          }
+          },
+          {
+            "name": "appGatewayHTTPS443",
+            "properties": {
+              "Port": 443
+              }
+            },
+            {
+              "name": "appGatewayHTTPS4244",
+              "properties": {
+                "Port": 4244
+                }
+              }
         ],
         "backendAddressPools": [
           {
-            "name": "appGatewayBackendPool",
+            "name": "appGatewayBackendPoolDev",
             "properties": {
+              
+              "backendIPConfigurations":[],
               "BackendAddresses": [
                 {
                   "IpAddress": "[parameters('backendIpAddress1')]"
                 },
                 {
-                  "IpAddress": "[parameters('backendIpAddress2')]"
-                }
+                  "name": "appGatewayBackendPoolTest",
+                  "properties": {
+                    "BackendAddresses": [
+                      {
+                        "IpAddress": "[parameters('backendIpAddress1')]"
+                      },
+                      {
+                        "IpAddress": "[parameters('backendIpAddress2')]"
+                      }
               ]
             }
           }
@@ -213,8 +235,74 @@
               "Protocol": "Http",
               "CookieBasedAffinity": "Disabled"
             }
+          },
+          {
+            "name": "appGatewayBackendDev443",
+            "properties": {                            
+                "port": 443,
+                "protocol": "Https",
+                "cookieBasedAffinity": "Enabled",
+                "pickHostNameFromBackendAddress": false,
+                "requestTimeout": 20,
+                "authenticationCertificates": [
+                    {
+                        "id": " "
+                    }
+                ]
+            }
+          }, 
+          {
+            "name": "appGatewayBackendDev4424",
+            "properties": {                            
+                "port": 4244,
+                "protocol": "Https",
+                "cookieBasedAffinity": "Enabled",
+                "pickHostNameFromBackendAddress": false,
+                "requestTimeout": 20,
+                "probe": {
+                    "id": " "
+                },
+                "authenticationCertificates": [
+                    {
+                        "id": " "
+                    }
+                ]
+            }
+        },
+        {
+          "name": "appGatewayBackendTst443",
+          "properties": {                            
+              "port": 443,
+              "protocol": "Https",
+              "cookieBasedAffinity": "Enabled",
+              "pickHostNameFromBackendAddress": false,
+              "requestTimeout": 20,
+              "authenticationCertificates": [
+                  {
+                      "id": " "
+                  }
+              ]
           }
-        ],
+        }, 
+        {
+          "name": "appGatewayBackendTst4424",
+          "properties": {                            
+              "port": 4244,
+              "protocol": "Https",
+              "cookieBasedAffinity": "Enabled",
+              "pickHostNameFromBackendAddress": false,
+              "requestTimeout": 20,
+              "probe": {
+                  "id": " "
+              },
+              "authenticationCertificates": [
+                  {
+                      "id": " "
+                  }
+              ]
+          }
+      }
+    ],
         "httpListeners": [
           {
             "name": "appGatewayHttpListener",
@@ -226,6 +314,7 @@
                 "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort')]"
               },
               "Protocol": "Http",
+              "requireServerNameIndication": false,
               "SslCertificate": null
             }
           }
