@@ -176,12 +176,11 @@
           {
             "name": "appGatewayFrontendIP",
             "properties": {
-              "privateIPAddress": "10.0.1.11",
-              "subnet":{
-                "id": "[variables('subnetRef')]"
-               }
+              "PublicIPAddress": {
+                "id": "[variables('publicIPRef')]"
               }
             }
+          }
         ],
         "frontendPorts": [
           {
@@ -248,7 +247,6 @@
                 "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort')]"
               },
               "Protocol": "Http",
-              "requireServerNameIndication": false,
               "SslCertificate": null
             }
           }
