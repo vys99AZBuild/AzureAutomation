@@ -110,8 +110,8 @@
   "variables": {
     "applicationGatewayName": "applicationGateway1",
     "publicIPAddressName": "publicIp1",
-    "virtualNetworkName": "vnet1",
-    "subnetName": "vnet1-webnet1",
+    "virtualNetworkName": "virtualNetwork1",
+    "subnetName": "appGatewaySubnet",
     "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets/', variables('virtualNetworkName'), variables('subnetName'))]",
     "publicIPRef": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]",
     "applicationGatewayID": "[resourceId('Microsoft.Network/applicationGateways', variables('applicationGatewayName'))]"
