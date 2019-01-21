@@ -43,7 +43,22 @@
         "description": "The AD IP subnet CIDR"
         }
       },
-      "nsgWebtestSubnet":{
+      "nsgVpncliSubnet":{
+        "type": "string",
+        "defaultValue": "",
+        "metadata": {
+          "description": "The VPN Client Environment IP subnet CIDR"
+          }
+        },
+        "nsgCtxappSubnet":{
+          "type": "string",
+          "defaultValue": "",
+          "metadata": {
+            "description": "The Citrix Application Environment IP subnet CIDR"
+            }
+          },
+      
+        "nsgWebtestSubnet":{
         "type": "string",
         "defaultValue": "",
         "metadata": {
@@ -83,31 +98,58 @@
       "properties": {
         "securityRules": [
           {
-            "name": "Allow-mgmnt-inb-testenv-wirrm-Tcp",
+            "name": "Allow-mgmt-inb-webtest-https-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRange": "5985-5986",
+              "destinationPortRange": "",
+              "destinationPortRanges": [
+                "80",
+                "443",
+                "4244"
+              ],
               "sourceAddressPrefix": "[parameters('nsgMgmntSubnet')]",
-              "destinationAddressPrefix": "*",
+              "destinationAddressPrefix": "[parameters('nsgBiztestSubnet')]",
               "access": "Allow",
               "priority": 1000,
               "direction": "Inbound"
             }
           },
           {
-            "name": "Allow-mgmnt-inb-testenv-rdp-Tcp",
+            "name": "Allow-vpncli-inb-webtest-https-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRange": "3389",
-              "sourceAddressPrefix": "[parameters('nsgMgmntSubnet')]",
-              "destinationAddressPrefix": "*",
+              "destinationPortRange": "",
+              "destinationPortRanges": [
+                "80",
+                "443"
+              ],
+              "sourceAddressPrefix": "[parameters('nsgVpncliSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgBiztestSubnet')]",
               "access": "Allow",
               "priority": 1005,
               "direction": "Inbound"
             }
           },
+          {
+            "name": "Allow-ctxapp-inb-webtest-https-Tcp",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "",
+              "destinationPortRanges": [
+                "80",
+                "443"
+              ],
+              "sourceAddressPrefix": "[parameters('nsgCtxappSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgBiztestSubnet')]",
+              "access": "Allow",
+              "priority": 1010,
+              "direction": "Inbound"
+            }
+          },
+          
           {
             "name": "Allow-webtest-inb-biztest-https-Tcp",
             "properties": {
