@@ -1,467 +1,244 @@
 {
-  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
-  "contentVersion": "1.0.0.1",
-  "parameters": {
-    "virtualNetworkResourceGroupName": {
-      "type": "string",
-      "metadata": {
-        "description": "The resource group where the existing VNet is located."
-      }
-    },
-    "virtualNetworkName": {
-      "type": "string",
-      "metadata": {
-        "description": "The name of the existing VNet"
-      }
-    },
-    "subnetName": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "The name of the existing subnet."
-      }
-    },
-    "nsgSecurityGroupName": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "The name of the NSG Subnet"
-      }
-
-    },
-    "nsgMgmntSubnet": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "The Management IP subnet CIDR"
-        }
-      },
-    "nsgAddsSubnet": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "The AD IP subnet CIDR"
-        }
-      },
-      "nsgVpncliSubnet":{
-        "type": "string",
-        "defaultValue": "",
-        "metadata": {
-          "description": "The VPN Client Environment IP subnet CIDR"
-          }
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+        "virtualNetworkResourceGroupName": {
+            "type": "string",
+            "metadata": {
+                "description": "The resource group where the existing VNet is located."
+            }
         },
-        "nsgCtxappSubnet":{
-          "type": "string",
-          "defaultValue": "",
-          "metadata": {
-            "description": "The Citrix Application Environment IP subnet CIDR"
+        "virtualNetworkName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the existing VNet"
             }
-          },
-      
-        "nsgWebtestSubnet":{
-        "type": "string",
-        "defaultValue": "",
-        "metadata": {
-          "description": "The WebTest Environment IP subnet CIDR"
-          }
         },
-      "nsgBiztestSubnet":{
-          "type": "string",
-          "defaultValue": "",
-          "metadata": {
-            "description": "The BizTest IP subnet CIDR"
+        "subnetName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The name of the existing subnet."
             }
-          },
-
-     "_artifactsLocation": {
-      "type": "string",
-      "metadata": {
-        "description": "The base URI where artifacts required by this template are located."
-      },
-      "defaultValue": "https://raw.githubusercontent.com/vys99AZBuild/AzureAutomation/master/402-Apply-NSG-to-existing-subnet-CitrixApp/"
-    },
-    "_artifactsLocationSasToken": {
-      "type": "securestring",
-      "metadata": {
-        "description": "The sasToken required to access _artifactsLocation."
-      },
-      "defaultValue": ""
-    }
-  },
-  "variables": {},
-  "resources": [
-    {
-      "type": "Microsoft.Network/networkSecurityGroups",
-      "name": "[parameters('nsgSecurityGroupName')]",
-      "location": "[resourceGroup().location]",
-      "apiVersion": "2018-03-01",
-      "properties": {
-        "securityRules": [
-          {
-            "name": "Allow-mgmt-inb-webtest-https-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "",
-              "destinationPortRanges": [
-                "80",
-                "443",
-                "4244"
-              ],
-              "sourceAddressPrefix": "[parameters('nsgMgmntSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "access": "Allow",
-              "priority": 1000,
-              "direction": "Inbound"
-            }
-          },
-          {
-            "name": "Allow-vpncli-inb-webtest-https-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "",
-              "destinationPortRanges": [
-                "80",
-                "443"
-              ],
-              "sourceAddressPrefix": "[parameters('nsgVpncliSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "access": "Allow",
-              "priority": 1005,
-              "direction": "Inbound"
-            }
-          },
-          {
-            "name": "Allow-ctxapp-inb-webtest-https-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "",
-              "destinationPortRanges": [
-                "80",
-                "443"
-              ],
-              "sourceAddressPrefix": "[parameters('nsgCtxappSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "access": "Allow",
-              "priority": 1010,
-              "direction": "Inbound"
-            }
-          },
-          
-          {
-            "name": "Allow-webtest-inb-biztest-https-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "",
-              "destinationPortRanges": [
-                "80",
-                "443"
-              ],
-              "sourceAddressPrefix": "[parameters('nsgWebtestSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "access": "Allow",
-              "priority": 1010,
-              "direction": "Inbound"
-            }
-          },
-          {
-            "name": "Allow-azurelb-inb-any-any",
-            "properties": {
-              "protocol": "*",
-              "sourcePortRange": "*",
-              "destinationPortRange": "*",
-              "destinationPortRanges": [],
-              "sourceAddressPrefix": "AzureLoadBalancer",
-              "destinationAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "access": "Allow",
-              "priority": 1015,
-              "direction": "Inbound"
-            }
-          },
-          {
-            "name": "Deny-testenv-inb-any-any",
-            "properties": {
-              "protocol": "*",
-              "sourcePortRange": "*",
-              "destinationPortRange": "*",
-              "destinationPortRanges": [],
-              "sourceAddressPrefix": "*",
-              "destinationAddressPrefix": "*",
-              "access": "Deny",
-              "priority": 4096,
-              "direction": "Inbound"
-            }
-          },
-          {
-            "name": "Allow-testenv-outb-adds-dns-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "53",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "access": "Allow",
-              "priority": 1000,
-              "direction": "Outbound"
-            }
-          },
-          {
-            "name": "Allow-testenv-outb-adds-dns-Udp",
-            "properties": {
-              "protocol": "Udp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "53",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "access": "Allow",
-              "priority": 1005,
-              "direction": "Outbound"
-            }
-          },
-          {
-            "name": "Allow-testenv-outb-adds-krbtckt-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "88",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "access": "Allow",
-              "priority": 1010,
-              "direction": "Outbound"
-            }
-          },
-          {
-            "name": "Allow-testenv-outb-adds-krbtckt-Udp",
-            "properties": {
-              "protocol": "Udp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "88",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "access": "Allow",
-              "priority": 1015,
-              "direction": "Outbound"
-            }
-          },
-          {
-            "name": "Allow-testenv-outb-adds-ntptime-Udp",
-            "properties": {
-              "protocol": "Udp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "123",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "access": "Allow",
-              "priority": 1020,
-              "direction": "Outbound"
-            }
-          },
-          {
-            "name": "Allow-testenv-outb-adds-rpcmapper-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "135",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "access": "Allow",
-              "priority": 1025,
-              "direction": "Outbound"
-            }
-          },
-          {
-            "name": "Allow-testenv-outb-adds-ldap-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "389",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "access": "Allow",
-              "priority": 1030,
-              "direction": "Outbound"
-            }
-          },    
-          {
-            "name": "Allow-testenv-outb-adds-ldap-Udp",
-            "properties": {
-              "protocol": "Udp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "389",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "access": "Allow",
-              "priority": 1035,
-              "direction": "Outbound"
-            }
-          },   
-          {
-            "name": "Allow-testenv-outb-adds-smb-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "445",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "access": "Allow",
-              "priority": 1040,
-              "direction": "Outbound"
-            }
-          },
-          {
-            "name": "Allow-testenv-outb-adds-smb-Udp",
-            "properties": {
-              "protocol": "Udp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "445",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "access": "Allow",
-              "priority": 1045,
-              "direction": "Outbound"
-            }
-          },
-          {
-            "name": "Allow-testenv-outb-adds-krbpasswd-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "464",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "access": "Allow",
-              "priority": 1050,
-              "direction": "Outbound"
-            }
-          },
-          {
-            "name": "Allow-testenv-outb-adds-krbpasswd-Udp",
-            "properties": {
-              "protocol": "Udp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "464",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "access": "Allow",
-              "priority": 1055,
-              "direction": "Outbound"
-            }
-          },          
-          {
-            "name": "Allow-testenv-outb-adds-ldapssl-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "636",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "access": "Allow",
-              "priority": 1060,
-              "direction": "Outbound"
-            }
-          },
-          {
-            "name": "Allow-testenv-outb-adds-gc-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "3268",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "access": "Allow",
-              "priority": 1065,
-              "direction": "Outbound"
-            }
-          },
-          {
-            "name": "Allow-testenv-outb-adds-gcssl-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "3269",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "access": "Allow",
-              "priority": 1070,
-              "direction": "Outbound"
-            }
-          },
-          {
-            "name": "Allow-testenv-outb-adds-rpcdynamic-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "49152-65535",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-              "access": "Allow",
-              "priority": 1075,
-              "direction": "Outbound"
-            }
-          },
-          {
-            "name": "Allow-testenv-outb-Internet-https-Tcp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "443",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "INTERNET",
-              "access": "Allow",
-              "priority": 3000,
-              "direction": "Outbound"
-            }
-          },                  
-          {
-            "name": "Deny-testenv-outb-any-any",
-            "properties": {
-              "protocol": "*",
-              "sourcePortRange": "*",
-              "destinationPortRange": "*",
-              "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
-              "destinationAddressPrefix": "*",
-              "access": "Deny",
-              "priority": 4096,
-              "direction": "Outbound"
-            }
-          }          
-        ]
-      }
-    },
-    {
-      "apiVersion": "2017-08-01",
-      "name": "deploy",
-      "type": "Microsoft.Resources/deployments",
-      "resourceGroup": "[parameters('virtualNetworkResourceGroupName')]",
-      "dependsOn": [
-        "[parameters('nsgSecurityGroupName')]"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[concat(parameters('_artifactsLocation'), concat('nested/updateSubnet.json', parameters('_artifactsLocationSasToken')))]",
-          "contentVersion": "1.0.0.0"
         },
-        "parameters": {
-          "virtualNetworkName": {
-            "value": "[parameters('virtualNetworkName')]"
-          },
-          "subnetName": {
-            "value": "[parameters('subnetName')]"
-          },
-          "subnetAddressPrefix": {
-            "value": "[reference(resourceId(parameters('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName')), '2018-03-01').addressPrefix]"
-          },
-          "nsgId": {
-            "value": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgSecurityGroupName'))]"
-          }
+        "nsgSecurityGroupName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The name of the NSG Subnet"
+            }
+        },
+        "nsgMgmntSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Management IP subnet CIDR"
+            }
+        },
+        "nsgAddsSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The AD IP subnet CIDR"
+            }
+        },
+        "nsgVpncliSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The VPN Client Environment IP subnet CIDR"
+            }
+        },
+        "nsgCtxappSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Citrix Application Environment IP subnet CIDR"
+            }
+        },
+        "nsgBiztestSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The WebTest Environment IP subnet CIDR"
+            }
+        },
+        "nsgWebtestSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The BizTest IP subnet CIDR"
+            }
+        },
+        "_artifactsLocation": {
+            "type": "string",
+            "metadata": {
+                "description": "The base URI where artifacts required by this template are located."
+            },
+            "defaultValue": "https://raw.githubusercontent.com/vys99AZBuild/AzureAutomation/master/402-Apply-NSG-to-existing-subnet-CitrixApp/"
+        },
+        "_artifactsLocationSasToken": {
+            "type": "securestring",
+            "metadata": {
+                "description": "The sasToken required to access _artifactsLocation."
+            },
+            "defaultValue": ""
         }
-      }
-    }
-  ],
-  "outputs": {}
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('nsgSecurityGroupName')]",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2018-03-01",
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "Allow-mgmt-inb-webtest-https-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "80",
+                                "443",
+                                "4244"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgMgmntSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgWebtestSubnet')]",
+                            "access": "Allow",
+                            "priority": 1000,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-vpncli-inb-webtest-https-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "80",
+                                "443",
+                                "4244"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgVpncliSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgWebtestSubnet')]",
+                            "access": "Allow",
+                            "priority": 1005,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-ctxapp-inb-webtest-https-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "80",
+                                "443",
+                                "4244"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgCtxappSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgWebtestSubnet')]",
+                            "access": "Allow",
+                            "priority": 1010,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-azurelb-inb-any-any",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefix": "AzureLoadBalancer",
+                            "destinationAddressPrefix": "[parameters('nsgWebtestSubnet')]",
+                            "access": "Allow",
+                            "priority": 1015,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Deny-Webtest-inb-any-any",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 4096,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-webtest-outb-biztest-https-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "destinationPortRanges": [
+                                "443",
+                                "4244"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgWebtestSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgBiztestSubnet')]",
+                            "access": "Allow",
+                            "priority": 1000,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Deny-testenv-outb-any-any",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('nsgWebtestSubnet')]",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 4096,
+                            "direction": "Outbound"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "2017-08-01",
+            "name": "deploy",
+            "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[parameters('virtualNetworkResourceGroupName')]",
+            "dependsOn": [
+                "[parameters('nsgSecurityGroupName')]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('_artifactsLocation'), concat('nested/updateSubnet.json', parameters('_artifactsLocationSasToken')))]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "virtualNetworkName": {
+                        "value": "[parameters('virtualNetworkName')]"
+                    },
+                    "subnetName": {
+                        "value": "[parameters('subnetName')]"
+                    },
+                    "subnetAddressPrefix": {
+                        "value": "[reference(resourceId(parameters('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName')), '2018-03-01').addressPrefix]"
+                    },
+                    "nsgId": {
+                        "value": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgSecurityGroupName'))]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
 }

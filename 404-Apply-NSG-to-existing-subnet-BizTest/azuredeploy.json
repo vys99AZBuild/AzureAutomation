@@ -83,7 +83,7 @@
       "properties": {
         "securityRules": [
           {
-            "name": "Allow-mgmnt-inb-testenv-wirrm-Tcp",
+            "name": "Allow-mgmnt-inb-biztest-wirrm-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -96,7 +96,7 @@
             }
           },
           {
-            "name": "Allow-mgmnt-inb-testenv-rdp-Tcp",
+            "name": "Allow-mgmnt-inb-biztest-rdp-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -140,7 +140,7 @@
             }
           },
           {
-            "name": "Deny-testenv-inb-any-any",
+            "name": "Deny-biztest-inb-any-any",
             "properties": {
               "protocol": "*",
               "sourcePortRange": "*",
@@ -154,7 +154,7 @@
             }
           },
           {
-            "name": "Allow-testenv-outb-adds-dns-Tcp",
+            "name": "Allow-biztest-outb-adds-dns-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -167,7 +167,7 @@
             }
           },
           {
-            "name": "Allow-testenv-outb-adds-dns-Udp",
+            "name": "Allow-biztest-outb-adds-dns-Udp",
             "properties": {
               "protocol": "Udp",
               "sourcePortRange": "*",
@@ -180,7 +180,7 @@
             }
           },
           {
-            "name": "Allow-testenv-outb-adds-krbtckt-Tcp",
+            "name": "Allow-biztest-outb-adds-krbtckt-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -193,7 +193,7 @@
             }
           },
           {
-            "name": "Allow-testenv-outb-adds-krbtckt-Udp",
+            "name": "Allow-biztest-outb-adds-krbtckt-Udp",
             "properties": {
               "protocol": "Udp",
               "sourcePortRange": "*",
@@ -206,7 +206,7 @@
             }
           },
           {
-            "name": "Allow-testenv-outb-adds-ntptime-Udp",
+            "name": "Allow-biztest-outb-adds-ntptime-Udp",
             "properties": {
               "protocol": "Udp",
               "sourcePortRange": "*",
@@ -219,7 +219,7 @@
             }
           },
           {
-            "name": "Allow-testenv-outb-adds-rpcmapper-Tcp",
+            "name": "Allow-biztest-outb-adds-rpcmapper-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -232,7 +232,7 @@
             }
           },
           {
-            "name": "Allow-testenv-outb-adds-ldap-Tcp",
+            "name": "Allow-biztest-outb-adds-ldap-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -245,7 +245,7 @@
             }
           },    
           {
-            "name": "Allow-testenv-outb-adds-ldap-Udp",
+            "name": "Allow-biztest-outb-adds-ldap-Udp",
             "properties": {
               "protocol": "Udp",
               "sourcePortRange": "*",
@@ -258,7 +258,7 @@
             }
           },   
           {
-            "name": "Allow-testenv-outb-adds-smb-Tcp",
+            "name": "Allow-biztest-outb-adds-smb-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -271,7 +271,7 @@
             }
           },
           {
-            "name": "Allow-testenv-outb-adds-smb-Udp",
+            "name": "Allow-biztest-outb-adds-smb-Udp",
             "properties": {
               "protocol": "Udp",
               "sourcePortRange": "*",
@@ -284,7 +284,7 @@
             }
           },
           {
-            "name": "Allow-testenv-outb-adds-krbpasswd-Tcp",
+            "name": "Allow-biztest-outb-adds-krbpasswd-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -297,7 +297,7 @@
             }
           },
           {
-            "name": "Allow-testenv-outb-adds-krbpasswd-Udp",
+            "name": "Allow-biztest-outb-adds-krbpasswd-Udp",
             "properties": {
               "protocol": "Udp",
               "sourcePortRange": "*",
@@ -310,7 +310,7 @@
             }
           },          
           {
-            "name": "Allow-testenv-outb-adds-ldapssl-Tcp",
+            "name": "Allow-biztest-outb-adds-ldapssl-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -323,7 +323,7 @@
             }
           },
           {
-            "name": "Allow-testenv-outb-adds-gc-Tcp",
+            "name": "Allow-biztest-outb-adds-gc-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -336,7 +336,7 @@
             }
           },
           {
-            "name": "Allow-testenv-outb-adds-gcssl-Tcp",
+            "name": "Allow-biztest-outb-adds-gcssl-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -349,7 +349,7 @@
             }
           },
           {
-            "name": "Allow-testenv-outb-adds-rpcdynamic-Tcp",
+            "name": "Allow-biztest-outb-adds-rpcdynamic-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -362,7 +362,7 @@
             }
           },
           {
-            "name": "Allow-testenv-outb-Internet-https-Tcp",
+            "name": "Allow-biztest-outb-Internet-https-Tcp",
             "properties": {
               "protocol": "Tcp",
               "sourcePortRange": "*",
@@ -375,7 +375,7 @@
             }
           },                  
           {
-            "name": "Deny-testenv-outb-any-any",
+            "name": "Deny-biztest-outb-any-any",
             "properties": {
               "protocol": "*",
               "sourcePortRange": "*",
