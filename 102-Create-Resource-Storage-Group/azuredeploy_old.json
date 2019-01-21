@@ -9,10 +9,8 @@
       "rgLocation": {
           "type": "string",
           "defaultValue": "ukwest"
-      },
-      "storageAccountName": {
-          "type": "string"
       }
+     
   },
   "variables": {},
   "resources": [
