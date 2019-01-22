@@ -4,7 +4,7 @@
     "parameters": {
         "addressPrefix": {
             "type": "string",
-            "defaultValue": "10.0.0.0/16",
+            "defaultValue": "10.0.0.1/16",
             "metadata": {
                 "description": "Address prefix for the Virtual Network"
             }
