@@ -89,7 +89,7 @@
               "sourcePortRange": "*",
               "destinationPortRange": "5985-5986",
               "sourceAddressPrefix": "[parameters('nsgMgmntSubnet')]",
-              "destinationAddressPrefix": "*",
+              "destinationAddressPrefix": "[parameters('nsgBiztestSubnet')]",
               "access": "Allow",
               "priority": 1000,
               "direction": "Inbound"
@@ -102,7 +102,7 @@
               "sourcePortRange": "*",
               "destinationPortRange": "3389",
               "sourceAddressPrefix": "[parameters('nsgMgmntSubnet')]",
-              "destinationAddressPrefix": "*",
+              "destinationAddressPrefix": "[parameters('nsgBiztestSubnet')]",
               "access": "Allow",
               "priority": 1005,
               "direction": "Inbound"
