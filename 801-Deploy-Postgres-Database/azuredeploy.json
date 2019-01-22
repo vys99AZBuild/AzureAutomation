@@ -126,7 +126,7 @@
                 "storageProfile": {
                     "storageMB": "[parameters('databaseSkuSizeMB')]",
                     "backupRetentionDays": 35,
-                    "geoRedundantBackup": "Disabled"
+                    "geoRedundantBackup": "Enabled"
                 },
                 "sslEnforcement": "Enabled",
                 "version": "[parameters('postgresqlVersion')]",
