@@ -39,13 +39,8 @@
         },
         "databaseSkuName": {
             "type": "string",
-            "defaultValue": "GP_Gen4_2",
+            "defaultValue": "GP_Gen5_2",
             "allowedValues": [
-                "GP_Gen4_2",
-                "GP_Gen4_4",
-                "GP_Gen4_8",
-                "GP_Gen4_16",
-                "GP_Gen4_32",
                 "GP_Gen5_2",
                 "GP_Gen5_4",
                 "GP_Gen5_8",
@@ -103,7 +98,7 @@
         },
         "databaseskuFamily": {
             "type": "string",
-            "defaultValue": "Gen4",
+            "defaultValue": "Gen5",
             "metadata": {
                 "description": "Azure database for PostgreSQL sku family"
             }
