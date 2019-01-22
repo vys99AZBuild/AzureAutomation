@@ -39,8 +39,13 @@
         },
         "databaseSkuName": {
             "type": "string",
-            "defaultValue": "GP_Gen5_2",
+            "defaultValue": "GP_Gen4_2",
             "allowedValues": [
+                "GP_Gen4_2",
+                "GP_Gen4_4",
+                "GP_Gen4_8",
+                "GP_Gen4_16",
+                "GP_Gen4_32",
                 "GP_Gen5_2",
                 "GP_Gen5_4",
                 "GP_Gen5_8",
@@ -98,17 +103,15 @@
         },
         "databaseskuFamily": {
             "type": "string",
-            "defaultValue": "Gen5",
+            "defaultValue": "Gen4",
             "metadata": {
                 "description": "Azure database for PostgreSQL sku family"
             }
         }
     },
     "variables": {
-        "db-devqliklog": "devqliklogdb",
-        "db-devqlikdata": "devqlikdatadb",
-        "db-tstqliklog": "tstqliklogdb",
-        "db-tstqlikdata": "tstqlikdatadb",
+        "db-devqlikdata": "QSRDev",
+        "db-tstqlikdata": "QSRTest",
         "serverName": "[parameters('dbserverName')]"
     },
     "resources": [
@@ -127,7 +130,7 @@
             "properties": {
                 "storageProfile": {
                     "storageMB": "[parameters('databaseSkuSizeMB')]",
-                    "backupRetentionDays": 30,
+                    "backupRetentionDays": 35,
                     "geoRedundantBackup": "Disabled"
                 },
                 "sslEnforcement": "Enabled",
@@ -162,31 +165,7 @@
                     ]
                 },
                 {
-                    "name": "[variables('db-devqliklog')]",
-                    "type": "databases",
-                    "apiVersion": "2017-12-01",
-                    "properties": {
-                        "charset": "utf8",
-                        "collation": "English_United States.1252"
-                    },
-                    "dependsOn": [
-                        "[concat('Microsoft.DBforPostgreSQL/servers/', variables('serverName'))]"
-                    ]
-                },
-                {
                     "name": "[variables('db-tstqlikdata')]",
-                    "type": "databases",
-                    "apiVersion": "2017-12-01",
-                    "properties": {
-                        "charset": "utf8",
-                        "collation": "English_United States.1252"
-                    },
-                    "dependsOn": [
-                        "[concat('Microsoft.DBforPostgreSQL/servers/', variables('serverName'))]"
-                    ]
-                },
-                {
-                    "name": "[variables('db-tstqliklog')]",
                     "type": "databases",
                     "apiVersion": "2017-12-01",
                     "properties": {
