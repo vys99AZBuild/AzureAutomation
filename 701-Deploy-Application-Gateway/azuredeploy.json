@@ -157,7 +157,7 @@
             "type": "Microsoft.Network/applicationGateways",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[variables('privateIPAddressName')]"
+                "[variables('vnsubnetRef')]"
             ],
             "properties": {
                 "sku": {
@@ -180,7 +180,7 @@
                         "name": "appGatewayFrontendIP",
                         "type": "Microsoft.Network/applicationGateways/frontendIPConfigurations",
                         "properties": {
-                            "privateIPAddress": "[variables('privateIPAddressName')]",
+                            "privateIPAddress": "10.0.1.5",
                             "privateIPAllocationMethod": "Static",
                             "subnet": {
                                 "id": "[variables('vnsubnetRef')]"
