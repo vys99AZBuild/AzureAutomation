@@ -2,18 +2,25 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "virtualNetworkName": {
+    "vnetResourceGroup": {
       "type": "string",
       "defaultValue": "",
       "metadata": {
-        "description": "Enter vNet name"
+        "description": "Enter Resource Group Containing vNet"
       }
     },
-    "subnetName": {
+    "vnetNetworkName": {
       "type": "string",
       "defaultValue": "",
       "metadata": {
-        "description": "Subnet Name"
+        "description": "Enter vNet Name for Application Gateway"
+      }
+    },
+    "vnetSubnetName": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Enter Virtual Network Subnet for Application Gateway"
       }
     },
     "applicationGatewaySize": {
@@ -111,7 +118,8 @@
     "applicationGatewayName": "applicationGateway1",
     "publicIPAddressName": "publicIp1",
     "virtualNetworkName": "parameters('virtualNetworkName')",
-    "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets/', variables('virtualNetworkName'), parameters('subnetName'))]",
+    "vnetID": "[resourceId(parameters('vnetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnetNetworkName'))]",
+    "subnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('vnetSubnetName'))]",
     "publicIPRef": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]",
     "applicationGatewayID": "[resourceId('Microsoft.Network/applicationGateways', variables('applicationGatewayName'))]"
   },
