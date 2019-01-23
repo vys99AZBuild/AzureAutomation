@@ -53,6 +53,13 @@
                 "description": "Number of instances"
             }
         },
+        "frontendPrivIPAddress": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Private IP Address for WAF Front End"
+            }
+        },
         "backendIpAddress1": {
             "type": "string",
             "defaultValue": "10.0.1.10",
@@ -138,20 +145,12 @@
     "variables": {
         "applicationGatewayName": "applicationGateway1",
         "publicIPAddressName": "publicIp1",
+        "privateIPAddressName": "[parameters('frontendPrivIPAddress')]",
         "vnetID": "[resourceId(parameters('vnetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnetNetworkName'))]",
         "vnsubnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('vnetSubnetName'))]",
         "applicationGatewayID": "[resourceId('Microsoft.Network/applicationGateways', variables('applicationGatewayName'))]"
     },
     "resources": [
-        {
-            "apiVersion": "2017-03-01",
-            "type": "Microsoft.Network/publicIPAddresses",
-            "name": "[variables('publicIPAddressName')]",
-            "location": "[parameters('location')]",
-            "properties": {
-                "publicIPAllocationMethod": "Dynamic"
-            }
-        },
         {
             "apiVersion": "2017-06-01",
             "name": "[variables('applicationGatewayName')]",
@@ -181,7 +180,7 @@
                         "name": "appGatewayFrontendIP",
                         "type": "Microsoft.Network/applicationGateways/frontendIPConfigurations",
                         "properties": {
-                            "privateIPAddress": "10.0.1.5",
+                            "privateIPAddress": "[variables('privateIPAddressName')]",
                             "privateIPAllocationMethod": "Static",
                             "subnet": {
                                 "id": "[variables('vnsubnetRef')]"
