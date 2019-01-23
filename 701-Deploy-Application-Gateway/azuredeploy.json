@@ -147,9 +147,6 @@
             "name": "[variables('applicationGatewayName')]",
             "type": "Microsoft.Network/applicationGateways",
             "location": "[parameters('location')]",
-            "dependsOn": [
-                "[variables('vnetID')]"
-            ],
             "properties": {
                 "sku": {
                     "name": "[parameters('applicationGatewaySize')]",
