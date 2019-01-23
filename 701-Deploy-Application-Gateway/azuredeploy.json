@@ -184,20 +184,6 @@
                             "Port": 80
                         },
                         "type": "Microsoft.Network/applicationGateways/frontendPorts"
-                    },
-                    {
-                        "name": "appGatewayFrontendPort443",
-                        "properties": {
-                            "Port": 433
-                        },
-                        "type": "Microsoft.Network/applicationGateways/frontendPorts"
-                    },
-                    {
-                        "name": "appGatewayFrontendPort4244",
-                        "properties": {
-                            "Port": 4244
-                        },
-                        "type": "Microsoft.Network/applicationGateways/frontendPorts"
                     }
                 ],
                 "backendAddressPools": [
