@@ -2,18 +2,18 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "addressPrefix": {
+    "virtualNetworkName": {
       "type": "string",
-      "defaultValue": "10.0.0.0/16",
+      "defaultValue": "",
       "metadata": {
-        "description": "Address prefix for the Virtual Network"
+        "description": "Enter vNet name"
       }
     },
-    "subnetPrefix": {
+    "subnetName": {
       "type": "string",
-      "defaultValue": "10.0.0.0/28",
+      "defaultValue": "",
       "metadata": {
-        "description": "Subnet prefix"
+        "description": "Subnet Name"
       }
     },
     "applicationGatewaySize": {
@@ -110,9 +110,8 @@
   "variables": {
     "applicationGatewayName": "applicationGateway1",
     "publicIPAddressName": "publicIp1",
-    "virtualNetworkName": "virtualNetwork1",
-    "subnetName": "appGatewaySubnet",
-    "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets/', variables('virtualNetworkName'), variables('subnetName'))]",
+    "virtualNetworkName": "parameters('virtualNetworkName')",
+    "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets/', variables('virtualNetworkName'), parameters('subnetName'))]",
     "publicIPRef": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]",
     "applicationGatewayID": "[resourceId('Microsoft.Network/applicationGateways', variables('applicationGatewayName'))]"
   },
@@ -124,27 +123,6 @@
       "location": "[parameters('location')]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic"
-      }
-    },
-    {
-      "apiVersion": "2017-03-01",
-      "type": "Microsoft.Network/virtualNetworks",
-      "name": "[variables('virtualNetworkName')]",
-      "location": "[parameters('location')]",
-      "properties": {
-        "addressSpace": {
-          "addressPrefixes": [
-            "[parameters('addressPrefix')]"
-          ]
-        },
-        "subnets": [
-          {
-            "name": "[variables('subnetName')]",
-            "properties": {
-              "addressPrefix": "[parameters('subnetPrefix')]"
-            }
-          }
-        ]
       }
     },
     {
