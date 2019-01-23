@@ -118,7 +118,7 @@
     "applicationGatewayName": "applicationGateway1",
     "publicIPAddressName": "publicIp1",
     "vnetID": "[resourceId(parameters('vnetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnetNetworkName'))]",
-    "subnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('vnetSubnetName'))]",
+    "vnsubnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('vnetSubnetName'))]",
     "publicIPRef": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]",
     "applicationGatewayID": "[resourceId('Microsoft.Network/applicationGateways', variables('applicationGatewayName'))]"
   },
@@ -138,7 +138,6 @@
       "type": "Microsoft.Network/applicationGateways",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[variables('subnetRef')]",
         "[variables('publicIPAddressName')]"
       ],
       "properties": {
@@ -152,7 +151,7 @@
             "name": "appGatewayIpConfig",
             "properties": {
               "subnet": {
-                "id": "[variables('subnetRef')]"
+                "id": "[variables('vnsubnetRef')]"
               }
             }
           }
