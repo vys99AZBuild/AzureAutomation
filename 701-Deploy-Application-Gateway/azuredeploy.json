@@ -157,7 +157,7 @@
             "type": "Microsoft.Network/applicationGateways",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[variables('publicIPAddressName')]"
+                "[variables('privateIPAddressName')]"
             ],
             "properties": {
                 "sku": {
@@ -190,11 +190,23 @@
                 ],
                 "frontendPorts": [
                     {
-                        "name": "appGatewayFrontendPort",
+                        "name": "appGatewayFrontendPort80",
                         "properties": {
                             "Port": 80
                         }
+                    },
+                    {
+                      "name": "appGatewayFrontendPort443",
+                      "properties": {
+                          "Port": 443
+                      }
+                  },
+                  {
+                    "name": "appGatewayFrontendPort4244",
+                    "properties": {
+                        "Port": 4244
                     }
+                }
                 ],
                 "backendAddressPools": [
                     {
