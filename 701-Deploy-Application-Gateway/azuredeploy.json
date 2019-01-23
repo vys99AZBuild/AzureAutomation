@@ -137,16 +137,29 @@
     },
     "variables": {
         "applicationGatewayName": "applicationGateway1",
+        "publicIPAddressName": "publicIp1",
         "vnetID": "[resourceId(parameters('vnetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnetNetworkName'))]",
         "vnsubnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('vnetSubnetName'))]",
         "applicationGatewayID": "[resourceId('Microsoft.Network/applicationGateways', variables('applicationGatewayName'))]"
     },
     "resources": [
         {
+            "apiVersion": "2017-03-01",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[variables('publicIPAddressName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic"
+            }
+        },
+        {
             "apiVersion": "2017-06-01",
             "name": "[variables('applicationGatewayName')]",
             "type": "Microsoft.Network/applicationGateways",
             "location": "[parameters('location')]",
+            "dependsOn": [
+                "[variables('publicIPAddressName')]"
+            ],
             "properties": {
                 "sku": {
                     "name": "[parameters('applicationGatewaySize')]",
