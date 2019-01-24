@@ -325,19 +325,7 @@
                 ],
                 "requestRoutingRules": [
                     {
-                        "Name": "rule1",
-                        "properties": {
-                            "RuleType": "Basic",
-                            "httpListener": {
-                                "id": "[concat(variables('applicationGatewayID'), '/httpListeners/appGatewayHttpListener')]"
-                            },
-                            "backendAddressPool": {
-                                "id": "[concat(variables('applicationGatewayID'), '/backendAddressPools/appGatewayBackendPool')]"
-                            },
-                            "backendHttpSettings": {
-                                "id": "[concat(variables('applicationGatewayID'), '/backendHttpSettingsCollection/appGateway-BackendHttp-80')]"
-                            }
-                        }
+                        
                     }
                 ],
                 "webApplicationFirewallConfiguration": {
