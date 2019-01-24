@@ -155,7 +155,8 @@
         "vnetID": "[resourceId(parameters('vnetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnetNetworkName'))]",
         "vnsubnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('vnetSubnetName'))]",
         "applicationGatewayID": "[resourceId('Microsoft.Network/applicationGateways', variables('applicationGatewayName'))]",
-        "vmNetworkInterface1": "test-oda-qlik-dev-vm1-nic1"
+        "vmNetworkInterface1": "test-vys-qlik-tst-vm1-nic1",
+        "vmNetworkInterface2": "test-vys-qlik-tst-vm2-nic1"
     },
     "resources": [
         {
@@ -228,6 +229,22 @@
                             "backendIPConfigurations": [
                                 {
                                     "id": "[concat(resourceId('Microsoft.Network/networkInterfaces', variables('vmNetworkInterface1')), '/ipConfigurations/ipconfig1')]"
+                                }
+                            ],
+                            "backendAddresses": []
+                        },
+                        "type": "Microsoft.Network/applicationGateways/backendAddressPools"
+
+                    },
+                    {
+                        "name": "appGateway-BackendPool-tst",
+                        "properties": {                            
+                            "backendIPConfigurations": [
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/networkInterfaces', variables('vmNetworkInterface1')), '/ipConfigurations/ipconfig1')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/networkInterfaces', variables('vmNetworkInterface2')), '/ipConfigurations/ipconfig1')]"
                                 }
                             ],
                             "backendAddresses": []
