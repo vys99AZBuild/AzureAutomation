@@ -180,25 +180,6 @@
                         }
                     }
                 ],
-                "sslCertificates": [
-                    {
-                        "name": "wildcardhttps",
-                        "properties": {                            
-                            "publicCertData": "[parameters('sslcertData')]"
-                        },
-                        "type": "Microsoft.Network/applicationGateways/sslCertificates"
-                    }
-                ],
-                "authenticationCertificates":[
-                    {
-                        "name": "cert",
-                        "properties": {                            
-                            "publicCertData": "[parameters('sslpublicAuth')]"
-                        },
-                        "type": "Microsoft.Network/applicationGateways/sslCertificates"
-                    }
-
-                ],
                 "frontendIPConfigurations": [
                     {
                         "name": "appGatewayFrontendIP",
@@ -224,6 +205,13 @@
                         "name": "appGatewayFrontendPort443",
                         "properties": {
                             "Port": 443
+                        },
+                        "type": "Microsoft.Network/applicationGateways/frontendPorts"
+                    },
+                    {
+                        "name": "appGatewayFrontendPort4244",
+                        "properties": {
+                            "Port": 4244
                         },
                         "type": "Microsoft.Network/applicationGateways/frontendPorts"
                     }
@@ -341,7 +329,7 @@
                 ],
                 "requestRoutingRules": [
                     {
-                        "Name": "rule1",
+                        "Name": "appGateway-RuleHTTP-80-dev",
                         "properties": {
                             "RuleType": "Basic",
                             "httpListener": {
@@ -354,9 +342,24 @@
                                 "id": "[concat(variables('applicationGatewayID'), '/backendHttpSettingsCollection/appGatewayBackendHttpSettings')]"
                             }
                         }
+                    },
+                    {
+                        "Name": "appGateway-RuleHTTPS-443-dev",
+                        "properties": {
+                            "RuleType": "Basic",
+                            "httpListener": {
+                                "id": "[concat(variables('applicationGatewayID'), '/httpListeners/appGatewayHttpListener')]"
+                            },
+                            "backendAddressPool": {
+                                "id": "[concat(variables('applicationGatewayID'), '/backendAddressPools/appGateway-BackendPool-dev')]"
+                            },
+                            "backendHttpSettings": {
+                                "id": "[concat(variables('applicationGatewayID'), '/backendHttpSettingsCollection/appGateway-BackendHTTP-443-dev')]"
+                            }
+                        }
                     }
                 ],
-                "webApplicationFirewallConfiguration": {
+                   "webApplicationFirewallConfiguration": {
                     "enabled": "[parameters('wafEnabled')]",
                     "firewallMode": "[parameters('wafMode')]",
                     "ruleSetType": "[parameters('wafRuleSetType')]",
