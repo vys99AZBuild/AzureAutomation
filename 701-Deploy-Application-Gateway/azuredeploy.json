@@ -180,6 +180,24 @@
                         }
                     }
                 ],
+                "sslCertificates": [
+                    {
+                      "name": "appGatewaySslCert",
+                      "properties": {
+                        "data": "[parameters('sslcertData')]",
+                        "password": "[parameters('sslcertPasswd')]",
+                        "publicCertData": "[parameters('sslpublicAuth')]"
+                      }
+                    }
+                  ],
+                  "authenticationCertificates": [
+                    {
+                      "name": "PublicCert",
+                      "properties": {
+                         "data": "[parameters('sslpublicAuth')]"
+                      }
+                    }
+                ],
                 "frontendIPConfigurations": [
                     {
                         "name": "appGatewayFrontendIP",
