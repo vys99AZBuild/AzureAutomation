@@ -253,15 +253,14 @@
                 ],
                 "backendHttpSettingsCollection": [
                     {
-                        "name": "appGateway-BackendHttp-80",
+                        "name": "appGatewayBackendHttpSettings",
                         "properties": {
                             "Port": 80,
                             "Protocol": "Http",
                             "CookieBasedAffinity": "Enabled",
                             "pickHostNameFromBackendAddress": false,
                             "requestTimeout": 60
-                        },
-                        "type": "Microsoft.Network/applicationGateways/httpListeners"
+                        }
                     },
                     {
                         "name": "appGateway-BackendHTTP-443-dev",
@@ -282,8 +281,7 @@
                             "cookieBasedAffinity": "Enabled",
                             "pickHostNameFromBackendAddress": false,
                             "requestTimeout": 60
-                        },
-                        "type": "Microsoft.Network/applicationGateways/httpListeners"
+                        }
                     },
                     {
                         "name": "appGateway-BackendHTTP-443-tst",
@@ -304,8 +302,7 @@
                             "cookieBasedAffinity": "Enabled",
                             "pickHostNameFromBackendAddress": false,
                             "requestTimeout": 60
-                        },
-                        "type": "Microsoft.Network/applicationGateways/httpListeners"
+                        }
                     }
                 ],
                 "httpListeners": [
@@ -323,7 +320,23 @@
                         }
                     }
                 ],
-                "requestRoutingRules": [],
+                "requestRoutingRules": [
+                    {
+                        "Name": "rule1",
+                        "properties": {
+                            "RuleType": "Basic",
+                            "httpListener": {
+                                "id": "[concat(variables('applicationGatewayID'), '/httpListeners/appGatewayHttpListener')]"
+                            },
+                            "backendAddressPool": {
+                                "id": "[concat(variables('applicationGatewayID'), '/backendAddressPools/appGatewayBackendPool')]"
+                            },
+                            "backendHttpSettings": {
+                                "id": "[concat(variables('applicationGatewayID'), '/backendHttpSettingsCollection/appGatewayBackendHttpSettings')]"
+                            }
+                        }
+                    }
+                ],
                 "webApplicationFirewallConfiguration": {
                     "enabled": "[parameters('wafEnabled')]",
                     "firewallMode": "[parameters('wafMode')]",
