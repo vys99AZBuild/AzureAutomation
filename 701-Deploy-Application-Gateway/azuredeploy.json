@@ -221,16 +221,6 @@
                             ]
                         }
                     },
-                    {
-                        "name": "appGatewayBackendPoolDev",
-                        "properties": {
-                            "BackendIPConfigurations": [
-                                {
-                                    "ID": "[parameters('backendIpAddress1')]"
-                                }
-                            ]
-                        }
-                    }
                 ],
                 "backendHttpSettingsCollection": [
                     {
