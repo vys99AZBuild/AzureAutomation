@@ -121,7 +121,7 @@
             }
         },
         "sslcertData": {
-            "Type": "SecureString",
+            "Type": "String",
             "minLength": 1,
             "metadata": {
                 "description": "SSL certificate data"
@@ -135,7 +135,7 @@
             }
         },
         "sslpublicAuth": {
-            "Type": "SecureString",
+            "Type": "String",
             "minLength": 1,
             "metadata": {
                 "description": "SSL public authentication certificate"
@@ -179,6 +179,25 @@
                             }
                         }
                     }
+                ],
+                "sslCertificates": [
+                    {
+                        "name": "wildcardhttps",
+                        "properties": {                            
+                            "publicCertData": "[parameters('sslcertData')]"
+                        },
+                        "type": "Microsoft.Network/applicationGateways/sslCertificates"
+                    }
+                ],
+                "authenticationCertificates":[
+                    {
+                        "name": "cert",
+                        "properties": {                            
+                            "publicCertData": "[parameters('sslpublicAuth')]"
+                        },
+                        "type": "Microsoft.Network/applicationGateways/sslCertificates"
+                    }
+
                 ],
                 "frontendIPConfigurations": [
                     {
