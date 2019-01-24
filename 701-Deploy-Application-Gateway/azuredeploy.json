@@ -187,7 +187,8 @@
                             "data": "[parameters('sslcertData')]",
                             "password": "[parameters('sslcertPasswd')]",
                             "publicCertData": "[parameters('sslpublicAuth')]"
-                        }
+                        },
+                        "type": "Microsoft.Network/applicationGateways/sslCertificates"
                     }
                 ],
                 "authenticationCertificates": [
@@ -195,7 +196,8 @@
                         "name": "PublicCert",
                         "properties": {
                             "data": "[parameters('sslpublicAuth')]"
-                        }
+                        },
+                        "type": "Microsoft.Network/applicationGateways/authenticationCertificates"
                     }
                 ],
                 "frontendIPConfigurations": [
@@ -297,7 +299,7 @@
                             "requestTimeout": 60,
                             "authenticationCertificates": [
                                 {
-                                    "id": "[parameters('sslpublicAuth')]"
+                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/PublicCert')]"
                                 }
                             ]
                         },
@@ -313,7 +315,7 @@
                             "requestTimeout": 60,
                             "authenticationCertificates": [
                                 {
-                                    "id": "[parameters('sslpublicAuth')]"
+                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/PublicCert')]"
                                 }
                             ]
                         }
@@ -328,7 +330,7 @@
                             "requestTimeout": 60,
                             "authenticationCertificates": [
                                 {
-                                    "id": "[parameters('sslpublicAuth')]"
+                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/PublicCert')]"
                                 }
                             ]
                         },
@@ -344,7 +346,7 @@
                             "requestTimeout": 60,
                             "authenticationCertificates": [
                                 {
-                                    "id": "[parameters('sslpublicAuth')]"
+                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/PublicCert')]"
                                 }
                             ]
                         }
@@ -362,6 +364,23 @@
                             },
                             "Protocol": "Http",
                             "SslCertificate": null
+                        }
+                    },
+                    {
+                        "name": "appGateway-ListenerHTTPS-443-dev",
+                        "properties": {
+                            "FrontendIPConfiguration": {
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGatewayFrontendIP')]"
+                            },
+                            "FrontendPort": {
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort443')]"
+                            },
+                            "Protocol": "Https",
+                            "SslCertificate": {
+                                "Id": "[concat(variables('applicationGatewayID'), '/sslCertificates/appGatewaySslCert')]"
+                            },
+                            "hostName": "test1.test.org.uk",
+                            "requireServerNameIndication": true
                         }
                     }
                 ],
