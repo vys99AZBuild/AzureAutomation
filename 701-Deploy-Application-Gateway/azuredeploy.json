@@ -2,15 +2,14 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        
         "wafAppGatewayName": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "Enter Application Gateway Name"
-            }  
+            }
         },
-        "wafAppGatewayPrivIPAddress":{
+        "wafAppGatewayPrivIPAddress": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
@@ -197,6 +196,13 @@
                         "name": "appGatewayFrontendPort80",
                         "properties": {
                             "Port": 80
+                        },
+                        "type": "Microsoft.Network/applicationGateways/frontendPorts"
+                    },
+                    {
+                        "name": "appGatewayFrontendPort443",
+                        "properties": {
+                            "Port": 443
                         },
                         "type": "Microsoft.Network/applicationGateways/frontendPorts"
                     }
