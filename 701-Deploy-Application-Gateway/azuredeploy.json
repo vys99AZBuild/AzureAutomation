@@ -321,21 +321,7 @@
                     }
                 ],
                 "requestRoutingRules": [
-                    {
-                        "Name": "appGateway-RuleHTTPS-443-dev",
-                        "properties": {
-                            "RuleType": "Basic",
-                            "httpListener": {
-                                "id": "[concat(variables('applicationGatewayID'), '/httpListeners/appGateway-ListenerHTTPS-443-dev')]"
-                            },
-                            "backendAddressPool": {
-                                "id": "[concat(variables('applicationGatewayID'), '/backendAddressPools/appGateway-BackendPool-dev')]"
-                            },
-                            "backendHttpSettings": {
-                                "id": "[concat(variables('applicationGatewayID'), '/backendHttpSettingsCollection/appGateway-BackendHTTP-443-dev')]"
-                            }
-                        }
-                    }
+                    
                 ],
                 "webApplicationFirewallConfiguration": {
                     "enabled": "[parameters('wafEnabled')]",
