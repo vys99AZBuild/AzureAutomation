@@ -318,21 +318,34 @@
                             "Protocol": "Http",
                             "SslCertificate": null
                         }
+                    },
+                    {
+                        "name": "appGateway-ListenerHTTPS-443-dev",
+                        "properties": {
+                            "FrontendIPConfiguration": {
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGatewayFrontendIP')]"
+                            },
+                            "FrontendPort": {
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort443')]"
+                            },
+                            "Protocol": "Http",
+                            "SslCertificate": null
+                        }
                     }
                 ],
                 "requestRoutingRules": [
                     {
-                        "Name": "rule1",
+                        "Name": "appGateway-RuleHTTPS-443-dev",
                         "properties": {
                             "RuleType": "Basic",
                             "httpListener": {
-                                "id": "[concat(variables('applicationGatewayID'), '/httpListeners/appGatewayHttpListener')]"
+                                "id": "[concat(variables('applicationGatewayID'), '/httpListeners/appGateway-ListenerHTTPS-443-dev')]"
                             },
                             "backendAddressPool": {
-                                "id": "[concat(variables('applicationGatewayID'), '/backendAddressPools/appGatewayBackendPool')]"
+                                "id": "[concat(variables('applicationGatewayID'), '/backendAddressPools/appGateway-BackendPool-dev')]"
                             },
                             "backendHttpSettings": {
-                                "id": "[concat(variables('applicationGatewayID'), '/backendHttpSettingsCollection/appGatewayBackendHttpSettings')]"
+                                "id": "[concat(variables('applicationGatewayID'), '/backendHttpSettingsCollection/appGateway-BackendHTTP-443-dev')]"
                             }
                         }
                     }
