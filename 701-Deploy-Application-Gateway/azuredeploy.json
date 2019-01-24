@@ -225,7 +225,7 @@
                     },
                     {
                         "name": "appGateway-BackendPool-dev",
-                        "properties": {                            
+                        "properties": {
                             "backendIPConfigurations": [
                                 {
                                     "id": "[concat(resourceId('Microsoft.Network/networkInterfaces', variables('vmNetworkInterface1')), '/ipConfigurations/ipconfig1')]"
@@ -234,11 +234,10 @@
                             "backendAddresses": []
                         },
                         "type": "Microsoft.Network/applicationGateways/backendAddressPools"
-
                     },
                     {
                         "name": "appGateway-BackendPool-tst",
-                        "properties": {                            
+                        "properties": {
                             "backendIPConfigurations": [
                                 {
                                     "id": "[concat(resourceId('Microsoft.Network/networkInterfaces', variables('vmNetworkInterface1')), '/ipConfigurations/ipconfig1')]"
@@ -250,16 +249,59 @@
                             "backendAddresses": []
                         },
                         "type": "Microsoft.Network/applicationGateways/backendAddressPools"
-
                     }
                 ],
                 "backendHttpSettingsCollection": [
                     {
-                        "name": "appGatewayBackendHttpSettings",
+                        "name": "appGateway-BackendHttp-80",
                         "properties": {
                             "Port": 80,
                             "Protocol": "Http",
-                            "CookieBasedAffinity": "Disabled"
+                            "CookieBasedAffinity": "Enabled",
+                            "pickHostNameFromBackendAddress": false,
+                            "requestTimeout": 60
+                        }
+                    },
+                    {
+                        "name": "appGateway-BackendHTTP-443-dev",
+                        "properties": {
+                            "port": 443,
+                            "protocol": "Https",
+                            "cookieBasedAffinity": "Enabled",
+                            "pickHostNameFromBackendAddress": false,
+                            "requestTimeout": 60
+                        },
+                        "type": "Microsoft.Network/applicationGateways/backendHttpSettingsCollection"
+                    },
+                    {
+                        "name": "appGateway-BackendHTTP-4244-dev",
+                        "properties": {
+                            "port": 4244,
+                            "protocol": "Https",
+                            "cookieBasedAffinity": "Enabled",
+                            "pickHostNameFromBackendAddress": false,
+                            "requestTimeout": 60
+                        }
+                    },
+                    {
+                        "name": "appGateway-BackendHTTP-443-tst",
+                        "properties": {
+                            "port": 443,
+                            "protocol": "Https",
+                            "cookieBasedAffinity": "Enabled",
+                            "pickHostNameFromBackendAddress": false,
+                            "requestTimeout": 60
+                        },
+                        "type": "Microsoft.Network/applicationGateways/backendHttpSettingsCollection"
+                    },
+                    {
+                        "name": "appGateway-BackendHTTP-4244-tst",
+                        "properties": {
+                            "port": 4244,
+                            "protocol": "Https",
+                            "cookieBasedAffinity": "Enabled",
+                            "pickHostNameFromBackendAddress": false,
+                            "requestTimeout": 60
                         }
                     }
                 ],
