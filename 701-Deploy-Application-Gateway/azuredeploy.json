@@ -9,6 +9,13 @@
                 "description": "Enter Application Gateway Name"
             }
         },
+        "appGatewayPrivIP": {
+            "type": "string",
+            "defaultValue": "10.0.1.6",
+            "metadata": {
+                "description": "Enter Private interface IP"
+            }
+        },
         "vnetResourceGroup": {
             "type": "string",
             "defaultValue": "",
@@ -144,7 +151,7 @@
     },
     "variables": {
         "applicationGatewayName": "[parameters('appGatewayName')]",
-        "applicationGatewayPriIPAddress": "10.0.1.6",
+        "applicationGatewayPriIPAddress": "[parameters('appGatewayPrivIP')]",
         "vnetID": "[resourceId(parameters('vnetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnetNetworkName'))]",
         "vnsubnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('vnetSubnetName'))]",
         "applicationGatewayID": "[resourceId('Microsoft.Network/applicationGateways', variables('applicationGatewayName'))]"
