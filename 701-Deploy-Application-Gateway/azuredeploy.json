@@ -318,19 +318,6 @@
                             "Protocol": "Http",
                             "SslCertificate": null
                         }
-                    },
-                    {
-                        "name": "appGateway-ListenerHTTPS-443-dev",
-                        "properties": {
-                            "FrontendIPConfiguration": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGatewayFrontendIP')]"
-                            },
-                            "FrontendPort": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort443')]"
-                            },
-                            "Protocol": "Http",
-                            "SslCertificate": null
-                        }
                     }
                 ],
                 "requestRoutingRules": [
