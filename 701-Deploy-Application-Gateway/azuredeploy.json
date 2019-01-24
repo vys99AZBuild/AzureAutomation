@@ -134,7 +134,7 @@
                 "description": "SSL certificate password"
             }
         },
-        "sslpublicAuth": {
+        "sslpublicAuthCert": {
             "Type": "String",
             "minLength": 1,
             "metadata": {
@@ -186,16 +186,16 @@
                         "properties": {
                             "data": "[parameters('sslcertData')]",
                             "password": "[parameters('sslcertPasswd')]",
-                            "publicCertData": "[parameters('sslpublicAuth')]"
+                            "publicCertData": "[parameters('sslpublicAuthCert')]"
                         },
                         "type": "Microsoft.Network/applicationGateways/sslCertificates"
                     }
                 ],
                 "authenticationCertificates": [
                     {
-                        "name": "PublicCert",
+                        "name": "appGatewaySslPublicCert",
                         "properties": {
-                            "data": "[parameters('sslpublicAuth')]"
+                            "data": "[parameters('sslpublicAuthCert')]"
                         },
                         "type": "Microsoft.Network/applicationGateways/authenticationCertificates"
                     }
@@ -299,7 +299,7 @@
                             "requestTimeout": 60,
                             "authenticationCertificates": [
                                 {
-                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/PublicCert')]"
+                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/appGatewaySslPublicCert')]"
                                 }
                             ]
                         },
@@ -315,7 +315,7 @@
                             "requestTimeout": 60,
                             "authenticationCertificates": [
                                 {
-                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/PublicCert')]"
+                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/appGatewaySslPublicCert')]"
                                 }
                             ]
                         }
@@ -330,7 +330,7 @@
                             "requestTimeout": 60,
                             "authenticationCertificates": [
                                 {
-                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/PublicCert')]"
+                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/appGatewaySslPublicCert')]"
                                 }
                             ]
                         },
@@ -346,7 +346,7 @@
                             "requestTimeout": 60,
                             "authenticationCertificates": [
                                 {
-                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/PublicCert')]"
+                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/appGatewaySslPublicCert')]"
                                 }
                             ]
                         }
