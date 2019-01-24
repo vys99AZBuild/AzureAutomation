@@ -154,7 +154,8 @@
         "applicationGatewayPriIPAddress": "[parameters('appGatewayPrivIP')]",
         "vnetID": "[resourceId(parameters('vnetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnetNetworkName'))]",
         "vnsubnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('vnetSubnetName'))]",
-        "applicationGatewayID": "[resourceId('Microsoft.Network/applicationGateways', variables('applicationGatewayName'))]"
+        "applicationGatewayID": "[resourceId('Microsoft.Network/applicationGateways', variables('applicationGatewayName'))]",
+        "vmNetworkInterface1": "test-oda-qlik-dev-vm1-nic1"
     },
     "resources": [
         {
@@ -220,6 +221,19 @@
                                 }
                             ]
                         }
+                    },
+                    {
+                        "name": "appGateway-BackendPool-dev",
+                        "properties": {                            
+                            "backendIPConfigurations": [
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/networkInterfaces', variables('vmNetworkInterface1')), '/ipConfigurations/ipconfig1')]"
+                                }
+                            ],
+                            "backendAddresses": []
+                        },
+                        "type": "Microsoft.Network/applicationGateways/backendAddressPools"
+
                     }
                 ],
                 "backendHttpSettingsCollection": [
