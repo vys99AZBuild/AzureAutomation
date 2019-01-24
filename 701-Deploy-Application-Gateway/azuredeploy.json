@@ -2,6 +2,21 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        
+        "wafAppGatewayName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Enter Application Gateway Name"
+            }  
+        },
+        "wafAppGatewayPrivIPAddress":{
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Enter WAF Private IP address"
+            }
+        },
         "vnetResourceGroup": {
             "type": "string",
             "defaultValue": "",
@@ -136,8 +151,8 @@
         }
     },
     "variables": {
-        "applicationGatewayName": "applicationGateway2",
-        "publicIPAddressName": "publicIp1",
+        "applicationGatewayName": "[parameters('wafAppGatewayName')]",
+        "applicationGatewayPriIPAddress": "[parameters('wafAppGatewayPrivIPAddress')]",
         "vnetID": "[resourceId(parameters('vnetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnetNetworkName'))]",
         "vnsubnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('vnetSubnetName'))]",
         "applicationGatewayID": "[resourceId('Microsoft.Network/applicationGateways', variables('applicationGatewayName'))]"
@@ -169,7 +184,7 @@
                         "name": "appGatewayFrontendIP",
                         "type": "Microsoft.Network/applicationGateways/frontendIPConfigurations",
                         "properties": {
-                            "privateIPAddress": "10.0.1.5",
+                            "privateIPAddress": "[variables('applicationGatewayPriIPAddress')]",
                             "privateIPAllocationMethod": "Static",
                             "subnet": {
                                 "id": "[variables('vnsubnetRef')]"
@@ -196,6 +211,16 @@
                                 },
                                 {
                                     "IpAddress": "[parameters('backendIpAddress2')]"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "appGatewayBackendPoolDev",
+                        "properties": {
+                            "BackendIPConfigurations": [
+                                {
+                                    "ID": "[parameters('backendIpAddress1')]"
                                 }
                             ]
                         }
