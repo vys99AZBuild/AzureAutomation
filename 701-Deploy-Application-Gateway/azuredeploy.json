@@ -1,7 +1,14 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {     
+    "parameters": {
+        "appGatewayName": {
+            "type": "string",
+            "defaultValue": "test-agw-dev02",
+            "metadata": {
+                "description": "Enter Application Gateway Name"
+            }
+        },
         "vnetResourceGroup": {
             "type": "string",
             "defaultValue": "",
@@ -136,7 +143,7 @@
         }
     },
     "variables": {
-        "applicationGatewayName": "test-agw-dev01",
+        "applicationGatewayName": "[parameters('appGatewayName')]",
         "applicationGatewayPriIPAddress": "10.0.1.6",
         "vnetID": "[resourceId(parameters('vnetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnetNetworkName'))]",
         "vnsubnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('vnetSubnetName'))]",
