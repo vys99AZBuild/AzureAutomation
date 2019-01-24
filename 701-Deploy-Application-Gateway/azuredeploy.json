@@ -363,76 +363,7 @@
                             "Protocol": "Http",
                             "SslCertificate": null
                         }
-                    },
-                    {
-                        "name": "appGateway-ListenerHTTPS-443-dev",
-                        "properties": {
-                            "FrontendIPConfiguration": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGatewayFrontendIP')]"
-                            },
-                            "FrontendPort": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort443')]"
-                            },
-                            "Protocol": "Https",
-                            "sslCertificate": {
-                                "id": "[parameters('sslcertData')]"
-                            },
-                            "hostName": "test1.test.co.uk",
-                            "requireServerNameIndication": true
-                        }
-                    },
-                    {
-                        "name": "appGateway-ListenerHTTPS-4244-dev",
-                        "properties": {
-                            "FrontendIPConfiguration": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGatewayFrontendIP')]"
-                            },
-                            "FrontendPort": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort4244')]"
-                            },
-                            "Protocol": "Https",
-                            "sslCertificate": {
-                                "id": "[parameters('sslcertData')]"
-                            },
-                            "hostName": "test2.test.co.uk",
-                            "requireServerNameIndication": true
-                        }
-                    },
-                    {
-                        "name": "appGateway-ListenerHTTPS-443-tst",
-                        "properties": {
-                            "FrontendIPConfiguration": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGatewayFrontendIP')]"
-                            },
-                            "FrontendPort": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort443')]"
-                            },
-                            "Protocol": "Https",
-                            "sslCertificate": {
-                                "id": "[parameters('sslcertData')]"
-                            },
-                            "hostName": "test3.test.co.uk",
-                            "requireServerNameIndication": true
-                        }
-                    },
-                    {
-                        "name": "appGateway-ListenerHTTPS-4244-tst",
-                        "properties": {
-                            "FrontendIPConfiguration": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGatewayFrontendIP')]"
-                            },
-                            "FrontendPort": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort4244')]"
-                            },
-                            "Protocol": "Https",
-                            "sslCertificate": {
-                                "id": "[parameters('sslcertData')]"
-                            },
-                            "hostName": "test4.test.co.uk",
-                            "requireServerNameIndication": true
-                        }
                     }
-
                 ],
                 "requestRoutingRules": [
                     {
