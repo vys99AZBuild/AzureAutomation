@@ -313,6 +313,9 @@
                             "cookieBasedAffinity": "Enabled",
                             "pickHostNameFromBackendAddress": false,
                             "requestTimeout": 60,
+                            "probe": {
+                                "id": "[concat(variables('applicationGatewayID'), '/probes/appGateway-healthProbe-dev')]"
+                            },
                             "authenticationCertificates": [
                                 {
                                     "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/appGatewaySslPublicCert')]"
@@ -344,6 +347,9 @@
                             "cookieBasedAffinity": "Enabled",
                             "pickHostNameFromBackendAddress": false,
                             "requestTimeout": 60,
+                            "probe": {
+                                "id": "[concat(variables('applicationGatewayID'), '/probes/appGateway-healthProbe-tst')]"
+                            },
                             "authenticationCertificates": [
                                 {
                                     "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/appGatewaySslPublicCert')]"
@@ -512,6 +518,47 @@
                             }
                         }
                     }
+                ],
+                "probes": [
+                    {
+                        "name": "appGateway-healthProbe-dev",
+                        "properties": {                            
+                            "protocol": "Https",
+                            "host": "127.0.0.1",
+                            "path": "/windows_authentication/",
+                            "interval": 30,
+                            "timeout": 30,
+                            "unhealthyThreshold": 3,
+                            "pickHostNameFromBackendHttpSettings": false,
+                            "minServers": 0,
+                            "match": {
+                                "statusCodes": [
+                                    "200-401"
+                                ]
+                            }
+                        },
+                        "type": "Microsoft.Network/applicationGateways/probes"
+                    },
+                    {
+                        "name": "appGateway-healthProbe-tst",
+                        "properties": {                            
+                            "protocol": "Https",
+                            "host": "127.0.0.1",
+                            "path": "/windows_authentication/",
+                            "interval": 30,
+                            "timeout": 30,
+                            "unhealthyThreshold": 3,
+                            "pickHostNameFromBackendHttpSettings": false,
+                            "minServers": 0,
+                            "match": {
+                                "statusCodes": [
+                                    "200-401"
+                                ]
+                            }
+                        },
+                        "type": "Microsoft.Network/applicationGateways/probes"
+                    }
+
                 ],
                 "webApplicationFirewallConfiguration": {
                     "enabled": "[parameters('wafEnabled')]",
