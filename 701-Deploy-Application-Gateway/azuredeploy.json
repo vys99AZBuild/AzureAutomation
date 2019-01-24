@@ -182,20 +182,20 @@
                 ],
                 "sslCertificates": [
                     {
-                      "name": "appGatewaySslCert",
-                      "properties": {
-                        "data": "[parameters('sslcertData')]",
-                        "password": "[parameters('sslcertPasswd')]",
-                        "publicCertData": "[parameters('sslpublicAuth')]"
-                      }
+                        "name": "appGatewaySslCert",
+                        "properties": {
+                            "data": "[parameters('sslcertData')]",
+                            "password": "[parameters('sslcertPasswd')]",
+                            "publicCertData": "[parameters('sslpublicAuth')]"
+                        }
                     }
-                  ],
-                  "authenticationCertificates": [
+                ],
+                "authenticationCertificates": [
                     {
-                      "name": "PublicCert",
-                      "properties": {
-                         "data": "[parameters('sslpublicAuth')]"
-                      }
+                        "name": "PublicCert",
+                        "properties": {
+                            "data": "[parameters('sslpublicAuth')]"
+                        }
                     }
                 ],
                 "frontendIPConfigurations": [
@@ -294,7 +294,12 @@
                             "protocol": "Https",
                             "cookieBasedAffinity": "Enabled",
                             "pickHostNameFromBackendAddress": false,
-                            "requestTimeout": 60
+                            "requestTimeout": 60,
+                            "authenticationCertificates": [
+                                {
+                                    "id": "[parameters('sslpublicAuth')]"
+                                }
+                            ]
                         },
                         "type": "Microsoft.Network/applicationGateways/backendHttpSettingsCollection"
                     },
@@ -305,7 +310,12 @@
                             "protocol": "Https",
                             "cookieBasedAffinity": "Enabled",
                             "pickHostNameFromBackendAddress": false,
-                            "requestTimeout": 60
+                            "requestTimeout": 60,
+                            "authenticationCertificates": [
+                                {
+                                    "id": "[parameters('sslpublicAuth')]"
+                                }
+                            ]
                         }
                     },
                     {
@@ -315,7 +325,12 @@
                             "protocol": "Https",
                             "cookieBasedAffinity": "Enabled",
                             "pickHostNameFromBackendAddress": false,
-                            "requestTimeout": 60
+                            "requestTimeout": 60,
+                            "authenticationCertificates": [
+                                {
+                                    "id": "[parameters('sslpublicAuth')]"
+                                }
+                            ]
                         },
                         "type": "Microsoft.Network/applicationGateways/backendHttpSettingsCollection"
                     },
@@ -326,7 +341,12 @@
                             "protocol": "Https",
                             "cookieBasedAffinity": "Enabled",
                             "pickHostNameFromBackendAddress": false,
-                            "requestTimeout": 60
+                            "requestTimeout": 60,
+                            "authenticationCertificates": [
+                                {
+                                    "id": "[parameters('sslpublicAuth')]"
+                                }
+                            ]
                         }
                     }
                 ],
@@ -343,7 +363,76 @@
                             "Protocol": "Http",
                             "SslCertificate": null
                         }
+                    },
+                    {
+                        "name": "appGateway-ListenerHTTPS-443-dev",
+                        "properties": {
+                            "FrontendIPConfiguration": {
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGatewayFrontendIP')]"
+                            },
+                            "FrontendPort": {
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort443')]"
+                            },
+                            "Protocol": "Https",
+                            "sslCertificate": {
+                                "id": "[parameters('sslcertData')]"
+                            },
+                            "hostName": "test1.test.co.uk",
+                            "requireServerNameIndication": true
+                        }
+                    },
+                    {
+                        "name": "appGateway-ListenerHTTPS-4244-dev",
+                        "properties": {
+                            "FrontendIPConfiguration": {
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGatewayFrontendIP')]"
+                            },
+                            "FrontendPort": {
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort4244')]"
+                            },
+                            "Protocol": "Https",
+                            "sslCertificate": {
+                                "id": "[parameters('sslcertData')]"
+                            },
+                            "hostName": "test2.test.co.uk",
+                            "requireServerNameIndication": true
+                        }
+                    },
+                    {
+                        "name": "appGateway-ListenerHTTPS-443-tst",
+                        "properties": {
+                            "FrontendIPConfiguration": {
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGatewayFrontendIP')]"
+                            },
+                            "FrontendPort": {
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort443')]"
+                            },
+                            "Protocol": "Https",
+                            "sslCertificate": {
+                                "id": "[parameters('sslcertData')]"
+                            },
+                            "hostName": "test3.test.co.uk",
+                            "requireServerNameIndication": true
+                        }
+                    },
+                    {
+                        "name": "appGateway-ListenerHTTPS-4244-tst",
+                        "properties": {
+                            "FrontendIPConfiguration": {
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGatewayFrontendIP')]"
+                            },
+                            "FrontendPort": {
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort4244')]"
+                            },
+                            "Protocol": "Https",
+                            "sslCertificate": {
+                                "id": "[parameters('sslcertData')]"
+                            },
+                            "hostName": "test4.test.co.uk",
+                            "requireServerNameIndication": true
+                        }
                     }
+
                 ],
                 "requestRoutingRules": [
                     {
@@ -362,7 +451,7 @@
                         }
                     }
                 ],
-                   "webApplicationFirewallConfiguration": {
+                "webApplicationFirewallConfiguration": {
                     "enabled": "[parameters('wafEnabled')]",
                     "firewallMode": "[parameters('wafMode')]",
                     "ruleSetType": "[parameters('wafRuleSetType')]",
