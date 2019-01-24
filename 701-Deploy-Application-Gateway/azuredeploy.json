@@ -323,11 +323,7 @@
                         }
                     }
                 ],
-                "requestRoutingRules": [
-                    {
-                        
-                    }
-                ],
+                "requestRoutingRules": [],
                 "webApplicationFirewallConfiguration": {
                     "enabled": "[parameters('wafEnabled')]",
                     "firewallMode": "[parameters('wafMode')]",
