@@ -1,21 +1,7 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-        "wafAppGatewayName": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Enter Application Gateway Name"
-            }
-        },
-        "wafAppGatewayPrivIPAddress": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Enter WAF Private IP address"
-            }
-        },
+    "parameters": {     
         "vnetResourceGroup": {
             "type": "string",
             "defaultValue": "",
@@ -150,8 +136,8 @@
         }
     },
     "variables": {
-        "applicationGatewayName": "[parameters('wafAppGatewayName')]",
-        "applicationGatewayPriIPAddress": "[parameters('wafAppGatewayPrivIPAddress')]",
+        "applicationGatewayName": "test-agw-dev01",
+        "applicationGatewayPriIPAddress": "10.0.1.6",
         "vnetID": "[resourceId(parameters('vnetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vnetNetworkName'))]",
         "vnsubnetRef": "[concat(variables('vnetID'),'/subnets/', parameters('vnetSubnetName'))]",
         "applicationGatewayID": "[resourceId('Microsoft.Network/applicationGateways', variables('applicationGatewayName'))]"
