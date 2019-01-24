@@ -260,7 +260,8 @@
                             "CookieBasedAffinity": "Enabled",
                             "pickHostNameFromBackendAddress": false,
                             "requestTimeout": 60
-                        }
+                        },
+                        "type": "Microsoft.Network/applicationGateways/httpListeners"
                     },
                     {
                         "name": "appGateway-BackendHTTP-443-dev",
@@ -281,7 +282,8 @@
                             "cookieBasedAffinity": "Enabled",
                             "pickHostNameFromBackendAddress": false,
                             "requestTimeout": 60
-                        }
+                        },
+                        "type": "Microsoft.Network/applicationGateways/httpListeners"
                     },
                     {
                         "name": "appGateway-BackendHTTP-443-tst",
@@ -302,7 +304,8 @@
                             "cookieBasedAffinity": "Enabled",
                             "pickHostNameFromBackendAddress": false,
                             "requestTimeout": 60
-                        }
+                        },
+                        "type": "Microsoft.Network/applicationGateways/httpListeners"
                     }
                 ],
                 "httpListeners": [
