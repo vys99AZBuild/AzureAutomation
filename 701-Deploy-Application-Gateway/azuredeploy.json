@@ -417,21 +417,6 @@
                 ],
                 "requestRoutingRules": [
                     {
-                        "Name": "appGateway-RuleHTTP-80-dev",
-                        "properties": {
-                            "RuleType": "Basic",
-                            "httpListener": {
-                                "id": "[concat(variables('applicationGatewayID'), '/httpListeners/appGatewayHttpListener')]"
-                            },
-                            "backendAddressPool": {
-                                "id": "[concat(variables('applicationGatewayID'), '/backendAddressPools/appGatewayBackendPool')]"
-                            },
-                            "backendHttpSettings": {
-                                "id": "[concat(variables('applicationGatewayID'), '/backendHttpSettingsCollection/appGateway-BackendHTTP-80')]"
-                            }
-                        }
-                    },
-                    {
                         "Name": "appGateway-RuleHTTPS-443-dev",
                         "properties": {
                             "RuleType": "Basic",
