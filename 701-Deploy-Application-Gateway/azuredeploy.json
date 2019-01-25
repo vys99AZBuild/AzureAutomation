@@ -287,7 +287,7 @@
                             "pickHostNameFromBackendAddress": false,
                             "requestTimeout": 60,
                             "probe": {
-                                "id": "[concat(variables('applicationGatewayID'), '/probes/appGateway-healthProbe-dev')]"
+                                "id": "[concat(variables('applicationGatewayID'), '/probes/appGateway-HealthProbe-dev')]"
                             },
                             "authenticationCertificates": [
                                 {
@@ -321,7 +321,7 @@
                             "pickHostNameFromBackendAddress": false,
                             "requestTimeout": 60,
                             "probe": {
-                                "id": "[concat(variables('applicationGatewayID'), '/probes/appGateway-healthProbe-tst')]"
+                                "id": "[concat(variables('applicationGatewayID'), '/probes/appGateway-HealthProbe-tst')]"
                             },
                             "authenticationCertificates": [
                                 {
@@ -479,7 +479,7 @@
                 ],
                 "probes": [
                     {
-                        "name": "appGateway-healthProbe-dev",
+                        "name": "appGateway-HealthProbe-dev",
                         "properties": {                            
                             "protocol": "Https",
                             "host": "127.0.0.1",
@@ -498,7 +498,7 @@
                         "type": "Microsoft.Network/applicationGateways/probes"
                     },
                     {
-                        "name": "appGateway-healthProbe-tst",
+                        "name": "appGateway-HealthProbe-tst",
                         "properties": {                            
                             "protocol": "Https",
                             "host": "127.0.0.1",
