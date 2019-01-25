@@ -11,7 +11,7 @@
         },
         "appGatewayPrivIP": {
             "type": "string",
-            "defaultValue": "10.0.1.6",
+            "defaultValue": "10.0.52.xx",
             "metadata": {
                 "description": "Enter Private interface IP"
             }
@@ -65,20 +65,6 @@
             "defaultValue": 2,
             "metadata": {
                 "description": "Number of instances"
-            }
-        },
-        "backendIpAddress1": {
-            "type": "string",
-            "defaultValue": "10.0.1.10",
-            "metadata": {
-                "description": "IP Address for Backend Server 1"
-            }
-        },
-        "backendIpAddress2": {
-            "type": "string",
-            "defaultValue": "10.0.1.11",
-            "metadata": {
-                "description": "IP Address for Backend Server 2"
             }
         },
         "wafEnabled": {
@@ -182,7 +168,7 @@
                 ],
                 "sslCertificates": [
                     {
-                        "name": "appGatewaySslCert",
+                        "name": "appGateway-SslCert",
                         "properties": {
                             "data": "[parameters('sslcertData')]",
                             "password": "[parameters('sslcertPasswd')]",
@@ -193,7 +179,7 @@
                 ],
                 "authenticationCertificates": [
                     {
-                        "name": "appGatewaySslPublicCert",
+                        "name": "appGateway-SslPublicCert",
                         "properties": {
                             "data": "[parameters('sslpublicAuthCert')]"
                         },
@@ -202,7 +188,7 @@
                 ],
                 "frontendIPConfigurations": [
                     {
-                        "name": "appGatewayFrontendIP",
+                        "name": "appGateway-FrontendIP",
                         "type": "Microsoft.Network/applicationGateways/frontendIPConfigurations",
                         "properties": {
                             "privateIPAddress": "[variables('applicationGatewayPriIPAddress')]",
@@ -215,21 +201,21 @@
                 ],
                 "frontendPorts": [
                     {
-                        "name": "appGatewayFrontendPort80",
+                        "name": "appGateway-FrontendPort-80",
                         "properties": {
                             "Port": 80
                         },
                         "type": "Microsoft.Network/applicationGateways/frontendPorts"
                     },
                     {
-                        "name": "appGatewayFrontendPort443",
+                        "name": "appGateway-FrontendPort-443",
                         "properties": {
                             "Port": 443
                         },
                         "type": "Microsoft.Network/applicationGateways/frontendPorts"
                     },
                     {
-                        "name": "appGatewayFrontendPort4244",
+                        "name": "appGateway-FrontendPort-4244",
                         "properties": {
                             "Port": 4244
                         },
@@ -237,19 +223,6 @@
                     }
                 ],
                 "backendAddressPools": [
-                    {
-                        "name": "appGatewayBackendPool",
-                        "properties": {
-                            "BackendAddresses": [
-                                {
-                                    "IpAddress": "[parameters('backendIpAddress1')]"
-                                },
-                                {
-                                    "IpAddress": "[parameters('backendIpAddress2')]"
-                                }
-                            ]
-                        }
-                    },
                     {
                         "name": "appGateway-BackendPool-dev",
                         "properties": {
@@ -280,7 +253,7 @@
                 ],
                 "backendHttpSettingsCollection": [
                     {
-                        "name": "appGatewayBackendHttpSettings",
+                        "name": "appGateway-BackendHTTP-80",
                         "properties": {
                             "Port": 80,
                             "Protocol": "Http",
@@ -299,7 +272,7 @@
                             "requestTimeout": 60,
                             "authenticationCertificates": [
                                 {
-                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/appGatewaySslPublicCert')]"
+                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/appGateway-SslPublicCert')]"
                                 }
                             ]
                         },
@@ -318,7 +291,7 @@
                             },
                             "authenticationCertificates": [
                                 {
-                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/appGatewaySslPublicCert')]"
+                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/appGateway-SslPublicCert')]"
                                 }
                             ]
                         }
@@ -333,7 +306,7 @@
                             "requestTimeout": 60,
                             "authenticationCertificates": [
                                 {
-                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/appGatewaySslPublicCert')]"
+                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/appGateway-SslPublicCert')]"
                                 }
                             ]
                         },
@@ -352,7 +325,7 @@
                             },
                             "authenticationCertificates": [
                                 {
-                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/appGatewaySslPublicCert')]"
+                                    "id": "[concat(variables('applicationGatewayID'), '/authenticationCertificates/appGateway-SslPublicCert')]"
                                 }
                             ]
                         }
@@ -363,10 +336,10 @@
                         "name": "appGatewayHttpListener",
                         "properties": {
                             "FrontendIPConfiguration": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGatewayFrontendIP')]"
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGateway-FrontendIP')]"
                             },
                             "FrontendPort": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort80')]"
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGateway-FrontendPort-80')]"
                             },
                             "Protocol": "Http",
                             "SslCertificate": null
@@ -376,14 +349,14 @@
                         "name": "appGateway-ListenerHTTPS-443-dev",
                         "properties": {
                             "FrontendIPConfiguration": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGatewayFrontendIP')]"
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGateway-FrontendIP')]"
                             },
                             "FrontendPort": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort443')]"
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGateway-FrontendPort-443')]"
                             },
                             "Protocol": "Https",
                             "SslCertificate": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/sslCertificates/appGatewaySslCert')]"
+                                "Id": "[concat(variables('applicationGatewayID'), '/sslCertificates/appGateway-SslCert')]"
                             },
                             "hostName": "test1.test.org.uk",
                             "requireServerNameIndication": true
@@ -393,14 +366,14 @@
                         "name": "appGateway-ListenerHTTPS-4244-dev",
                         "properties": {
                             "FrontendIPConfiguration": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGatewayFrontendIP')]"
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGateway-FrontendIP')]"
                             },
                             "FrontendPort": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort4244')]"
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGateway-FrontendPort-4244')]"
                             },
                             "Protocol": "Https",
                             "SslCertificate": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/sslCertificates/appGatewaySslCert')]"
+                                "Id": "[concat(variables('applicationGatewayID'), '/sslCertificates/appGateway-SslCert')]"
                             },
                             "hostName": "test2.test.org.uk",
                             "requireServerNameIndication": true
@@ -410,14 +383,14 @@
                         "name": "appGateway-ListenerHTTPS-443-tst",
                         "properties": {
                             "FrontendIPConfiguration": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGatewayFrontendIP')]"
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGateway-FrontendIP')]"
                             },
                             "FrontendPort": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort443')]"
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGateway-FrontendPort-443')]"
                             },
                             "Protocol": "Https",
                             "SslCertificate": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/sslCertificates/appGatewaySslCert')]"
+                                "Id": "[concat(variables('applicationGatewayID'), '/sslCertificates/appGateway-SslCert')]"
                             },
                             "hostName": "test3.test.org.uk",
                             "requireServerNameIndication": true
@@ -427,14 +400,14 @@
                         "name": "appGateway-ListenerHTTPS-4244-tst",
                         "properties": {
                             "FrontendIPConfiguration": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGatewayFrontendIP')]"
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGateway-FrontendIP')]"
                             },
                             "FrontendPort": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGatewayFrontendPort4244')]"
+                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGateway-FrontendPort-4244')]"
                             },
                             "Protocol": "Https",
                             "SslCertificate": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/sslCertificates/appGatewaySslCert')]"
+                                "Id": "[concat(variables('applicationGatewayID'), '/sslCertificates/appGateway-SslCert')]"
                             },
                             "hostName": "test4.test.org.uk",
                             "requireServerNameIndication": true
@@ -454,7 +427,7 @@
                                 "id": "[concat(variables('applicationGatewayID'), '/backendAddressPools/appGatewayBackendPool')]"
                             },
                             "backendHttpSettings": {
-                                "id": "[concat(variables('applicationGatewayID'), '/backendHttpSettingsCollection/appGatewayBackendHttpSettings')]"
+                                "id": "[concat(variables('applicationGatewayID'), '/backendHttpSettingsCollection/appGateway-BackendHTTP-80')]"
                             }
                         }
                     },
