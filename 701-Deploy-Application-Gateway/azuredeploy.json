@@ -201,13 +201,6 @@
                 ],
                 "frontendPorts": [
                     {
-                        "name": "appGateway-FrontendPort-80",
-                        "properties": {
-                            "Port": 80
-                        },
-                        "type": "Microsoft.Network/applicationGateways/frontendPorts"
-                    },
-                    {
                         "name": "appGateway-FrontendPort-443",
                         "properties": {
                             "Port": 443
@@ -252,17 +245,7 @@
                     }
                 ],
                 "backendHttpSettingsCollection": [
-                    {
-                        "name": "appGateway-BackendHTTP-80",
-                        "properties": {
-                            "Port": 80,
-                            "Protocol": "Http",
-                            "CookieBasedAffinity": "Enabled",
-                            "pickHostNameFromBackendAddress": false,
-                            "requestTimeout": 60
-                        }
-                    },
-                    {
+                   {
                         "name": "appGateway-BackendHTTP-443-dev",
                         "properties": {
                             "port": 443,
@@ -332,19 +315,6 @@
                     }
                 ],
                 "httpListeners": [
-                    {
-                        "name": "appGatewayHttpListener",
-                        "properties": {
-                            "FrontendIPConfiguration": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendIPConfigurations/appGateway-FrontendIP')]"
-                            },
-                            "FrontendPort": {
-                                "Id": "[concat(variables('applicationGatewayID'), '/frontendPorts/appGateway-FrontendPort-80')]"
-                            },
-                            "Protocol": "Http",
-                            "SslCertificate": null
-                        }
-                    },
                     {
                         "name": "appGateway-ListenerHTTPS-443-dev",
                         "properties": {
