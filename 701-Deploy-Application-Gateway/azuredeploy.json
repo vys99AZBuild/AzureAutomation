@@ -11,7 +11,7 @@
         },
         "appGatewayPrivIP": {
             "type": "string",
-            "defaultValue": "10.0.52.xx",
+            "defaultValue": "10.0.51.xx",
             "metadata": {
                 "description": "Enter Private interface IP"
             }
