@@ -142,7 +142,7 @@
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "*",
+                            "destinationPortRange": "",
                             "destinationPortRanges": [
                                 "443",
                                 "4239",
@@ -409,7 +409,7 @@
                       "properties": {
                           "protocol": "*",
                           "sourcePortRange": "*",
-                          "destinationPortRange": "*",
+                          "destinationPortRange": "",
                           "destinationPortRanges": [
                               "443",
                               "4239",
