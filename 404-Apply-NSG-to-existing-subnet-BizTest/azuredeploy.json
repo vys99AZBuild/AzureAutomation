@@ -138,7 +138,7 @@
                         }
                     },
                     {
-                        "name": "Allow-biztest-inb-Biztest-qlik-tcp",
+                        "name": "Allow-biztest-inb-biztest-qlik-tcp",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -405,7 +405,7 @@
                         }
                     },
                     {
-                      "name": "Allow-biztest-outb-Biztest-qlik-tcp",
+                      "name": "Allow-biztest-outb-biztest-qlik-tcp",
                       "properties": {
                           "protocol": "*",
                           "sourcePortRange": "*",
