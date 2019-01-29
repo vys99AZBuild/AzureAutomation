@@ -427,7 +427,7 @@
                           "destinationAddressPrefix": "[parameters('nsgBiztestSubnet')]",
                           "access": "Allow",
                           "priority": 4095,
-                          "direction": "Inbound"
+                          "direction": "Outbound"
                       }
                   },
                     {
