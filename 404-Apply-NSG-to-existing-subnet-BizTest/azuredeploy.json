@@ -113,7 +113,6 @@
                             "sourcePortRange": "*",
                             "destinationPortRange": "",
                             "destinationPortRanges": [
-                                "80",
                                 "443"
                             ],
                             "sourceAddressPrefix": "[parameters('nsgWebtestSubnet')]",
@@ -140,7 +139,7 @@
                     {
                         "name": "Allow-biztest-inb-biztest-qlik-tcp",
                         "properties": {
-                            "protocol": "*",
+                            "protocol": "TCP",
                             "sourcePortRange": "*",
                             "destinationPortRange": "",
                             "destinationPortRanges": [
@@ -407,7 +406,7 @@
                     {
                       "name": "Allow-biztest-outb-biztest-qlik-tcp",
                       "properties": {
-                          "protocol": "*",
+                          "protocol": "TCP",
                           "sourcePortRange": "*",
                           "destinationPortRange": "",
                           "destinationPortRanges": [
