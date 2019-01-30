@@ -394,7 +394,7 @@
                                 "80",
                                 "443",
                                 "445",
-                                "5424"
+                                "5432"
                             ],
                             "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
                             "destinationAddressPrefix": "AzureCloud",
