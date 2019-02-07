@@ -28,14 +28,21 @@
         "description": "The name of the NSG Subnet"
       }
 
-    },
-    
+    },   
     "nsgwebappSubnet":{
       "type": "string",
       "defaultValue": "",
       "metadata": {
         "description": "The Web IP subnet CIDR"
         }
+    },
+    "nsgwebtestappSubnet":{
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The Webtest IP subnet CIDR"
+        }
+
     },
     "nsgMgmntSubnet": {
       "type": "string",
@@ -428,6 +435,22 @@
               "direction": "Outbound"
             }
           }, 
+          {
+            "name": "Allow-ctxapp-outb-weblbdevtst-https-Tcp",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "443",
+              "destinationPortRanges":[],
+              "sourceAddressPrefix": "[parameters('nsgCtxappSubnet')]",
+              "destinationAddressPrefix": "[parameters('nsgwebtestappSubnet')]",
+              "access": "Allow",
+              "priority": 1100,
+              "direction": "Outbound"
+            }
+          },
+          
+          
           {
             "name": "Allow-ctxapp-outb-Internet-https-Tcp",
             "properties": {
