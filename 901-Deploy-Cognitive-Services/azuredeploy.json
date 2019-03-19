@@ -59,10 +59,10 @@
       "sku": {
         "name": "[parameters('SKUSpeechT')]"
       },
-      "kind": "Speech",
+      "kind": "SpeechServices",
       "name": "[parameters('AccountNameSpeechT')]",
       "apiVersion": "2016-02-01-preview",
-      "location": "global",
+      "location": "UKSouth",
       "properties": {}
     }
   ]
