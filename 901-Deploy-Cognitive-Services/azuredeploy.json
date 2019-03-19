@@ -2,17 +2,17 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "AccountsName": {
-      "defaultValue": "translate",
+    "AccountNameTextT": {
+      "defaultValue": "translate-Text-account",
       "metadata": {
         "description": "Display name of Text Translation API account"
       },
       "type": "string"
     },
-    "SKU": {
+    "SKUTextT": {
       "type": "string",
       "metadata": {
-        "description": "SKU for TextTranslation API"
+        "description": "SKU Code for TextTranslation API"
       },
       "defaultValue": "F0",
       "allowedValues": [
@@ -22,16 +22,45 @@
         "S3",
         "S4"
       ]
+    },
+    "AccountNameSpeechT": {
+      "defaultValue": "translate-Speech-account",
+      "metadata": {
+        "description": "Display name of Speech Translation API account"
+      },
+      "type": "string"
+    },
+    "SKUSpeechT": {
+      "type": "string",
+      "metadata": {
+        "description": "SKU Code for SpeechTranslation API"
+      },
+      "defaultValue": "F0",
+      "allowedValues": [
+        "F0",
+        "S0"
+      ]
     }
   },
   "resources": [
     {
       "type": "Microsoft.CognitiveServices/accounts",
       "sku": {
-        "name": "[parameters('SKU')]"
+        "name": "[parameters('SKUTextT')]"
       },
       "kind": "TextTranslation",
-      "name": "[parameters('AccountsName')]",
+      "name": "[parameters('AccountNameTextT')]",
+      "apiVersion": "2016-02-01-preview",
+      "location": "global",
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.CognitiveServices/accounts",
+      "sku": {
+        "name": "[parameters('SKUSpeechT')]"
+      },
+      "kind": "Speech",
+      "name": "[parameters('AccountNameTextT')]",
       "apiVersion": "2016-02-01-preview",
       "location": "global",
       "properties": {}
