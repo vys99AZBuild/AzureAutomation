@@ -41,12 +41,13 @@
     "poolDtu": {
       "type": "int",
       "metadata": {
+        "defaultValue": "50",
         "description": "The Elastic Pool DTU."
       }
     },
     "databaseDtuMin": {
       "type": "int",
-      "defaultValue": 0,
+      "defaultValue": 10,
       "metadata": {
         "description": "The Elastic Pool database DTU min."
       }
