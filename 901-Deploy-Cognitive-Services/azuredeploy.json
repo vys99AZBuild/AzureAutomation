@@ -60,7 +60,7 @@
         "name": "[parameters('SKUSpeechT')]"
       },
       "kind": "Speech",
-      "name": "[parameters('AccountNameTextT')]",
+      "name": "[parameters('AccountNameSpeechT')]",
       "apiVersion": "2016-02-01-preview",
       "location": "global",
       "properties": {}
