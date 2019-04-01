@@ -385,16 +385,66 @@
                         }
                     },
                     {
-                        "name": "Allow-biztest-outb-Internet-https-Tcp",
+                        "name": "Allow-biztest-outb-sql-azurecloud-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "1433",
+                                "5432",
+                                "5432",
+                                "11000-11999",
+                                "14000-14999"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
+                            "destinationAddressPrefix": "sql",
+                            "access": "Allow",
+                            "priority": 1080,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-biztest-outb-smb-azurecloud-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "445"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
+                            "destinationAddressPrefix": "storage",
+                            "access": "Allow",
+                            "priority": 1085,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-biztest-outb-keyv-azurecloud-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "80,443"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
+                            "destinationAddressPrefix": "AzureKeyVault",
+                            "access": "Allow",
+                            "priority": 1090,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-biztest-outb-azurecloud-Tcp",
                         "properties": {
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "",
                             "destinationPortRanges": [
                                 "80",
-                                "443",
-                                "445",
-                                "5432"
+                                "443"
                             ],
                             "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
                             "destinationAddressPrefix": "AzureCloud",
@@ -403,6 +453,24 @@
                             "direction": "Outbound"
                         }
                     },
+                    {
+                        "name": "Allow-biztest-outb-Internet-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "80",
+                                "443"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
+                            "destinationAddressPrefix": "Internet",
+                            "access": "Allow",
+                            "priority": 3001,
+                            "direction": "Outbound"
+                        }
+                    },
+
                     {
                       "name": "Allow-biztest-outb-biztest-qlik-tcp",
                       "properties": {

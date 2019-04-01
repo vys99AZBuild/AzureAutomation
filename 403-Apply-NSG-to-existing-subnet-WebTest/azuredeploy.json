@@ -160,6 +160,22 @@
                         }
                     },
                     {
+                        "name": "Allow-azurelbhealth-inb-azurecloud-any",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "destinationPortRanges": [
+                                "65503-65534"
+                            ],
+                            "sourceAddressPrefix": "AzureCloud",
+                            "destinationAddressPrefix": "[parameters('nsgWebtestSubnet')]",
+                            "access": "Allow",
+                            "priority": 1020,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
                         "name": "Deny-Webtest-inb-any-any",
                         "properties": {
                             "protocol": "*",
@@ -190,6 +206,25 @@
                             "direction": "Outbound"
                         }
                     },
+                    {
+                        "name": "Allow-webtest-outb-keyv-https-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "80",
+                                "443"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgWebtestSubnet')]",
+                            "destinationAddressPrefix": "AzureKeyVault",
+                            "access": "Allow",
+                            "priority": 1005,
+                            "direction": "Outbound"
+                        }
+                    },
+
+
                     {
                         "name": "Deny-testenv-outb-any-any",
                         "properties": {
