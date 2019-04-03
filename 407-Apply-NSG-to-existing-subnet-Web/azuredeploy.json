@@ -196,11 +196,10 @@
                             "sourcePortRange": "*",
                             "destinationPortRange": "",
                             "destinationPortRanges": [
-                                "80",
                                 "443"
                             ],
                             "sourceAddressPrefix": "[parameters('nsgWebSubnet')]",
-                            "destinationAddressPrefix": "[parameters('",
+                            "destinationAddressPrefix": "[parameters('nsgBizSubnet)]",
                             "access": "Allow",
                             "priority": 1000,
                             "direction": "Outbound"
