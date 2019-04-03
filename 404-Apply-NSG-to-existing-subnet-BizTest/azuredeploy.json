@@ -139,7 +139,7 @@
                     {
                         "name": "Allow-biztest-inb-biztest-qlik-tcp",
                         "properties": {
-                            "protocol": "TCP",
+                            "protocol": "Tcp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "",
                             "destinationPortRanges": [
@@ -475,7 +475,7 @@
                     {
                       "name": "Allow-biztest-outb-biztest-qlik-tcp",
                       "properties": {
-                          "protocol": "TCP",
+                          "protocol": "Tcp",
                           "sourcePortRange": "*",
                           "destinationPortRange": "",
                           "destinationPortRanges": [
