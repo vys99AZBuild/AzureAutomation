@@ -154,7 +154,7 @@
                                 "4900",
                                 "4949",
                                 "5050",
-                                "5051",
+                                "5151",
                                 "9028"
                             ],
                             "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
@@ -491,7 +491,7 @@
                               "4900",
                               "4949",
                               "5050",
-                              "5051",
+                              "5151",
                               "9028"
                           ],
                           "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
