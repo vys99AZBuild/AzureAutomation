@@ -199,7 +199,7 @@
                                 "443"
                             ],
                             "sourceAddressPrefix": "[parameters('nsgWebSubnet')]",
-                            "destinationAddressPrefix": "[parameters('nsgBizSubnet)]",
+                            "destinationAddressPrefix": "[parameters('nsgBizSubnet')]",
                             "access": "Allow",
                             "priority": 1000,
                             "direction": "Outbound"
