@@ -393,7 +393,6 @@
                             "destinationPortRanges": [
                                 "1433",
                                 "5432",
-                                "5432",
                                 "11000-11999",
                                 "14000-14999"
                             ],
@@ -427,7 +426,8 @@
                             "sourcePortRange": "*",
                             "destinationPortRange": "",
                             "destinationPortRanges": [
-                                "80,443"
+                                "80",
+                                "443"
                             ],
                             "sourceAddressPrefix": "[parameters('nsgBiztestSubnet')]",
                             "destinationAddressPrefix": "AzureKeyVault",
