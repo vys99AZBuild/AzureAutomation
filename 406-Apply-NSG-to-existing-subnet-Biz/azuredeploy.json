@@ -107,7 +107,7 @@
                         }
                     },
                     {
-                        "name": "Allow-webtest-inb-biz-https-Tcp",
+                        "name": "Allow-web-inb-biz-https-Tcp",
                         "properties": {
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
@@ -137,7 +137,7 @@
                         }
                     },
                     {
-                        "name": "Allow-biztest-inb-biz-qlik-tcp",
+                        "name": "Allow-biz-inb-biz-qlik-tcp",
                         "properties": {
                             "protocol": "TCP",
                             "sourcePortRange": "*",
@@ -472,7 +472,7 @@
                     },
 
                     {
-                      "name": "Allow-biz-outb-biztest-qlik-tcp",
+                      "name": "Allow-biz-outb-biz-qlik-tcp",
                       "properties": {
                           "protocol": "TCP",
                           "sourcePortRange": "*",
