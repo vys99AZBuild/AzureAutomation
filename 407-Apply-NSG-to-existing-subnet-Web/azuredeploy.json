@@ -1,0 +1,276 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+        "virtualNetworkResourceGroupName": {
+            "type": "string",
+            "metadata": {
+                "description": "The resource group where the existing VNet is located."
+            }
+        },
+        "virtualNetworkName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the existing VNet"
+            }
+        },
+        "subnetName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The name of the existing subnet."
+            }
+        },
+        "nsgSecurityGroupName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The name of the NSG Subnet"
+            }
+        },
+        "nsgMgmntSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Management IP subnet CIDR"
+            }
+        },
+        "nsgAddsSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The AD IP subnet CIDR"
+            }
+        },
+        "nsgVpncliSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The VPN Client Environment IP subnet CIDR"
+            }
+        },
+        "nsgCtxappSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Citrix Application Environment IP subnet CIDR"
+            }
+        },
+        "nsgBizSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Biz Environment IP subnet CIDR"
+            }
+        },
+        "nsgWebSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Web IP subnet CIDR"
+            }
+        },
+        "_artifactsLocation": {
+            "type": "string",
+            "metadata": {
+                "description": "The base URI where artifacts required by this template are located."
+            },
+            "defaultValue": "https://raw.githubusercontent.com/vys99AZBuild/AzureAutomation/master/402-Apply-NSG-to-existing-subnet-CitrixApp/"
+        },
+        "_artifactsLocationSasToken": {
+            "type": "securestring",
+            "metadata": {
+                "description": "The sasToken required to access _artifactsLocation."
+            },
+            "defaultValue": ""
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('nsgSecurityGroupName')]",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2018-03-01",
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "Allow-mgmt-inb-web-https-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "80",
+                                "443"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgMgmntSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgWebSubnet')]",
+                            "access": "Allow",
+                            "priority": 1000,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-vpncli-inb-web-https-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "80",
+                                "443"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgVpncliSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgWebSubnet')]",
+                            "access": "Allow",
+                            "priority": 1005,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-ctxapp-inb-web-https-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "80",
+                                "443"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgCtxappSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgWebSubnet')]",
+                            "access": "Allow",
+                            "priority": 1010,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-azurelb-inb-any-any",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefix": "AzureLoadBalancer",
+                            "destinationAddressPrefix": "[parameters('nsgWebSubnet')]",
+                            "access": "Allow",
+                            "priority": 1015,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-azurelbhealth-inb-azurecloud-any",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "destinationPortRanges": [
+                                "65503-65534"
+                            ],
+                            "sourceAddressPrefix": "AzureCloud",
+                            "destinationAddressPrefix": "[parameters('nsgWebSubnet')]",
+                            "access": "Allow",
+                            "priority": 1020,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Deny-web-inb-any-any",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 4096,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-web-outb-biz-https-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "80",
+                                "443"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgWebSubnet')]",
+                            "destinationAddressPrefix": "[parameters('",
+                            "access": "Allow",
+                            "priority": 1000,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-web-outb-keyv-https-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "80",
+                                "443"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgWebSubnet')]",
+                            "destinationAddressPrefix": "AzureKeyVault",
+                            "access": "Allow",
+                            "priority": 1005,
+                            "direction": "Outbound"
+                        }
+                    },
+
+
+                    {
+                        "name": "Deny-web-outb-any-any",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('nsgWebSubnet')]",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 4096,
+                            "direction": "Outbound"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "2017-08-01",
+            "name": "deploy",
+            "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[parameters('virtualNetworkResourceGroupName')]",
+            "dependsOn": [
+                "[parameters('nsgSecurityGroupName')]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('_artifactsLocation'), concat('nested/updateSubnet.json', parameters('_artifactsLocationSasToken')))]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "virtualNetworkName": {
+                        "value": "[parameters('virtualNetworkName')]"
+                    },
+                    "subnetName": {
+                        "value": "[parameters('subnetName')]"
+                    },
+                    "subnetAddressPrefix": {
+                        "value": "[reference(resourceId(parameters('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName')), '2018-03-01').addressPrefix]"
+                    },
+                    "nsgId": {
+                        "value": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgSecurityGroupName'))]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
