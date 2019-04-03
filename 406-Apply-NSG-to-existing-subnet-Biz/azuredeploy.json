@@ -139,20 +139,21 @@
                     {
                         "name": "Allow-biz-inb-biz-qlik-tcp",
                         "properties": {
-                            "protocol": "TCP",
+                            "protocol": "Tcp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "",
                             "destinationPortRanges": [
                                 "443",
                                 "4239",
                                 "4242",
-                                "4244",
                                 "4248",
                                 "4444",
                                 "4747",
                                 "4899",
                                 "4900",
                                 "4949",
+                                "5050",
+                                "5051",
                                 "9028"
                             ],
                             "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
@@ -474,20 +475,21 @@
                     {
                       "name": "Allow-biz-outb-biz-qlik-tcp",
                       "properties": {
-                          "protocol": "TCP",
+                          "protocol": "Tcp",
                           "sourcePortRange": "*",
                           "destinationPortRange": "",
                           "destinationPortRanges": [
                               "443",
                               "4239",
                               "4242",
-                              "4244",
                               "4248",
                               "4444",
                               "4747",
                               "4899",
                               "4900",
                               "4949",
+                              "5050",
+                              "5051",
                               "9028"
                           ],
                           "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
