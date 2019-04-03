@@ -164,7 +164,7 @@
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "*",
+                            "destinationPortRange": "",
                             "destinationPortRanges": [
                                 "65503-65534"
                             ],
