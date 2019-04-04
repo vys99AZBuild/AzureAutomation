@@ -325,27 +325,6 @@
                         }
                     },
                     {
-                        "name": "Allow-opsubnets-inb-adds-smb-Udp",
-                        "properties": {
-                            "protocol": "Udp",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "445",
-                            "sourceAddressPrefix": "",
-                            "sourceAddressPrefixes": [
-                                "[parameters('nsgAddsSubnet')]",
-                                "[parameters('nsgBizSubnet')]",
-                                "[parameters('nsgBizTestSubnet')]",
-                                "[parameters('nsgDataSubnet')]",
-                                "[parameters('nsgCtxInfSubnet')]",
-                                "[parameters('nsgCtxAppSubnet')]"
-                            ],
-                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-                            "access": "Allow",
-                            "priority": 1055,
-                            "direction": "Inbound"
-                        }
-                    },
-                    {
                         "name": "Allow-opsubnets-inb-adds-krbpasswd-Tcp",
                         "properties": {
                             "protocol": "Tcp",
@@ -362,7 +341,7 @@
                             ],
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
-                            "priority": 1060,
+                            "priority": 1055,
                             "direction": "Inbound"
                         }
                     },
@@ -383,7 +362,7 @@
                             ],
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
-                            "priority": 1065,
+                            "priority": 1060,
                             "direction": "Inbound"
                         }
                     },
@@ -404,7 +383,7 @@
                             ],
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
-                            "priority": 1070,
+                            "priority": 1065,
                             "direction": "Inbound"
                         }
                     },
@@ -425,7 +404,7 @@
                             ],
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
-                            "priority": 1075,
+                            "priority": 1070,
                             "direction": "Inbound"
                         }
                     },
@@ -446,7 +425,7 @@
                             ],
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
-                            "priority": 1080,
+                            "priority": 1075,
                             "direction": "Inbound"
                         }
                     },
@@ -462,7 +441,7 @@
                             ],
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
-                            "priority": 1085,
+                            "priority": 1080,
                             "direction": "Inbound"
                         }
                     },
@@ -484,7 +463,7 @@
                             ],
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
-                            "priority": 1090,
+                            "priority": 1085,
                             "direction": "Inbound"
                         }
                     },                
@@ -620,19 +599,6 @@
                         }
                     },
                     {
-                        "name": "Allow-adds-outb-adds-smb-Udp",
-                        "properties": {
-                            "protocol": "Udp",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "445",
-                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
-                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
-                            "access": "Allow",
-                            "priority": 1045,
-                            "direction": "Outbound"
-                        }
-                    },
-                    {
                         "name": "Allow-adds-outb-adds-krbpasswd-Tcp",
                         "properties": {
                             "protocol": "Tcp",
@@ -641,7 +607,7 @@
                             "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
-                            "priority": 1050,
+                            "priority": 1045,
                             "direction": "Outbound"
                         }
                     },
@@ -654,7 +620,7 @@
                             "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
-                            "priority": 1055,
+                            "priority": 1050,
                             "direction": "Outbound"
                         }
                     },
@@ -667,7 +633,7 @@
                             "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
-                            "priority": 1060,
+                            "priority": 1055,
                             "direction": "Outbound"
                         }
                     },
@@ -680,7 +646,7 @@
                             "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
-                            "priority": 1065,
+                            "priority": 1060,
                             "direction": "Outbound"
                         }
                     },
@@ -693,7 +659,7 @@
                             "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
-                            "priority": 1070,
+                            "priority": 1065,
                             "direction": "Outbound"
                         }
                     },
@@ -706,7 +672,7 @@
                             "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
-                            "priority": 1075,
+                            "priority": 1070,
                             "direction": "Outbound"
                         }
                     },
@@ -726,7 +692,7 @@
                                 "[parameters('nsgCtxAppSubnet')]"
                             ],
                             "access": "Allow",
-                            "priority": 1080,
+                            "priority": 1075,
                             "direction": "Outbound"
                         }
                     },
@@ -743,7 +709,7 @@
                             "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "AzureKeyVault",
                             "access": "Allow",
-                            "priority": 1085,
+                            "priority": 1080,
                             "direction": "Outbound"
                         }
                     },
