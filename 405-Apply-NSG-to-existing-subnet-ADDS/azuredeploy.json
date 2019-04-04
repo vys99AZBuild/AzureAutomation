@@ -470,7 +470,7 @@
                     {
                         "name": "Allow-opsubnets-inb-adds-rpcdynamic-Tcp",
                         "properties": {
-                            "protocol": "Tcp",
+                            "protocol": "*",
                             "sourcePortRange": "*",
                             "destinationPortRange": "49152-65535",
                             "sourceAddressPrefix": "",
@@ -713,7 +713,7 @@
                     {
                         "name": "Allow-adds-outb-adds-rpcdynamic-Tcp",
                         "properties": {
-                            "protocol": "Tcp",
+                            "protocol": "*",
                             "sourcePortRange": "*",
                             "destinationPortRange": "49152-65535",
                             "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
