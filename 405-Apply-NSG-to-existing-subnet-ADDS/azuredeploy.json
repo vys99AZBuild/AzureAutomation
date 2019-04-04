@@ -56,6 +56,35 @@
                 "description": "The Biz IP subnet CIDR"
             }
         },
+        "nsgBizTestSubnet":{
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The BizTest IP subnet CIDR"
+            }
+        },
+        "nsgDataSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Data IP subnet CIDR"
+            }
+        },
+        "nsgCtxInfSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Citrix Inf IP subnet CIDR"
+            }
+        },
+        "nsgCtxAppSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Biz IP subnet CIDR"
+            }
+        },
+
         "_artifactsLocation": {
             "type": "string",
             "metadata": {
@@ -81,89 +110,386 @@
             "properties": {
                 "securityRules": [
                     {
-                        "name": "Allow-mgmnt-inb-biz-wirrm-Tcp",
+                        "name": "Allow-mgmnt-inb-adds-winrm-Tcp",
                         "properties": {
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "5985-5986",
                             "sourceAddressPrefix": "[parameters('nsgMgmntSubnet')]",
-                            "destinationAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1000,
                             "direction": "Inbound"
                         }
                     },
                     {
-                        "name": "Allow-mgmnt-inb-biz-rdp-Tcp",
+                        "name": "Allow-mgmnt-inb-adds-rdp-Tcp",
                         "properties": {
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "3389",
                             "sourceAddressPrefix": "[parameters('nsgMgmntSubnet')]",
-                            "destinationAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1005,
                             "direction": "Inbound"
                         }
                     },
                     {
-                        "name": "Allow-webtest-inb-biz-https-Tcp",
-                        "properties": {
-                            "protocol": "Tcp",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "",
-                            "destinationPortRanges": [
-                                "443"
-                            ],
-                            "sourceAddressPrefix": "[parameters('nsgWebSubnet')]",
-                            "destinationAddressPrefix": "[parameters('nsgBizSubnet')]",
-                            "access": "Allow",
-                            "priority": 1010,
-                            "direction": "Inbound"
-                        }
-                    },
+                    "name": "Allow-opsubnets-inb-adds-dns-Tcp",
+                    "properties": {
+                        "protocol": "Tcp",
+                        "sourcePortRange": "*",
+                        "destinationPortRange": "53",
+                        "sourceAddressPrefix": "",
+                        "sourceAddressPrefixes" : [ 
+                            "[parameters('nsgAddsSubnet')]",
+                            "[parameters('nsgBizSubnet')]",
+                            "[parameters('nsgBizTestSubnet')]",
+                            "[parameters('nsgDataSubnet')]",
+                            "[parameters('nsgCtxInfSubnet')]",
+                            "[parameters('nsgCtxAppSubnet')]"
+                        ],
+                        "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                        "access": "Allow",
+                        "priority": 1010,
+                        "direction": "Inbound"
+                      }
+                    },                    
                     {
-                        "name": "Allow-azurelb-inb-any-any",
+                        "name": "Allow-opsubnets-inb-adds-dns-Udp",
                         "properties": {
-                            "protocol": "*",
+                            "protocol": "Udp",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "*",
-                            "destinationPortRanges": [],
-                            "sourceAddressPrefix": "AzureLoadBalancer",
-                            "destinationAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "destinationPortRange": "53",
+                            "sourceAddressPrefix": "",
+                            "sourceAddressPrefixes": [
+                                "[parameters('nsgAddsSubnet')]",
+                                "[parameters('nsgBizSubnet')]",
+                                "[parameters('nsgBizTestSubnet')]",
+                                "[parameters('nsgDataSubnet')]",
+                                "[parameters('nsgCtxInfSubnet')]",
+                                "[parameters('nsgCtxAppSubnet')]"
+                            ],
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1015,
                             "direction": "Inbound"
                         }
                     },
                     {
-                        "name": "Allow-biztest-inb-biz-qlik-tcp",
+                        "name": "Allow-opsubnets-inb-adds-krbtckt-Tcp",
                         "properties": {
-                            "protocol": "TCP",
+                            "protocol": "Tcp",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "",
-                            "destinationPortRanges": [
-                                "443",
-                                "4239",
-                                "4242",
-                                "4244",
-                                "4248",
-                                "4444",
-                                "4747",
-                                "4899",
-                                "4900",
-                                "4949",
-                                "9028"
+                            "destinationPortRange": "88",
+                            "sourceAddressPrefix": "",
+                            "sourceAddressPrefixes": [
+                                "[parameters('nsgAddsSubnet')]",
+                                "[parameters('nsgBizSubnet')]",
+                                "[parameters('nsgBizTestSubnet')]",
+                                "[parameters('nsgDataSubnet')]",
+                                "[parameters('nsgCtxInfSubnet')]",
+                                "[parameters('nsgCtxAppSubnet')]"
                             ],
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
-                            "destinationAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
-                            "priority": 4095,
+                            "priority": 1020,
                             "direction": "Inbound"
                         }
                     },
                     {
-                        "name": "Deny-biztest-inb-any-any",
+                        "name": "Allow-opsubnets-inb-adds-krbtckt-Udp",
+                        "properties": {
+                            "protocol": "Udp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "88",
+                            "sourceAddressPrefix": "",
+                            "sourceAddressPrefixes": [
+                                "[parameters('nsgAddsSubnet')]",
+                                "[parameters('nsgBizSubnet')]",
+                                "[parameters('nsgBizTestSubnet')]",
+                                "[parameters('nsgDataSubnet')]",
+                                "[parameters('nsgCtxInfSubnet')]",
+                                "[parameters('nsgCtxAppSubnet')]"
+                            ],
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1025,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-opsubnets-inb-adds-ntptime-Udp",
+                        "properties": {
+                            "protocol": "Udp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "123",
+                            "sourceAddressPrefix": "",
+                            "sourceAddressPrefixes": [
+                                "[parameters('nsgAddsSubnet')]",
+                                "[parameters('nsgBizSubnet')]",
+                                "[parameters('nsgBizTestSubnet')]",
+                                "[parameters('nsgDataSubnet')]",
+                                "[parameters('nsgCtxInfSubnet')]",
+                                "[parameters('nsgCtxAppSubnet')]"
+                            ],
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1030,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-opsubnets-inb-adds-rpcmapper-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "135",
+                            "sourceAddressPrefix": "",
+                            "sourceAddressPrefixes": [
+                                "[parameters('nsgAddsSubnet')]",
+                                "[parameters('nsgBizSubnet')]",
+                                "[parameters('nsgBizTestSubnet')]",
+                                "[parameters('nsgDataSubnet')]",
+                                "[parameters('nsgCtxInfSubnet')]",
+                                "[parameters('nsgCtxAppSubnet')]"
+                            ],
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1035,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-opsubnets-inb-adds-ldap-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "389",
+                            "sourceAddressPrefix": "",
+                            "sourceAddressPrefixes": [
+                                "[parameters('nsgAddsSubnet')]",
+                                "[parameters('nsgBizSubnet')]",
+                                "[parameters('nsgBizTestSubnet')]",
+                                "[parameters('nsgDataSubnet')]",
+                                "[parameters('nsgCtxInfSubnet')]",
+                                "[parameters('nsgCtxAppSubnet')]"
+                            ],
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1040,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-opsubnets-inb-adds-ldap-Udp",
+                        "properties": {
+                            "protocol": "Udp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "389",
+                            "sourceAddressPrefix": "",
+                            "sourceAddressPrefixes": [
+                                "[parameters('nsgAddsSubnet')]",
+                                "[parameters('nsgBizSubnet')]",
+                                "[parameters('nsgBizTestSubnet')]",
+                                "[parameters('nsgDataSubnet')]",
+                                "[parameters('nsgCtxInfSubnet')]",
+                                "[parameters('nsgCtxAppSubnet')]"
+                            ],
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1045,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-opsubnets-inb-adds-smb-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "445",
+                            "sourceAddressPrefix": "",
+                            "sourceAddressPrefixes": [
+                                "[parameters('nsgAddsSubnet')]",
+                                "[parameters('nsgBizSubnet')]",
+                                "[parameters('nsgBizTestSubnet')]",
+                                "[parameters('nsgDataSubnet')]",
+                                "[parameters('nsgCtxInfSubnet')]",
+                                "[parameters('nsgCtxAppSubnet')]"
+                            ],
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1050,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-opsubnets-inb-adds-smb-Udp",
+                        "properties": {
+                            "protocol": "Udp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "445",
+                            "sourceAddressPrefix": "",
+                            "sourceAddressPrefixes": [
+                                "[parameters('nsgAddsSubnet')]",
+                                "[parameters('nsgBizSubnet')]",
+                                "[parameters('nsgBizTestSubnet')]",
+                                "[parameters('nsgDataSubnet')]",
+                                "[parameters('nsgCtxInfSubnet')]",
+                                "[parameters('nsgCtxAppSubnet')]"
+                            ],
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1055,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-opsubnets-inb-adds-krbpasswd-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "464",
+                            "sourceAddressPrefix": "",
+                            "sourceAddressPrefixes": [
+                                "[parameters('nsgAddsSubnet')]",
+                                "[parameters('nsgBizSubnet')]",
+                                "[parameters('nsgBizTestSubnet')]",
+                                "[parameters('nsgDataSubnet')]",
+                                "[parameters('nsgCtxInfSubnet')]",
+                                "[parameters('nsgCtxAppSubnet')]"
+                            ],
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1060,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-opsubnets-inb-adds-krbpasswd-Udp",
+                        "properties": {
+                            "protocol": "Udp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "464",
+                            "sourceAddressPrefix": "",
+                            "sourceAddressPrefixes": [
+                                "[parameters('nsgAddsSubnet')]",
+                                "[parameters('nsgBizSubnet')]",
+                                "[parameters('nsgBizTestSubnet')]",
+                                "[parameters('nsgDataSubnet')]",
+                                "[parameters('nsgCtxInfSubnet')]",
+                                "[parameters('nsgCtxAppSubnet')]"
+                            ],
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1065,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-opsubnets-inb-adds-ldapssl-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "636",
+                            "sourceAddressPrefix": "",
+                            "sourceAddressPrefixes": [
+                                "[parameters('nsgAddsSubnet')]",
+                                "[parameters('nsgBizSubnet')]",
+                                "[parameters('nsgBizTestSubnet')]",
+                                "[parameters('nsgDataSubnet')]",
+                                "[parameters('nsgCtxInfSubnet')]",
+                                "[parameters('nsgCtxAppSubnet')]"
+                            ],
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1070,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-opsubnets-inb-adds-gc-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "3268",
+                            "sourceAddressPrefix": "",
+                            "sourceAddressPrefixes": [
+                                "[parameters('nsgAddsSubnet')]",
+                                "[parameters('nsgBizSubnet')]",
+                                "[parameters('nsgBizTestSubnet')]",
+                                "[parameters('nsgDataSubnet')]",
+                                "[parameters('nsgCtxInfSubnet')]",
+                                "[parameters('nsgCtxAppSubnet')]"
+                            ],
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1075,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-opsubnets-inb-adds-gcssl-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "3269",
+                            "sourceAddressPrefix": "",
+                            "sourceAddressPrefixes": [
+                                "[parameters('nsgAddsSubnet')]",
+                                "[parameters('nsgBizSubnet')]",
+                                "[parameters('nsgBizTestSubnet')]",
+                                "[parameters('nsgDataSubnet')]",
+                                "[parameters('nsgCtxInfSubnet')]",
+                                "[parameters('nsgCtxAppSubnet')]"
+                            ],
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1080,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-opsubnets-inb-adds-dfsr-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "5722",
+                            "sourceAddressPrefix": "",
+                            "sourceAddressPrefixes": [
+                                "[parameters('nsgAddsSubnet')]"
+                            ],
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1085,
+                            "direction": "Inbound"
+                        }
+                    },
+
+                    {
+                        "name": "Allow-opsubnets-inb-adds-rpcdynamic-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "49152-65535",
+                            "sourceAddressPrefix": "",
+                            "sourceAddressPrefixes": [
+                                "[parameters('nsgAddsSubnet')]",
+                                "[parameters('nsgBizSubnet')]",
+                                "[parameters('nsgBizTestSubnet')]",
+                                "[parameters('nsgDataSubnet')]",
+                                "[parameters('nsgCtxInfSubnet')]",
+                                "[parameters('nsgCtxAppSubnet')]"
+                            ],
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1090,
+                            "direction": "Inbound"
+                        }
+                    },                
+                    {
+                        "name": "Deny-adds-inb-any-any",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -177,12 +503,12 @@
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-adds-dns-Tcp",
+                        "name": "Allow-adds-outb-adds-dns-Tcp",
                         "properties": {
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "53",
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1000,
@@ -190,12 +516,12 @@
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-adds-dns-Udp",
+                        "name": "Allow-adds-outb-adds-dns-Udp",
                         "properties": {
                             "protocol": "Udp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "53",
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1005,
@@ -203,12 +529,12 @@
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-adds-krbtckt-Tcp",
+                        "name": "Allow-adds-outb-adds-krbtckt-Tcp",
                         "properties": {
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "88",
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1010,
@@ -216,12 +542,12 @@
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-adds-krbtckt-Udp",
+                        "name": "Allow-adds-outb-adds-krbtckt-Udp",
                         "properties": {
                             "protocol": "Udp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "88",
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1015,
@@ -229,12 +555,12 @@
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-adds-ntptime-Udp",
+                        "name": "Allow-adds-outb-adds-ntptime-Udp",
                         "properties": {
                             "protocol": "Udp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "123",
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1020,
@@ -242,12 +568,12 @@
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-adds-rpcmapper-Tcp",
+                        "name": "Allow-adds-outb-adds-rpcmapper-Tcp",
                         "properties": {
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "135",
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1025,
@@ -255,12 +581,12 @@
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-adds-ldap-Tcp",
+                        "name": "Allow-adds-outb-adds-ldap-Tcp",
                         "properties": {
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "389",
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1030,
@@ -268,12 +594,12 @@
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-adds-ldap-Udp",
+                        "name": "Allow-adds-outb-adds-ldap-Udp",
                         "properties": {
                             "protocol": "Udp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "389",
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1035,
@@ -281,12 +607,12 @@
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-adds-smb-Tcp",
+                        "name": "Allow-adds-outb-adds-smb-Tcp",
                         "properties": {
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "445",
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1040,
@@ -294,12 +620,12 @@
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-adds-smb-Udp",
+                        "name": "Allow-adds-outb-adds-smb-Udp",
                         "properties": {
                             "protocol": "Udp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "445",
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1045,
@@ -307,12 +633,12 @@
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-adds-krbpasswd-Tcp",
+                        "name": "Allow-adds-outb-adds-krbpasswd-Tcp",
                         "properties": {
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "464",
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1050,
@@ -320,12 +646,12 @@
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-adds-krbpasswd-Udp",
+                        "name": "Allow-adds-outb-adds-krbpasswd-Udp",
                         "properties": {
                             "protocol": "Udp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "464",
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1055,
@@ -333,12 +659,12 @@
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-adds-ldapssl-Tcp",
+                        "name": "Allow-adds-outb-adds-ldapssl-Tcp",
                         "properties": {
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "636",
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1060,
@@ -346,12 +672,12 @@
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-adds-gc-Tcp",
+                        "name": "Allow-adds-outb-adds-gc-Tcp",
                         "properties": {
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "3268",
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1065,
@@ -359,12 +685,12 @@
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-adds-gcssl-Tcp",
+                        "name": "Allow-adds-outb-adds-gcssl-Tcp",
                         "properties": {
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
                             "destinationPortRange": "3269",
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1070,
@@ -372,12 +698,12 @@
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-adds-rpcdynamic-Tcp",
+                        "name": "Allow-adds-outb-adds-dfsr-Tcp",
                         "properties": {
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "49152-65535",
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "destinationPortRange": "5722",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "access": "Allow",
                             "priority": 1075,
@@ -385,43 +711,27 @@
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-sql-azurecloud-Tcp",
+                        "name": "Allow-adds-outb-adds-rpcdynamic-Tcp",
                         "properties": {
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
-                            "destinationPortRange": "",
-                            "destinationPortRanges": [
-                                "1433",
-                                "5432",
-                                "5432",
-                                "11000-11999",
-                                "14000-14999"
+                            "destinationPortRange": "49152-65535",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "destinationAddressPrefixes": [
+                                "[parameters('nsgAddsSubnet')]",
+                                "[parameters('nsgBizSubnet')]",
+                                "[parameters('nsgBizTestSubnet')]",
+                                "[parameters('nsgDataSubnet')]",
+                                "[parameters('nsgCtxInfSubnet')]",
+                                "[parameters('nsgCtxAppSubnet')]"
                             ],
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
-                            "destinationAddressPrefix": "sql",
                             "access": "Allow",
                             "priority": 1080,
                             "direction": "Outbound"
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-smb-azurecloud-Tcp",
-                        "properties": {
-                            "protocol": "Tcp",
-                            "sourcePortRange": "*",
-                            "destinationPortRange": "",
-                            "destinationPortRanges": [
-                                "445"
-                            ],
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
-                            "destinationAddressPrefix": "storage",
-                            "access": "Allow",
-                            "priority": 1085,
-                            "direction": "Outbound"
-                        }
-                    },
-                    {
-                        "name": "Allow-biz-outb-keyv-azurecloud-Tcp",
+                        "name": "Allow-adds-outb-keyv-azurecloud-Tcp",
                         "properties": {
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
@@ -429,15 +739,15 @@
                             "destinationPortRanges": [
                                 "80,443"
                             ],
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "AzureKeyVault",
                             "access": "Allow",
-                            "priority": 1090,
+                            "priority": 1085,
                             "direction": "Outbound"
                         }
                     },
                     {
-                        "name": "Allow-biz-outb-azurecloud-Tcp",
+                        "name": "Allow-adds-outb-azurecloud-Tcp",
                         "properties": {
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
@@ -446,7 +756,7 @@
                                 "80",
                                 "443"
                             ],
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "AzureCloud",
                             "access": "Allow",
                             "priority": 3000,
@@ -463,42 +773,15 @@
                                 "80",
                                 "443"
                             ],
-                            "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
+                            "sourceAddressPrefix": "[parameters('nsgAddsSubnet')]",
                             "destinationAddressPrefix": "Internet",
                             "access": "Allow",
                             "priority": 3001,
                             "direction": "Outbound"
                         }
                     },
-
                     {
-                      "name": "Allow-biz-outb-biztest-qlik-tcp",
-                      "properties": {
-                          "protocol": "TCP",
-                          "sourcePortRange": "*",
-                          "destinationPortRange": "",
-                          "destinationPortRanges": [
-                              "443",
-                              "4239",
-                              "4242",
-                              "4244",
-                              "4248",
-                              "4444",
-                              "4747",
-                              "4899",
-                              "4900",
-                              "4949",
-                              "9028"
-                          ],
-                          "sourceAddressPrefix": "[parameters('nsgBizSubnet')]",
-                          "destinationAddressPrefix": "[parameters('nsgBizSubnet')]",
-                          "access": "Allow",
-                          "priority": 4095,
-                          "direction": "Outbound"
-                      }
-                  },
-                    {
-                        "name": "Deny-biz-outb-any-any",
+                        "name": "Deny-adds-outb-any-any",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
