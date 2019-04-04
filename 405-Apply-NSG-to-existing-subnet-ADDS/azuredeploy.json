@@ -447,7 +447,7 @@
                     },
 
                     {
-                        "name": "Allow-opsubnets-inb-adds-rpcdynamic-Tcp",
+                        "name": "Allow-opsubnets-inb-adds-rpcdynamic-any",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",
@@ -677,7 +677,7 @@
                         }
                     },
                     {
-                        "name": "Allow-adds-outb-adds-rpcdynamic-Tcp",
+                        "name": "Allow-adds-outb-adds-rpcdynamic-any",
                         "properties": {
                             "protocol": "*",
                             "sourcePortRange": "*",

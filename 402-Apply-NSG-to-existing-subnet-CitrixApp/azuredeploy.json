@@ -365,9 +365,9 @@
             }
           },
           {
-            "name": "Allow-ctxapp-outb-adds-rpcdynamic-Tcp",
+            "name": "Allow-ctxapp-outb-adds-rpcdynamic-any",
             "properties": {
-              "protocol": "Tcp",
+              "protocol": "*",
               "sourcePortRange": "*",
               "destinationPortRange": "49152-65535",
               "sourceAddressPrefix": "[parameters('nsgCtxAppSubnet')]",
