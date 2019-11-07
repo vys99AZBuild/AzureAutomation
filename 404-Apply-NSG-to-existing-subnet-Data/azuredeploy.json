@@ -1,0 +1,479 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+        "virtualNetworkResourceGroupName": {
+            "type": "string",
+            "metadata": {
+                "description": "The resource group where the existing VNet is located."
+            }
+        },
+        "virtualNetworkName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the existing VNet"
+            }
+        },
+        "subnetName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The name of the existing subnet."
+            }
+        },
+        "nsgSecurityGroupName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The name of the NSG Subnet"
+            }
+        },
+        "nsgMgmntSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Management IP subnet CIDR"
+            }
+        },
+        "nsgAddsSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The AD IP subnet CIDR"
+            }
+        },
+        "nsgWebtestSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The WebTest Environment IP subnet CIDR"
+            }
+        },
+        "nsgDataSubnet": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The Data IP subnet CIDR"
+            }
+        },
+        "_artifactsLocation": {
+            "type": "string",
+            "metadata": {
+                "description": "The base URI where artifacts required by this template are located."
+            },
+            "defaultValue": "https://raw.githubusercontent.com/vys99AZBuild/AzureAutomation/master/402-Apply-NSG-to-existing-subnet-CitrixApp/"
+        },
+        "_artifactsLocationSasToken": {
+            "type": "securestring",
+            "metadata": {
+                "description": "The sasToken required to access _artifactsLocation."
+            },
+            "defaultValue": ""
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('nsgSecurityGroupName')]",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2018-03-01",
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "Allow-mgmnt-inb-data-wirrm-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "5985-5986",
+                            "sourceAddressPrefix": "[parameters('nsgMgmntSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "access": "Allow",
+                            "priority": 1000,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-mgmnt-inb-data-rdp-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "3389",
+                            "sourceAddressPrefix": "[parameters('nsgMgmntSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "access": "Allow",
+                            "priority": 1005,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-azurelb-inb-any-any",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefix": "AzureLoadBalancer",
+                            "destinationAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "access": "Allow",
+                            "priority": 1010,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Deny-data-inb-any-any",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 4096,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-adds-dns-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "53",
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1000,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-adds-dns-Udp",
+                        "properties": {
+                            "protocol": "Udp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "53",
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1005,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-adds-krbtckt-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "88",
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1010,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-adds-krbtckt-Udp",
+                        "properties": {
+                            "protocol": "Udp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "88",
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1015,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-adds-ntptime-Udp",
+                        "properties": {
+                            "protocol": "Udp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "123",
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1020,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-adds-rpcmapper-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "135",
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1025,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-adds-ldap-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "389",
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1030,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-adds-ldap-Udp",
+                        "properties": {
+                            "protocol": "Udp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "389",
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1035,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-adds-smb-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "445",
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1040,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-adds-smb-Udp",
+                        "properties": {
+                            "protocol": "Udp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "445",
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1045,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-adds-krbpasswd-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "464",
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1050,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-adds-krbpasswd-Udp",
+                        "properties": {
+                            "protocol": "Udp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "464",
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1055,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-adds-ldapssl-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "636",
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1060,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-adds-gc-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "3268",
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1065,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-adds-gcssl-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "3269",
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1070,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-adds-rpcdynamic-any",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "49152-65535",
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "[parameters('nsgAddsSubnet')]",
+                            "access": "Allow",
+                            "priority": 1075,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-sql-azurecloud-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "1433",
+                                "5432",
+                                "11000-11999",
+                                "14000-14999"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "sql",
+                            "access": "Allow",
+                            "priority": 1080,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-smb-azurecloud-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "445"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "storage",
+                            "access": "Allow",
+                            "priority": 1085,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-keyv-azurecloud-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "80",
+                                "443"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "AzureKeyVault",
+                            "access": "Allow",
+                            "priority": 1090,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-azurecloud-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "80",
+                                "443"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "AzureCloud",
+                            "access": "Allow",
+                            "priority": 3000,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Allow-data-outb-Internet-Tcp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "",
+                            "destinationPortRanges": [
+                                "80",
+                                "443"
+                            ],
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "Internet",
+                            "access": "Allow",
+                            "priority": 3001,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Deny-data-outb-any-any",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('nsgDataSubnet')]",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 4096,
+                            "direction": "Outbound"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "2017-08-01",
+            "name": "deploy",
+            "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[parameters('virtualNetworkResourceGroupName')]",
+            "dependsOn": [
+                "[parameters('nsgSecurityGroupName')]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('_artifactsLocation'), concat('nested/updateSubnet.json', parameters('_artifactsLocationSasToken')))]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "virtualNetworkName": {
+                        "value": "[parameters('virtualNetworkName')]"
+                    },
+                    "subnetName": {
+                        "value": "[parameters('subnetName')]"
+                    },
+                    "subnetAddressPrefix": {
+                        "value": "[reference(resourceId(parameters('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName')), '2018-03-01').addressPrefix]"
+                    },
+                    "nsgId": {
+                        "value": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgSecurityGroupName'))]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
