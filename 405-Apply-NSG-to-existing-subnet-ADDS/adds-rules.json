@@ -1,0 +1,340 @@
+{
+                        "name": "Allow-ctxinfra-inb-adds-dns-Tcp",
+                        "etag": "W/\"b56de6cd-d8af-4e43-9610-f3ea99e8a2f0\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow-ctxinfra-inb-adds-dns-Tcp",
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "53",
+                            "destinationAddressPrefix": "10.0.4.0/24",
+                            "access": "Allow",
+                            "priority": 1024,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "10.0.2.0/24",
+                                "10.0.3.0/24",
+                                "10.0.5.0/24",
+                                "10.0.6.0/24",
+                                "10.0.52.0/24"
+                            ],
+                            "destinationAddressPrefixes": [],
+                            "sourceAddressPrefix": "[parameters('networkSecurityGroups_production_oda_adds_network_security_group_sourceAddressPrefix')]"
+                        }
+                    },
+                    {
+                        "name": "Allow-ctxinfra-inb-adds-dns-Udp",
+                        "etag": "W/\"b56de6cd-d8af-4e43-9610-f3ea99e8a2f0\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow-ctxinfra-inb-adds-dns-Udp",
+                            "protocol": "UDP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "53",
+                            "destinationAddressPrefix": "10.0.4.0/24",
+                            "access": "Allow",
+                            "priority": 1034,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "10.0.5.0/24",
+                                "10.0.6.0/24",
+                                "10.0.52.0/24"
+                            ],
+                            "destinationAddressPrefixes": [],
+                            "sourceAddressPrefix": "[parameters('networkSecurityGroups_production_oda_adds_network_security_group_sourceAddressPrefix_1')]"
+                        }
+                    },
+                    {
+                        "name": "Allow-ctxinfra-inb-adds-krbtckt-T",
+                        "etag": "W/\"b56de6cd-d8af-4e43-9610-f3ea99e8a2f0\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow-ctxinfra-inb-adds-krbtckt-T",
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "88",
+                            "destinationAddressPrefix": "10.0.4.0/24",
+                            "access": "Allow",
+                            "priority": 1044,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "10.0.5.0/24",
+                                "10.0.6.0/24",
+                                "10.0.52.0/24"
+                            ],
+                            "destinationAddressPrefixes": [],
+                            "sourceAddressPrefix": "[parameters('networkSecurityGroups_production_oda_adds_network_security_group_sourceAddressPrefix_2')]"
+                        }
+                    },
+                    {
+                        "name": "Allow-ctxinfra-inb-adds-krbtckt-Udp",
+                        "etag": "W/\"b56de6cd-d8af-4e43-9610-f3ea99e8a2f0\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow-ctxinfra-inb-adds-krbtckt-Udp",
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "88",
+                            "destinationAddressPrefix": "10.0.4.0/24",
+                            "access": "Allow",
+                            "priority": 1054,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "10.0.5.0/24",
+                                "10.0.6.0/24",
+                                "10.0.52.0/24"
+                            ],
+                            "destinationAddressPrefixes": [],
+                            "sourceAddressPrefix": "[parameters('networkSecurityGroups_production_oda_adds_network_security_group_sourceAddressPrefix_3')]"
+                        }
+                    },
+                    {
+                        "name": "Allow-ctxinfra-inb-adds-ntptime-Udp",
+                        "etag": "W/\"b56de6cd-d8af-4e43-9610-f3ea99e8a2f0\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow-ctxinfra-inb-adds-ntptime-Udp",
+                            "protocol": "UDP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "123",
+                            "destinationAddressPrefix": "10.0.4.0/24",
+                            "access": "Allow",
+                            "priority": 1064,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "10.0.5.0/24",
+                                "10.0.6.0/24",
+                                "10.0.52.0/24"
+                            ],
+                            "destinationAddressPrefixes": [],
+                            "sourceAddressPrefix": "[parameters('networkSecurityGroups_production_oda_adds_network_security_group_sourceAddressPrefix_4')]"
+                        }
+                    },
+                    {
+                        "name": "Allow-ctxinfra-inb-adds-rpcmapper-Tcp",
+                        "etag": "W/\"b56de6cd-d8af-4e43-9610-f3ea99e8a2f0\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow-ctxinfra-inb-adds-rpcmapper-Tcp\n",
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "135",
+                            "destinationAddressPrefix": "10.0.4.0/24",
+                            "access": "Allow",
+                            "priority": 1074,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "10.0.5.0/24",
+                                "10.0.6.0/24",
+                                "10.0.52.0/24"
+                            ],
+                            "destinationAddressPrefixes": [],
+                            "sourceAddressPrefix": "[parameters('networkSecurityGroups_production_oda_adds_network_security_group_sourceAddressPrefix_5')]"
+                        }
+                    },
+                    {
+                        "name": "Allow-ctxinfra-inb-adds-smb-Tcp",
+                        "etag": "W/\"b56de6cd-d8af-4e43-9610-f3ea99e8a2f0\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow-ctxinfra-inb-adds-smb-Tcp\n",
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "445",
+                            "destinationAddressPrefix": "10.0.4.0/24",
+                            "access": "Allow",
+                            "priority": 1084,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "10.0.5.0/24",
+                                "10.0.6.0/24",
+                                "10.0.52.0/24"
+                            ],
+                            "destinationAddressPrefixes": [],
+                            "sourceAddressPrefix": "[parameters('networkSecurityGroups_production_oda_adds_network_security_group_sourceAddressPrefix_6')]"
+                        }
+                    },
+                    {
+                        "name": "Allow-ctxinfra-inb-adds-krbpasswd-Tcp",
+                        "etag": "W/\"b56de6cd-d8af-4e43-9610-f3ea99e8a2f0\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow-ctxinfra-inb-adds-krbpasswd-Tcp",
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "464",
+                            "destinationAddressPrefix": "10.0.4.0/24",
+                            "access": "Allow",
+                            "priority": 1094,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "10.0.5.0/24",
+                                "10.0.6.0/24",
+                                "10.0.52.0/24"
+                            ],
+                            "destinationAddressPrefixes": [],
+                            "sourceAddressPrefix": "[parameters('networkSecurityGroups_production_oda_adds_network_security_group_sourceAddressPrefix_7')]"
+                        }
+                    },
+                    {
+                        "name": "Allow-ctxinfra-inb-adds-krbpasswd-Udp",
+                        "etag": "W/\"b56de6cd-d8af-4e43-9610-f3ea99e8a2f0\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow-ctxinfra-inb-adds-krbpasswd-Udp",
+                            "protocol": "UDP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "464",
+                            "destinationAddressPrefix": "10.0.4.0/24",
+                            "access": "Allow",
+                            "priority": 1104,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "10.0.5.0/24",
+                                "10.0.6.0/24",
+                                "10.0.52.0/24"
+                            ],
+                            "destinationAddressPrefixes": [],
+                            "sourceAddressPrefix": "[parameters('networkSecurityGroups_production_oda_adds_network_security_group_sourceAddressPrefix_8')]"
+                        }
+                    },
+                    {
+                        "name": "Allow-ctxinfra-inb-adds-ldap-Tcp",
+                        "etag": "W/\"b56de6cd-d8af-4e43-9610-f3ea99e8a2f0\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow-ctxinfra-inb-adds-ldap-Tcp\n",
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "389",
+                            "destinationAddressPrefix": "10.0.4.0/24",
+                            "access": "Allow",
+                            "priority": 1114,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "10.0.5.0/24",
+                                "10.0.6.0/24",
+                                "10.0.52.0/24"
+                            ],
+                            "destinationAddressPrefixes": [],
+                            "sourceAddressPrefix": "[parameters('networkSecurityGroups_production_oda_adds_network_security_group_sourceAddressPrefix_9')]"
+                        }
+                    },
+                    {
+                        "name": "Allow-ctxinfra-inb-adds-ldapssl-Tcp",
+                        "etag": "W/\"b56de6cd-d8af-4e43-9610-f3ea99e8a2f0\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow-ctxinfra-inb-adds-ldapssl-Tcp\n",
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "636",
+                            "destinationAddressPrefix": "10.0.4.0/24",
+                            "access": "Allow",
+                            "priority": 1124,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "10.0.5.0/24",
+                                "10.0.6.0/24",
+                                "10.0.52.0/24"
+                            ],
+                            "destinationAddressPrefixes": [],
+                            "sourceAddressPrefix": "[parameters('networkSecurityGroups_production_oda_adds_network_security_group_sourceAddressPrefix_10')]"
+                        }
+                    },
+                    {
+                        "name": "Allow-ctxinfra-inb-adds-gc-Tcp",
+                        "etag": "W/\"b56de6cd-d8af-4e43-9610-f3ea99e8a2f0\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow-ctxinfra-inb-adds-gc-Tcp\n",
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "3268",
+                            "destinationAddressPrefix": "10.0.4.0/24",
+                            "access": "Allow",
+                            "priority": 1134,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "10.0.5.0/24",
+                                "10.0.6.0/24",
+                                "10.0.52.0/24"
+                            ],
+                            "destinationAddressPrefixes": [],
+                            "sourceAddressPrefix": "[parameters('networkSecurityGroups_production_oda_adds_network_security_group_sourceAddressPrefix_11')]"
+                        }
+                    },
+                    {
+                        "name": "Allow-ctxinfra-inb-adds-gcssl-Tcp",
+                        "etag": "W/\"b56de6cd-d8af-4e43-9610-f3ea99e8a2f0\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow-ctxinfra-inb-adds-gcssl-Tcp\n",
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "3269",
+                            "destinationAddressPrefix": "10.0.4.0/24",
+                            "access": "Allow",
+                            "priority": 1144,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "10.0.5.0/24",
+                                "10.0.6.0/24",
+                                "10.0.52.0/24"
+                            ],
+                            "destinationAddressPrefixes": [],
+                            "sourceAddressPrefix": "[parameters('networkSecurityGroups_production_oda_adds_network_security_group_sourceAddressPrefix_12')]"
+                        }
+                    },
+                    {
+                        "name": "Allow-ctxinfra-inb-adds-rpcdyn-Tcp",
+                        "etag": "W/\"b56de6cd-d8af-4e43-9610-f3ea99e8a2f0\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow-ctxinfra-inb-adds-rpcdyn-Tcp",
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "49152-65535",
+                            "destinationAddressPrefix": "10.0.4.0/24",
+                            "access": "Allow",
+                            "priority": 1154,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "10.0.5.0/24",
+                                "10.0.6.0/24",
+                                "10.0.52.0/24"
+                            ],
+                            "destinationAddressPrefixes": [],
+                            "sourceAddressPrefix": "[parameters('networkSecurityGroups_production_oda_adds_network_security_group_sourceAddressPrefix_13')]"
+                        }
+                    }
+                ],
+        

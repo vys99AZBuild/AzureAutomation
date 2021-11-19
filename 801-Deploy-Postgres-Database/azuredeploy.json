@@ -148,54 +148,6 @@
                         "startIpAddress": "10.0.52.0",
                         "endIpAddress": "10.0.52.254"
                     }
-                },
-                {
-                    "name": "[variables('db-devqlikQSR')]",
-                    "type": "databases",
-                    "apiVersion": "2017-12-01",
-                    "properties": {
-                        "charset": "utf8",
-                        "collation": "English_United States.1252"
-                    },
-                    "dependsOn": [
-                        "[concat('Microsoft.DBforPostgreSQL/servers/', variables('serverName'))]"
-                    ]
-                },
-                {
-                    "name": "[variables('db-devqlikQLOGS')]",
-                    "type": "databases",
-                    "apiVersion": "2017-12-01",
-                    "properties": {
-                        "charset": "utf8",
-                        "collation": "English_United States.1252"
-                    },
-                    "dependsOn": [
-                        "[concat('Microsoft.DBforPostgreSQL/servers/', variables('serverName'))]"
-                    ]
-                },
-                {
-                    "name": "[variables('db-devqlikQSMQ')]",
-                    "type": "databases",
-                    "apiVersion": "2017-12-01",
-                    "properties": {
-                        "charset": "utf8",
-                        "collation": "English_United States.1252"
-                    },
-                    "dependsOn": [
-                        "[concat('Microsoft.DBforPostgreSQL/servers/', variables('serverName'))]"
-                    ]
-                },
-                {
-                    "name": "[variables('db-devqlikSharedService')]",
-                    "type": "databases",
-                    "apiVersion": "2017-12-01",
-                    "properties": {
-                        "charset": "utf8",
-                        "collation": "English_United States.1252"
-                    },
-                    "dependsOn": [
-                        "[concat('Microsoft.DBforPostgreSQL/servers/', variables('serverName'))]"
-                    ]
                 }
             ]
         }

@@ -5,3 +5,7 @@
 </a>
 
 This template deploys an Application Gateway with Web Application Firewall functionality in a virtual network.
+
+To convert pfx to Base64 
+$pfxCert = Get-Content "pathToYourSSL.pfx" -Encoding Byte
+$pfxCert = [System.Convert]::ToBase64String($pfxCert)
